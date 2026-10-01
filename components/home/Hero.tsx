@@ -1,7 +1,17 @@
+"use client";
+
 import Link from "next/link";
 import type { Dictionary, Locale } from "@/lib/i18n";
+import { getSiteContent } from "@/lib/queries";
+import { useQuery } from "@/lib/useQuery";
 
 export default function Hero({ lang, dict }: { lang: Locale; dict: Dictionary }) {
+  const { data } = useQuery(getSiteContent, {});
+  // Teks dari admin (site_content) menggantikan teks bawaan bila diisi.
+  const field = lang === "en" ? "value_en" : "value_id";
+  const title = data.hero_title?.[field] || dict.hero.title;
+  const subtitle = data.hero_subtitle?.[field] || dict.hero.subtitle;
+
   return (
     <section className="relative overflow-hidden bg-ink px-4 py-20 text-white sm:py-28">
       <div
@@ -10,8 +20,8 @@ export default function Hero({ lang, dict }: { lang: Locale; dict: Dictionary })
       />
       <div className="relative mx-auto max-w-6xl">
         <p className="text-sm font-semibold uppercase tracking-widest text-brand">{dict.hero.eyebrow}</p>
-        <h1 className="mt-4 max-w-3xl text-3xl font-extrabold leading-tight sm:text-5xl">{dict.hero.title}</h1>
-        <p className="mt-5 max-w-2xl text-base text-white/80 sm:text-lg">{dict.hero.subtitle}</p>
+        <h1 className="mt-4 max-w-3xl text-3xl font-extrabold leading-tight sm:text-5xl">{title}</h1>
+        <p className="mt-5 max-w-2xl text-base text-white/80 sm:text-lg">{subtitle}</p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link
             href={`/${lang}/sponsor/`}

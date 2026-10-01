@@ -29,3 +29,9 @@ Tanpa env Supabase, situs tetap jalan dengan data contoh (`lib/sample-data.ts`).
 3. Push ke `main`, situs tampil di `https://<user>.github.io/<repo>/`.
 
 Pindah ke Vercel/hosting lain: hubungkan repo, isi env yang sama, kosongkan `NEXT_PUBLIC_BASE_PATH`.
+
+## Panel admin
+
+Buka `/admin/` (mis. `https://skillshub-electronics.github.io/inaskills-electronics/admin/`), login dengan akun admin Supabase.
+Menu: Alumni, Kompetisi (hasil/juara + galeri foto), Sponsor (logo), Konten & Kontak (hero, statistik, WhatsApp, email), Pesan Masuk.
+Perubahan langsung tampil di situs tanpa build ulang.

@@ -1,0 +1,31 @@
+"use client";
+
+import CrudManager, { type Field } from "@/components/admin/CrudManager";
+
+const fields: Field[] = [
+  { name: "nama", label: "Nama", type: "text", required: true },
+  { name: "slug", label: "Slug URL (kosongkan = otomatis)", type: "text" },
+  { name: "asal_daerah", label: "Asal daerah", type: "text" },
+  { name: "tahun_aktif", label: "Tahun aktif", type: "text" },
+  { name: "foto_url", label: "Foto", type: "image", bucket: "alumni" },
+  { name: "bio_id", label: "Bio (Indonesia)", type: "textarea" },
+  { name: "bio_en", label: "Bio (English)", type: "textarea" },
+  { name: "unggulan", label: "Tampilkan sebagai alumni unggulan", type: "checkbox" },
+];
+
+export default function AdminAlumniPage() {
+  return (
+    <CrudManager
+      title="Alumni"
+      table="alumni"
+      fields={fields}
+      order="nama"
+      slugFrom="nama"
+      columns={[
+        { name: "nama", label: "Nama" },
+        { name: "asal_daerah", label: "Asal" },
+        { name: "tahun_aktif", label: "Tahun" },
+      ]}
+    />
+  );
+}

@@ -37,11 +37,21 @@ export async function getSponsors(): Promise<Sponsor[]> {
   return data;
 }
 
-export async function getSiteContent(): Promise<Record<string, { value_id: string; value_en: string }>> {
-  if (!supabase) return {};
-  const { data, error } = await supabase.from("site_content").select("*");
-  if (error) throw error;
-  return Object.fromEntries(data.map((row) => [row.key, row]));
+type SiteContent = Record<string, { value_id: string; value_en: string }>;
+let siteContentRequest: Promise<SiteContent> | null = null;
+
+// Dipakai beberapa komponen sekaligus (Hero, statistik, kontak), jadi cukup satu request per halaman.
+export function getSiteContent(): Promise<SiteContent> {
+  if (!supabase) return Promise.resolve({});
+  siteContentRequest ??= (async () => {
+    const { data, error } = await supabase.from("site_content").select("*");
+    if (error) {
+      siteContentRequest = null;
+      throw error;
+    }
+    return Object.fromEntries(data.map((row) => [row.key, row]));
+  })();
+  return siteContentRequest;
 }
 
 export async function getAllCompetitions(): Promise<Competition[]> {

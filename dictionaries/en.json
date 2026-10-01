@@ -1,0 +1,53 @@
+{
+  "nav": {
+    "home": "Home",
+    "hallOfFame": "Hall of Fame",
+    "competitions": "Competitions",
+    "sponsor": "Become a Sponsor",
+    "menu": "Menu"
+  },
+  "hero": {
+    "eyebrow": "Indonesia Electronics Team",
+    "title": "Building Electronics Champions from Indonesia for the World",
+    "subtitle": "Inaskills Electronics trains young talent for Regional, National, ASEAN Skills Competition, WorldSkills Asia, and WorldSkills Competition events.",
+    "ctaPrimary": "Become a Sponsor",
+    "ctaSecondary": "View Hall of Fame"
+  },
+  "stats": {
+    "title": "Our Achievements",
+    "medals": "Medals",
+    "competitions": "Competitions",
+    "alumni": "Champion Alumni",
+    "countries": "Countries Visited"
+  },
+  "levels": {
+    "regional": "Regional",
+    "nasional": "National",
+    "asc": "ASEAN Skills (ASC)",
+    "wsa": "WorldSkills Asia (WSA)",
+    "wsc": "WorldSkills Competition (WSC)"
+  },
+  "hallOfFame": {
+    "title": "Hall of Fame",
+    "subtitle": "Alumni who made Indonesia proud.",
+    "viewAll": "View all"
+  },
+  "competitions": {
+    "title": "Latest Competitions",
+    "viewAll": "View all competitions"
+  },
+  "sponsors": {
+    "title": "Supported By",
+    "empty": "Be our first partner."
+  },
+  "cta": {
+    "title": "Support Our Training Center",
+    "subtitle": "Your sponsorship helps our athletes train with world-standard equipment and compete on the international stage.",
+    "button": "Contact Us",
+    "whatsapp": "WhatsApp",
+    "email": "Email"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  }
+}

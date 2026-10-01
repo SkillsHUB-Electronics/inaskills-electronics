@@ -1,0 +1,53 @@
+{
+  "nav": {
+    "home": "Beranda",
+    "hallOfFame": "Hall of Fame",
+    "competitions": "Kompetisi",
+    "sponsor": "Jadi Sponsor",
+    "menu": "Menu"
+  },
+  "hero": {
+    "eyebrow": "Tim Elektronika Indonesia",
+    "title": "Mencetak Juara Elektronika dari Indonesia untuk Dunia",
+    "subtitle": "Inaskills Electronics membina talenta muda untuk kompetisi tingkat Regional, Nasional, ASEAN Skills Competition, WorldSkills Asia, hingga WorldSkills Competition.",
+    "ctaPrimary": "Jadi Sponsor",
+    "ctaSecondary": "Lihat Hall of Fame"
+  },
+  "stats": {
+    "title": "Prestasi Kami",
+    "medals": "Medali",
+    "competitions": "Kompetisi",
+    "alumni": "Alumni Juara",
+    "countries": "Negara Dikunjungi"
+  },
+  "levels": {
+    "regional": "Regional",
+    "nasional": "Nasional",
+    "asc": "ASEAN Skills (ASC)",
+    "wsa": "WorldSkills Asia (WSA)",
+    "wsc": "WorldSkills Competition (WSC)"
+  },
+  "hallOfFame": {
+    "title": "Hall of Fame",
+    "subtitle": "Para alumni yang mengharumkan nama Indonesia.",
+    "viewAll": "Lihat semua"
+  },
+  "competitions": {
+    "title": "Kompetisi Terbaru",
+    "viewAll": "Lihat semua kompetisi"
+  },
+  "sponsors": {
+    "title": "Didukung Oleh",
+    "empty": "Jadilah partner pertama kami."
+  },
+  "cta": {
+    "title": "Dukung Training Center Kami",
+    "subtitle": "Sponsor Anda membantu atlet kami berlatih dengan peralatan standar dunia dan bertanding di panggung internasional.",
+    "button": "Hubungi Kami",
+    "whatsapp": "WhatsApp",
+    "email": "Email"
+  },
+  "footer": {
+    "rights": "Hak cipta dilindungi."
+  }
+}

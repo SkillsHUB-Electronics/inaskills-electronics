@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Inaskills Electronics
 
-## Getting Started
+Landing page tim elektronika Indonesia (Regional, Nasional, ASC, WSA, WSC) dengan Hall of Fame, profil alumni, kompetisi, dan sponsor. Situs dua bahasa (ID/EN) dengan mode admin.
 
-First, run the development server:
+Stack: Next.js (static export) + Tailwind CSS + Supabase.
+
+## Menjalankan lokal
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env.local   # isi URL & anon key Supabase
+npm install
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Tanpa env Supabase, situs tetap jalan dengan data contoh (`lib/sample-data.ts`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Setup Supabase
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Buat project di supabase.com.
+2. SQL Editor: jalankan `supabase/migrations/001_init.sql`.
+3. Authentication > Users: buat 1 user admin, lalu jalankan
+   `insert into public.admins (user_id) values ('<UUID user>');`
+4. Authentication > Providers > Email: matikan "Allow new users to sign up".
 
-## Learn More
+## Deploy ke GitHub Pages
 
-To learn more about Next.js, take a look at the following resources:
+1. Settings > Pages > Source: **GitHub Actions**.
+2. Settings > Secrets and variables > Actions: tambah `NEXT_PUBLIC_SUPABASE_URL` dan `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+3. Push ke `main`, situs tampil di `https://<user>.github.io/<repo>/`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Pindah ke Vercel/hosting lain: hubungkan repo, isi env yang sama, kosongkan `NEXT_PUBLIC_BASE_PATH`.

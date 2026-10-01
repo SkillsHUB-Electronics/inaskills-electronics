@@ -3,15 +3,21 @@
 import Link from "next/link";
 import { useState } from "react";
 import type { Dictionary, Locale } from "@/lib/i18n";
+import { useSession } from "@/lib/useSession";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Navbar({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const [open, setOpen] = useState(false);
+  const { session } = useSession();
+  const account = session
+    ? { href: `/${lang}/akun/`, label: dict.nav.account }
+    : { href: `/${lang}/login/`, label: dict.nav.login };
   const links = [
     { href: `/${lang}/`, label: dict.nav.home },
     { href: `/${lang}/hall-of-fame/`, label: dict.nav.hallOfFame },
     { href: `/${lang}/kompetisi/`, label: dict.nav.competitions },
     { href: `/${lang}/proyek/`, label: dict.nav.projects },
+    { href: `/${lang}/berita/`, label: dict.nav.news },
   ];
 
   return (
@@ -21,13 +27,16 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: Dictionary 
           Inaskills <span className="text-brand">Electronics</span>
         </Link>
 
-        <div className="hidden items-center gap-6 md:flex">
+        <div className="hidden items-center gap-5 lg:flex">
           {links.map((l) => (
             <Link key={l.href} href={l.href} className="text-sm text-white/80 hover:text-white">
               {l.label}
             </Link>
           ))}
           <LanguageSwitcher lang={lang} />
+          <Link href={account.href} className="text-sm font-semibold text-white hover:text-white/80">
+            {account.label}
+          </Link>
           <Link
             href={`/${lang}/sponsor/`}
             className="rounded-full bg-brand px-4 py-2 text-sm font-semibold hover:bg-brand-dark"
@@ -38,7 +47,7 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: Dictionary 
 
         <button
           type="button"
-          className="rounded p-2 md:hidden"
+          className="rounded p-2 lg:hidden"
           aria-label={dict.nav.menu}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -50,7 +59,7 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: Dictionary 
       </nav>
 
       {open && (
-        <div className="border-t border-white/10 pb-4 md:hidden">
+        <div className="border-t border-white/10 pb-4 lg:hidden">
           {links.map((l) => (
             <Link
               key={l.href}
@@ -61,6 +70,9 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: Dictionary 
               {l.label}
             </Link>
           ))}
+          <Link href={account.href} onClick={() => setOpen(false)} className="block py-3 font-semibold text-white">
+            {account.label}
+          </Link>
           <div className="flex items-center justify-between pt-2">
             <LanguageSwitcher lang={lang} />
             <Link

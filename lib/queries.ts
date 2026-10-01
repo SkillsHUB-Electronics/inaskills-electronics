@@ -1,6 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import { sample } from "@/lib/sample-data";
-import type { Alumni, Competition, CompetitionImage, HallOfFameEntry, Project, Result, Sponsor } from "@/types/database";
+import type { Alumni, Competition, CompetitionImage, HallOfFameEntry, News, Project, Result, Sponsor } from "@/types/database";
 
 export async function getLatestCompetitions(limit = 3): Promise<Competition[]> {
   if (!supabase) return sample.competitions.slice(0, limit);
@@ -136,4 +136,37 @@ export async function getProjects(): Promise<Project[]> {
     .order("tahun", { ascending: false });
   if (error) throw error;
   return data as Project[];
+}
+
+export async function getNews(limit?: number): Promise<News[]> {
+  if (!supabase) return limit ? sample.news.slice(0, limit) : sample.news;
+  let q = supabase.from("news").select("*").eq("terbit", true).order("tanggal", { ascending: false });
+  if (limit) q = q.limit(limit);
+  const { data, error } = await q;
+  if (error) throw error;
+  return data;
+}
+
+export async function getNewsBySlug(slug: string): Promise<News | null> {
+  if (!supabase) return sample.news.find((n) => n.slug === slug) ?? null;
+  const { data, error } = await supabase.from("news").select("*").eq("slug", slug).maybeSingle();
+  if (error) throw error;
+  return data;
+}
+
+export interface Highlight {
+  competition: Competition;
+  medals: Record<"gold" | "silver" | "bronze" | "moe", number>;
+}
+
+// Kompetisi terbaru beserta rekap medalinya, untuk kartu Sorotan di Beranda.
+export async function getHighlight(): Promise<Highlight | null> {
+  const [competition] = await getLatestCompetitions(1);
+  if (!competition) return null;
+  const results = supabase
+    ? (await supabase.from("results").select("medali").eq("competition_id", competition.id)).data ?? []
+    : sample.hallOfFame.filter((r) => r.competition_id === competition.id);
+  const medals = { gold: 0, silver: 0, bronze: 0, moe: 0 };
+  for (const r of results) if (r.medali in medals) medals[r.medali as keyof typeof medals]++;
+  return { competition, medals };
 }

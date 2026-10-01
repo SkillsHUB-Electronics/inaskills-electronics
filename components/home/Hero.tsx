@@ -13,7 +13,7 @@ export default function Hero({ lang, dict }: { lang: Locale; dict: Dictionary })
   const subtitle = data.hero_subtitle?.[field] || dict.hero.subtitle;
 
   return (
-    <section className="relative overflow-hidden bg-ink px-4 py-20 text-white sm:py-28">
+    <section className="relative overflow-hidden bg-ink px-4 pb-24 pt-20 text-white sm:pb-32 sm:pt-28">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_20%_20%,#c8102e_0,transparent_40%),radial-gradient(circle_at_80%_60%,#1c2f4f_0,transparent_45%)]"

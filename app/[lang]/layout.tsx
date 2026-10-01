@@ -18,7 +18,7 @@ export default async function LangLayout({ children, params }: LayoutProps<"/[la
     <>
       <Navbar lang={lang} dict={dict} />
       <main className="flex-1">{children}</main>
-      <Footer dict={dict} />
+      <Footer lang={lang} dict={dict} />
     </>
   );
 }

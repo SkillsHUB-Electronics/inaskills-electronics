@@ -1,7 +1,7 @@
 // Operasi tulis untuk panel admin. Keamanan dijaga RLS (hanya user di tabel admins).
 import { supabase } from "@/lib/supabase";
 
-export type Table = "alumni" | "projects" | "competitions" | "results" | "competition_images" | "sponsors" | "site_content" | "contact_messages";
+export type Table = "alumni" | "projects" | "news" | "competitions" | "results" | "competition_images" | "sponsors" | "site_content" | "contact_messages";
 export type Row = Record<string, unknown>;
 
 function db() {

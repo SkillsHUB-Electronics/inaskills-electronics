@@ -5,7 +5,12 @@
     "competitions": "Kompetisi",
     "sponsor": "Jadi Sponsor",
     "menu": "Menu",
-    "projects": "Proyek & Riset"
+    "projects": "Proyek & Riset",
+    "login": "Masuk",
+    "account": "Akun Saya",
+    "admin": "Panel Admin",
+    "logout": "Keluar",
+    "news": "Berita"
   },
   "hero": {
     "eyebrow": "Tim Elektronika Indonesia",
@@ -125,5 +130,53 @@
       "task_project": "Task Project",
       "lainnya": "Lainnya"
     }
+  },
+  "auth": {
+    "loginTitle": "Masuk",
+    "registerTitle": "Daftar Akun",
+    "name": "Nama lengkap",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "Minimal 8 karakter.",
+    "login": "Masuk",
+    "register": "Daftar",
+    "busy": "Memproses...",
+    "noAccount": "Belum punya akun?",
+    "haveAccount": "Sudah punya akun?",
+    "forgot": "Lupa password?",
+    "sendReset": "Kirim link reset",
+    "resetSent": "Link reset password sudah dikirim ke email Anda.",
+    "backToLogin": "Kembali ke masuk",
+    "wrong": "Email atau password salah.",
+    "confirmEmail": "Pendaftaran berhasil. Cek email Anda untuk konfirmasi, lalu masuk.",
+    "failed": "Gagal: "
+  },
+  "account": {
+    "title": "Akun Saya",
+    "hello": "Halo",
+    "profile": "Profil",
+    "save": "Simpan",
+    "saved": "Tersimpan.",
+    "changePassword": "Ganti password",
+    "newPassword": "Password baru",
+    "comingTitle": "Fitur anggota segera hadir",
+    "comingText": "Nantinya anggota bisa mengakses materi latihan, data soal, dan program khusus Inaskills Electronics.",
+    "toAdmin": "Buka Panel Admin"
+  },
+  "highlight": {
+    "label": "Sorotan",
+    "results": "Lihat hasil",
+    "medals": "medali"
+  },
+  "newsSection": {
+    "title": "Berita & Kegiatan",
+    "viewAll": "Semua berita",
+    "empty": "Belum ada berita.",
+    "readMore": "Baca selengkapnya"
+  },
+  "footerCols": {
+    "explore": "Jelajahi",
+    "support": "Dukung Kami",
+    "contact": "Kontak"
   }
 }

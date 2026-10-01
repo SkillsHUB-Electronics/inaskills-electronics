@@ -1,5 +1,5 @@
 // Data contoh, dipakai saat Supabase belum dikonfigurasi. Hapus setelah data asli masuk.
-import type { Alumni, Competition, HallOfFameEntry, Project, Sponsor } from "@/types/database";
+import type { Alumni, Competition, HallOfFameEntry, News, Project, Sponsor } from "@/types/database";
 
 const alumni: Alumni[] = [
   { id: "a1", slug: "contoh-alumni-1", nama: "Contoh Alumni 1", foto_url: null, bio_id: "Peraih medali emas.", bio_en: "Gold medalist.", asal_daerah: "Jawa Timur", tahun_aktif: "2023", unggulan: true },
@@ -22,6 +22,11 @@ export const sample = {
     { id: "r3", competition_id: "c3", alumni_id: "a2", medali: "silver", peringkat: 2, catatan: null, alumni: alumni[1], competition: competitions[2] },
   ] as HallOfFameEntry[],
   stats: { medals: 0, competitions: 0, alumni: 0, countries: 0 },
+  news: [
+    { id: "n1", slug: "contoh-berita-1", judul_id: "Contoh Berita: Persiapan WSC", judul_en: "Sample News: WSC Preparation", ringkasan_id: "Tim mulai pelatihan intensif menjelang WorldSkills Competition.", ringkasan_en: "The team starts intensive training ahead of WorldSkills Competition.", isi_id: "Isi berita contoh.", isi_en: "Sample news body.", cover_url: null, tanggal: "2026-09-20", terbit: true },
+    { id: "n2", slug: "contoh-berita-2", judul_id: "Contoh Berita: Kunjungan Sponsor", judul_en: "Sample News: Sponsor Visit", ringkasan_id: "Partner industri berkunjung ke training center.", ringkasan_en: "Industry partners visit the training center.", isi_id: "Isi berita contoh.", isi_en: "Sample news body.", cover_url: null, tanggal: "2026-09-05", terbit: true },
+    { id: "n3", slug: "contoh-berita-3", judul_id: "Contoh Berita: Seleksi Nasional", judul_en: "Sample News: National Selection", ringkasan_id: "Seleksi atlet untuk ASEAN Skills Competition.", ringkasan_en: "Athlete selection for ASEAN Skills Competition.", isi_id: "Isi berita contoh.", isi_en: "Sample news body.", cover_url: null, tanggal: "2026-08-15", terbit: true },
+  ] as News[],
   projects: [
     { id: "p1", slug: "contoh-rnd", judul_id: "Contoh Proyek R&D", judul_en: "Sample R&D Project", deskripsi_id: "Contoh deskripsi proyek riset alumni.", deskripsi_en: "Sample alumni research project.", kategori: "rnd", status: "under_development", tahun: 2026, alumni_id: "a1", cover_url: null, repo_url: "https://github.com/", demo_url: null, file_url: null, urutan: 0, alumni: { nama: "Contoh Alumni 1", slug: "contoh-alumni-1" } },
     { id: "p2", slug: "contoh-soal", judul_id: "Contoh Data Soal LKS", judul_en: "Sample Test Project", deskripsi_id: "Contoh kumpulan soal latihan.", deskripsi_en: "Sample practice test projects.", kategori: "soal", status: "published", tahun: 2025, alumni_id: null, cover_url: null, repo_url: null, demo_url: null, file_url: "#", urutan: 1, alumni: null },

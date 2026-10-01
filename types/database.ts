@@ -84,3 +84,17 @@ export interface Project {
   urutan: number;
   alumni?: Pick<Alumni, "nama" | "slug"> | null;
 }
+
+export interface News {
+  id: string;
+  slug: string;
+  judul_id: string;
+  judul_en: string;
+  ringkasan_id: string;
+  ringkasan_en: string;
+  isi_id: string;
+  isi_en: string;
+  cover_url: string | null;
+  tanggal: string;
+  terbit: boolean;
+}

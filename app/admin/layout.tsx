@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import { isAdmin, signOut } from "@/lib/auth";
 import { useSession } from "@/lib/useSession";
 
 const menu = [
@@ -11,6 +11,7 @@ const menu = [
   { href: "/admin/alumni/", label: "Alumni" },
   { href: "/admin/kompetisi/", label: "Kompetisi" },
   { href: "/admin/proyek/", label: "Proyek & Riset" },
+  { href: "/admin/berita/", label: "Berita" },
   { href: "/admin/sponsor/", label: "Sponsor" },
   { href: "/admin/konten/", label: "Konten & Kontak" },
   { href: "/admin/pesan/", label: "Pesan Masuk" },
@@ -22,21 +23,29 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const router = useRouter();
   const { session, loading } = useSession();
   const [open, setOpen] = useState(false);
+  // null = belum dicek. User biasa yang membuka /admin diarahkan ke halaman akunnya.
+  const [admin, setAdmin] = useState<boolean | null>(null);
   const isLogin = pathname.startsWith("/admin/login");
 
   useEffect(() => {
-    if (!isLogin && !loading && !session) router.replace("/admin/login/");
+    if (isLogin || loading) return;
+    if (!session) {
+      router.replace("/id/login/");
+      return;
+    }
+    isAdmin().then((ok) => {
+      setAdmin(ok);
+      if (!ok) router.replace("/id/akun/");
+    });
   }, [isLogin, loading, session, router]);
 
   if (isLogin) return <>{children}</>;
 
-  if (loading) return <p className="p-8 text-slate-500">Memuat...</p>;
-
-  if (!session) return null;
+  if (loading || !session || !admin) return <p className="p-8 text-slate-500">Memuat...</p>;
 
   async function logout() {
-    await supabase?.auth.signOut();
-    router.replace("/admin/login/");
+    await signOut();
+    router.replace("/id/login/");
   }
 
   const nav = (

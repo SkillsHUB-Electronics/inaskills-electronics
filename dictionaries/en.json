@@ -5,7 +5,12 @@
     "competitions": "Competitions",
     "sponsor": "Become a Sponsor",
     "menu": "Menu",
-    "projects": "Projects & Research"
+    "projects": "Projects & Research",
+    "login": "Log in",
+    "account": "My Account",
+    "admin": "Admin Panel",
+    "logout": "Log out",
+    "news": "News"
   },
   "hero": {
     "eyebrow": "Indonesia Electronics Team",
@@ -125,5 +130,53 @@
       "task_project": "Task Projects",
       "lainnya": "Others"
     }
+  },
+  "auth": {
+    "loginTitle": "Log in",
+    "registerTitle": "Create Account",
+    "name": "Full name",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "At least 8 characters.",
+    "login": "Log in",
+    "register": "Sign up",
+    "busy": "Processing...",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "forgot": "Forgot password?",
+    "sendReset": "Send reset link",
+    "resetSent": "A password reset link has been sent to your email.",
+    "backToLogin": "Back to log in",
+    "wrong": "Wrong email or password.",
+    "confirmEmail": "Sign-up successful. Check your email to confirm, then log in.",
+    "failed": "Failed: "
+  },
+  "account": {
+    "title": "My Account",
+    "hello": "Hello",
+    "profile": "Profile",
+    "save": "Save",
+    "saved": "Saved.",
+    "changePassword": "Change password",
+    "newPassword": "New password",
+    "comingTitle": "Member features coming soon",
+    "comingText": "Members will be able to access training materials, test projects, and special Inaskills Electronics programs.",
+    "toAdmin": "Open Admin Panel"
+  },
+  "highlight": {
+    "label": "Highlight",
+    "results": "View results",
+    "medals": "medals"
+  },
+  "newsSection": {
+    "title": "News & Activities",
+    "viewAll": "All news",
+    "empty": "No news yet.",
+    "readMore": "Read more"
+  },
+  "footerCols": {
+    "explore": "Explore",
+    "support": "Support Us",
+    "contact": "Contact"
   }
 }

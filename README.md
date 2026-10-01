@@ -20,7 +20,9 @@ Tanpa env Supabase, situs tetap jalan dengan data contoh (`lib/sample-data.ts`).
 2. SQL Editor: jalankan `supabase/migrations/001_init.sql`.
 3. Authentication > Users: buat 1 user admin, lalu jalankan
    `insert into public.admins (user_id) values ('<UUID user>');`
-4. Authentication > Providers > Email: matikan "Allow new users to sign up".
+4. Jalankan juga `002_projects_social.sql` dan `003_users_news.sql` (berurutan).
+5. Authentication > URL Configuration: Site URL = `https://skillshub-electronics.github.io/inaskills-electronics/`, tambahkan juga ke Redirect URLs dengan akhiran `**`.
+6. Authentication > Sign In / Providers: biarkan "Allow new users to sign up" aktif agar user biasa bisa mendaftar. Hak admin hanya dari tabel `admins`, jadi pendaftar baru tidak otomatis jadi admin.
 
 ## Deploy ke GitHub Pages
 
@@ -32,7 +34,7 @@ Pindah ke Vercel/hosting lain: hubungkan repo, isi env yang sama, kosongkan `NEX
 
 ## Panel admin
 
-Buka `/admin/` (mis. `https://skillshub-electronics.github.io/inaskills-electronics/admin/`), login dengan akun admin Supabase.
+Masuk lewat tombol **Masuk** di navbar (`/id/login/`). Admin otomatis diarahkan ke `/admin/`, user biasa ke halaman **Akun Saya**.
 Menu: Alumni, Kompetisi (hasil/juara + galeri foto), Sponsor (logo), Konten & Kontak (hero, statistik, WhatsApp, email), Pesan Masuk.
 Perubahan langsung tampil di situs tanpa build ulang.
 

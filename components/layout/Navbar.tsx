@@ -11,6 +11,7 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: Dictionary 
     { href: `/${lang}/`, label: dict.nav.home },
     { href: `/${lang}/hall-of-fame/`, label: dict.nav.hallOfFame },
     { href: `/${lang}/kompetisi/`, label: dict.nav.competitions },
+    { href: `/${lang}/proyek/`, label: dict.nav.projects },
   ];
 
   return (

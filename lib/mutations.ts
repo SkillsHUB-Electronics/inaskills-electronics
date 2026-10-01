@@ -1,7 +1,7 @@
 // Operasi tulis untuk panel admin. Keamanan dijaga RLS (hanya user di tabel admins).
 import { supabase } from "@/lib/supabase";
 
-export type Table = "alumni" | "competitions" | "results" | "competition_images" | "sponsors" | "site_content" | "contact_messages";
+export type Table = "alumni" | "projects" | "competitions" | "results" | "competition_images" | "sponsors" | "site_content" | "contact_messages";
 export type Row = Record<string, unknown>;
 
 function db() {
@@ -47,10 +47,13 @@ async function compress(file: File, maxSize = 1600): Promise<Blob> {
   return new Promise((resolve) => canvas.toBlob((b) => resolve(b ?? file), "image/webp", 0.85));
 }
 
-export async function uploadImage(bucket: string, file: File): Promise<string> {
+export async function uploadFile(bucket: string, file: File): Promise<string> {
   const blob = await compress(file);
-  const ext = blob.type === "image/webp" ? "webp" : (file.name.split(".").pop() ?? "bin");
-  const path = `${crypto.randomUUID()}.${ext}`;
+  // Gambar diganti nama acak; file unduhan tetap memakai nama aslinya (diberi prefiks unik).
+  const path =
+    blob.type === "image/webp"
+      ? `${crypto.randomUUID()}.webp`
+      : `${crypto.randomUUID().slice(0, 8)}-${file.name.replace(/[^\w.-]+/g, "_")}`;
   const { error } = await db().storage.from(bucket).upload(path, blob, { contentType: blob.type });
   if (error) throw error;
   return db().storage.from(bucket).getPublicUrl(path).data.publicUrl;
@@ -64,3 +67,5 @@ export function slugify(text: string): string {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 }
+
+export const uploadImage = uploadFile;

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { inputClass } from "@/components/admin/CrudManager";
 import { list, upsertContent } from "@/lib/mutations";
+import { socialPlatforms } from "@/lib/social";
 
 type Item = { key: string; label: string; bilingual: boolean; multiline?: boolean; hint?: string };
 
@@ -29,6 +30,10 @@ const groups: { title: string; items: Item[] }[] = [
       { key: "contact_whatsapp", label: "Nomor WhatsApp", bilingual: false, hint: "Format internasional tanpa + atau spasi, mis. 6281234567890." },
       { key: "contact_email", label: "Email", bilingual: false },
     ],
+  },
+  {
+    title: "Media sosial (link lengkap, kosongkan bila tidak ada)",
+    items: socialPlatforms.map((p) => ({ key: p.key, label: p.label, bilingual: false })),
   },
 ];
 

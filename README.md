@@ -35,3 +35,14 @@ Pindah ke Vercel/hosting lain: hubungkan repo, isi env yang sama, kosongkan `NEX
 Buka `/admin/` (mis. `https://skillshub-electronics.github.io/inaskills-electronics/admin/`), login dengan akun admin Supabase.
 Menu: Alumni, Kompetisi (hasil/juara + galeri foto), Sponsor (logo), Konten & Kontak (hero, statistik, WhatsApp, email), Pesan Masuk.
 Perubahan langsung tampil di situs tanpa build ulang.
+
+## Mengelola akun admin
+
+Admin = user di Supabase Auth yang UUID-nya ada di tabel `admins`.
+
+- **Tambah admin:** Supabase > Authentication > Users > Add user, salin UUID, lalu di SQL Editor:
+  `insert into public.admins (user_id) values ('<UUID>');`
+- **Cabut admin:** `delete from public.admins where user_id = '<UUID>';` (boleh sekalian hapus user-nya di Authentication > Users).
+- **Ganti akun admin:** tambah admin baru dulu, login untuk memastikan berhasil, baru cabut yang lama.
+- **Ganti password:** dari panel admin, menu Akun.
+- **Lihat daftar admin:** `select u.email from public.admins a join auth.users u on u.id = a.user_id;`

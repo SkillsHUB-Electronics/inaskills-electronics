@@ -10,9 +10,11 @@ const menu = [
   { href: "/admin/", label: "Dashboard" },
   { href: "/admin/alumni/", label: "Alumni" },
   { href: "/admin/kompetisi/", label: "Kompetisi" },
+  { href: "/admin/proyek/", label: "Proyek & Riset" },
   { href: "/admin/sponsor/", label: "Sponsor" },
   { href: "/admin/konten/", label: "Konten & Kontak" },
   { href: "/admin/pesan/", label: "Pesan Masuk" },
+  { href: "/admin/akun/", label: "Akun" },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

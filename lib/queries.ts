@@ -1,6 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import { sample } from "@/lib/sample-data";
-import type { Alumni, Competition, CompetitionImage, HallOfFameEntry, Result, Sponsor } from "@/types/database";
+import type { Alumni, Competition, CompetitionImage, HallOfFameEntry, Project, Result, Sponsor } from "@/types/database";
 
 export async function getLatestCompetitions(limit = 3): Promise<Competition[]> {
   if (!supabase) return sample.competitions.slice(0, limit);
@@ -125,4 +125,15 @@ export async function sendContactMessage(msg: {
   if (!supabase) throw new Error("Supabase belum dikonfigurasi");
   const { error } = await supabase.from("contact_messages").insert(msg);
   if (error) throw error;
+}
+
+export async function getProjects(): Promise<Project[]> {
+  if (!supabase) return sample.projects;
+  const { data, error } = await supabase
+    .from("projects")
+    .select("*, alumni(nama, slug)")
+    .order("urutan")
+    .order("tahun", { ascending: false });
+  if (error) throw error;
+  return data as Project[];
 }

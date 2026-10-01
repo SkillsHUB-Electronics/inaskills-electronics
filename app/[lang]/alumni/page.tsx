@@ -38,6 +38,25 @@ function Profile({ slug }: { slug: string }) {
               .join(" · ")}
           </p>
           <p className="mt-4 max-w-2xl whitespace-pre-line text-slate-700">{pick(a, "bio", lang)}</p>
+          <div className="mt-4 flex flex-wrap justify-center gap-2 md:justify-start">
+            {[
+              { href: a.linkedin_url, label: "LinkedIn" },
+              { href: a.github_url, label: "GitHub" },
+              { href: a.instagram_url, label: "Instagram" },
+            ]
+              .filter((l) => l.href)
+              .map((l) => (
+                <a
+                  key={l.label}
+                  href={l.href!}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full px-4 py-1.5 text-sm font-semibold ring-1 ring-slate-300 hover:bg-ink hover:text-white"
+                >
+                  {l.label}
+                </a>
+              ))}
+          </div>
         </div>
       </div>
 

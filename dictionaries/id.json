@@ -4,7 +4,8 @@
     "hallOfFame": "Hall of Fame",
     "competitions": "Kompetisi",
     "sponsor": "Jadi Sponsor",
-    "menu": "Menu"
+    "menu": "Menu",
+    "projects": "Proyek & Riset"
   },
   "hero": {
     "eyebrow": "Tim Elektronika Indonesia",
@@ -48,7 +49,8 @@
     "email": "Email"
   },
   "footer": {
-    "rights": "Hak cipta dilindungi."
+    "rights": "Hak cipta dilindungi.",
+    "follow": "Ikuti kami"
   },
   "medals": {
     "gold": "Emas",
@@ -107,5 +109,21 @@
     "sent": "Terima kasih, pesan Anda sudah terkirim.",
     "failed": "Pesan gagal dikirim, silakan coba lagi atau hubungi via WhatsApp.",
     "orContact": "Atau hubungi langsung"
+  },
+  "projects": {
+    "title": "Proyek & Riset",
+    "subtitle": "Hasil riset alumni, data soal, dan task project yang terbuka untuk umum.",
+    "empty": "Belum ada proyek pada kategori ini.",
+    "by": "Oleh",
+    "repo": "Repository",
+    "demo": "Demo",
+    "download": "Unduh",
+    "underDevelopment": "Dalam pengembangan",
+    "categories": {
+      "rnd": "Riset & Pengembangan",
+      "soal": "Data Soal",
+      "task_project": "Task Project",
+      "lainnya": "Lainnya"
+    }
   }
 }

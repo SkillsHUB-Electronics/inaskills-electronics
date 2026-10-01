@@ -12,6 +12,9 @@ export interface Alumni {
   asal_daerah: string | null;
   tahun_aktif: string | null;
   unggulan: boolean;
+  linkedin_url?: string | null;
+  github_url?: string | null;
+  instagram_url?: string | null;
 }
 
 export interface Competition {
@@ -59,4 +62,25 @@ export interface CompetitionImage {
   caption_id: string;
   caption_en: string;
   urutan: number;
+}
+
+export type ProjectCategory = "rnd" | "soal" | "task_project" | "lainnya";
+
+export interface Project {
+  id: string;
+  slug: string;
+  judul_id: string;
+  judul_en: string;
+  deskripsi_id: string;
+  deskripsi_en: string;
+  kategori: ProjectCategory;
+  status: "published" | "under_development";
+  tahun: number | null;
+  alumni_id: string | null;
+  cover_url: string | null;
+  repo_url: string | null;
+  demo_url: string | null;
+  file_url: string | null;
+  urutan: number;
+  alumni?: Pick<Alumni, "nama" | "slug"> | null;
 }

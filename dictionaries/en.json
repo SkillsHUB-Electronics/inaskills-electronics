@@ -4,7 +4,8 @@
     "hallOfFame": "Hall of Fame",
     "competitions": "Competitions",
     "sponsor": "Become a Sponsor",
-    "menu": "Menu"
+    "menu": "Menu",
+    "projects": "Projects & Research"
   },
   "hero": {
     "eyebrow": "Indonesia Electronics Team",
@@ -48,7 +49,8 @@
     "email": "Email"
   },
   "footer": {
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "follow": "Follow us"
   },
   "medals": {
     "gold": "Gold",
@@ -107,5 +109,21 @@
     "sent": "Thank you, your message has been sent.",
     "failed": "Failed to send. Please try again or contact us via WhatsApp.",
     "orContact": "Or contact us directly"
+  },
+  "projects": {
+    "title": "Projects & Research",
+    "subtitle": "Alumni research, test projects, and task projects open to the public.",
+    "empty": "No projects in this category yet.",
+    "by": "By",
+    "repo": "Repository",
+    "demo": "Demo",
+    "download": "Download",
+    "underDevelopment": "Under development",
+    "categories": {
+      "rnd": "Research & Development",
+      "soal": "Test Projects",
+      "task_project": "Task Projects",
+      "lainnya": "Others"
+    }
   }
 }

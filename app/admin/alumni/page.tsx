@@ -10,6 +10,9 @@ const fields: Field[] = [
   { name: "foto_url", label: "Foto", type: "image", bucket: "alumni" },
   { name: "bio_id", label: "Bio (Indonesia)", type: "textarea" },
   { name: "bio_en", label: "Bio (English)", type: "textarea" },
+  { name: "linkedin_url", label: "LinkedIn", type: "url" },
+  { name: "github_url", label: "GitHub", type: "url" },
+  { name: "instagram_url", label: "Instagram", type: "url" },
   { name: "unggulan", label: "Tampilkan sebagai alumni unggulan", type: "checkbox" },
 ];
 

@@ -7,7 +7,7 @@ import { list, remove, save, slugify, type Row, type Table } from "@/lib/mutatio
 export type Field = {
   name: string;
   label: string;
-  type: "text" | "textarea" | "number" | "date" | "select" | "checkbox" | "image";
+  type: "text" | "textarea" | "number" | "date" | "select" | "checkbox" | "image" | "file" | "url";
   required?: boolean;
   options?: { value: string; label: string }[];
   bucket?: string;
@@ -59,7 +59,7 @@ export default function CrudManager({ title, table, fields, order, ascending = t
       const row: Row = { ...editing };
       if (slugFrom && "slug" in row && !row.slug) row.slug = slugify(String(row[slugFrom] ?? ""));
       // Kolom angka/tanggal kosong disimpan sebagai null, bukan string kosong.
-      for (const f of fields) if ((f.type === "number" || f.type === "date" || f.type === "image") && row[f.name] === "") row[f.name] = null;
+      for (const f of fields) if (["number", "date", "image", "file", "url", "select"].includes(f.type) && row[f.name] === "") row[f.name] = null;
       await save(table, row);
       setMessage("Tersimpan.");
       setEditing(null);
@@ -99,16 +99,16 @@ export default function CrudManager({ title, table, fields, order, ascending = t
         <div className="mt-6 space-y-6">
           <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 rounded-2xl bg-white p-4 ring-1 ring-slate-200 sm:p-6 md:grid-cols-2">
             {fields.map((f) => (
-              <div key={f.name} className={f.wide || f.type === "textarea" || f.type === "image" ? "md:col-span-2" : ""}>
+              <div key={f.name} className={f.wide || f.type === "textarea" || f.type === "image" || f.type === "file" ? "md:col-span-2" : ""}>
                 {f.type === "checkbox" ? (
                   <label className="flex items-center gap-2 text-sm font-medium">
                     <input type="checkbox" checked={Boolean(editing[f.name])} onChange={(e) => set(f.name, e.target.checked)} />
                     {f.label}
                   </label>
-                ) : f.type === "image" ? (
+                ) : f.type === "image" || f.type === "file" ? (
                   <div className="text-sm font-medium">
                     {f.label}
-                    <ImageUploader bucket={f.bucket!} value={(editing[f.name] as string) || ""} onChange={(url) => set(f.name, url)} />
+                    <ImageUploader kind={f.type} bucket={f.bucket!} value={(editing[f.name] as string) || ""} onChange={(url) => set(f.name, url)} />
                   </div>
                 ) : (
                   <label className="block text-sm font-medium">
@@ -127,6 +127,7 @@ export default function CrudManager({ title, table, fields, order, ascending = t
                     ) : (
                       <input
                         type={f.type}
+                        placeholder={f.type === "url" ? "https://" : undefined}
                         required={f.required}
                         value={String(editing[f.name] ?? "")}
                         onChange={(e) => set(f.name, f.type === "number" && e.target.value !== "" ? Number(e.target.value) : e.target.value)}

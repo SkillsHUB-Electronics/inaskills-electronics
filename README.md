@@ -25,7 +25,7 @@ Tanpa env Supabase, situs tetap jalan dengan data contoh (`lib/sample-data.ts`).
 ## Deploy ke GitHub Pages
 
 1. Settings > Pages > Source: **GitHub Actions**.
-2. Settings > Secrets and variables > Actions: tambah `NEXT_PUBLIC_SUPABASE_URL` dan `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+2. URL & publishable key Supabase sudah ada di `.github/workflows/deploy.yml`.
 3. Push ke `main`, situs tampil di `https://<user>.github.io/<repo>/`.
 
 Pindah ke Vercel/hosting lain: hubungkan repo, isi env yang sama, kosongkan `NEXT_PUBLIC_BASE_PATH`.

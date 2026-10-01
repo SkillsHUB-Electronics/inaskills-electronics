@@ -49,5 +49,63 @@
   },
   "footer": {
     "rights": "Hak cipta dilindungi."
+  },
+  "medals": {
+    "gold": "Emas",
+    "silver": "Perak",
+    "bronze": "Perunggu",
+    "moe": "Medallion of Excellence",
+    "peserta": "Peserta"
+  },
+  "common": {
+    "all": "Semua",
+    "year": "Tahun",
+    "loading": "Memuat...",
+    "notFound": "Data tidak ditemukan.",
+    "back": "Kembali",
+    "error": "Gagal memuat data."
+  },
+  "hallOfFamePage": {
+    "empty": "Belum ada juara pada filter ini."
+  },
+  "competitionsPage": {
+    "title": "Kompetisi",
+    "subtitle": "Perjalanan tim kami dari tingkat regional hingga dunia.",
+    "empty": "Belum ada kompetisi."
+  },
+  "competitionDetail": {
+    "overview": "Ringkasan",
+    "results": "Hasil",
+    "gallery": "Galeri",
+    "name": "Nama",
+    "medal": "Medali",
+    "rank": "Peringkat"
+  },
+  "alumniPage": {
+    "achievements": "Prestasi",
+    "origin": "Asal",
+    "active": "Tahun aktif"
+  },
+  "sponsorPage": {
+    "title": "Jadi Sponsor Inaskills Electronics",
+    "subtitle": "Bersama membangun talenta elektronika Indonesia yang bersaing di tingkat dunia.",
+    "whyTitle": "Mengapa mensponsori kami?",
+    "why": [
+      "Brand Anda tampil di kompetisi nasional dan internasional (ASC, WSA, WSC).",
+      "Akses ke talenta elektronika terbaik untuk rekrutmen.",
+      "Kontribusi nyata bagi pendidikan vokasi Indonesia."
+    ],
+    "partnersTitle": "Partner kami",
+    "formTitle": "Kirim pesan",
+    "name": "Nama",
+    "company": "Perusahaan",
+    "email": "Email",
+    "phone": "No. telepon",
+    "message": "Pesan",
+    "send": "Kirim",
+    "sending": "Mengirim...",
+    "sent": "Terima kasih, pesan Anda sudah terkirim.",
+    "failed": "Pesan gagal dikirim, silakan coba lagi atau hubungi via WhatsApp.",
+    "orContact": "Atau hubungi langsung"
   }
 }

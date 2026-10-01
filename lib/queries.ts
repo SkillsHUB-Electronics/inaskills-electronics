@@ -1,6 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import { sample } from "@/lib/sample-data";
-import type { Competition, HallOfFameEntry, Sponsor } from "@/types/database";
+import type { Alumni, Competition, CompetitionImage, HallOfFameEntry, Result, Sponsor } from "@/types/database";
 
 export async function getLatestCompetitions(limit = 3): Promise<Competition[]> {
   if (!supabase) return sample.competitions.slice(0, limit);
@@ -42,4 +42,77 @@ export async function getSiteContent(): Promise<Record<string, { value_id: strin
   const { data, error } = await supabase.from("site_content").select("*");
   if (error) throw error;
   return Object.fromEntries(data.map((row) => [row.key, row]));
+}
+
+export async function getAllCompetitions(): Promise<Competition[]> {
+  if (!supabase) return sample.competitions;
+  const { data, error } = await supabase
+    .from("competitions")
+    .select("*")
+    .order("tahun", { ascending: false });
+  if (error) throw error;
+  return data;
+}
+
+export interface CompetitionDetail {
+  competition: Competition;
+  results: (Result & { alumni: Alumni })[];
+  images: CompetitionImage[];
+}
+
+export async function getCompetitionBySlug(slug: string): Promise<CompetitionDetail | null> {
+  if (!supabase) {
+    const competition = sample.competitions.find((c) => c.slug === slug);
+    if (!competition) return null;
+    const results = sample.hallOfFame.filter((r) => r.competition_id === competition.id);
+    return { competition, results, images: [] };
+  }
+  const { data: competition, error } = await supabase
+    .from("competitions")
+    .select("*")
+    .eq("slug", slug)
+    .maybeSingle();
+  if (error) throw error;
+  if (!competition) return null;
+  const [results, images] = await Promise.all([
+    supabase.from("results").select("*, alumni(*)").eq("competition_id", competition.id).order("peringkat"),
+    supabase.from("competition_images").select("*").eq("competition_id", competition.id).order("urutan"),
+  ]);
+  if (results.error) throw results.error;
+  if (images.error) throw images.error;
+  return { competition, results: results.data, images: images.data };
+}
+
+export interface AlumniDetail {
+  alumni: Alumni;
+  results: (Result & { competition: Competition })[];
+}
+
+export async function getAlumniBySlug(slug: string): Promise<AlumniDetail | null> {
+  if (!supabase) {
+    const entries = sample.hallOfFame.filter((r) => r.alumni.slug === slug);
+    if (entries.length === 0) return null;
+    return { alumni: entries[0].alumni, results: entries };
+  }
+  const { data: alumni, error } = await supabase.from("alumni").select("*").eq("slug", slug).maybeSingle();
+  if (error) throw error;
+  if (!alumni) return null;
+  const results = await supabase
+    .from("results")
+    .select("*, competition:competitions(*)")
+    .eq("alumni_id", alumni.id);
+  if (results.error) throw results.error;
+  return { alumni, results: results.data };
+}
+
+export async function sendContactMessage(msg: {
+  nama: string;
+  perusahaan: string;
+  email: string;
+  telepon: string;
+  pesan: string;
+}): Promise<void> {
+  if (!supabase) throw new Error("Supabase belum dikonfigurasi");
+  const { error } = await supabase.from("contact_messages").insert(msg);
+  if (error) throw error;
 }

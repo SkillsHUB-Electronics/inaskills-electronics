@@ -18,7 +18,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
       <HallOfFameHighlight lang={lang} dict={dict} />
       <LatestCompetitions lang={lang} dict={dict} />
       <SponsorStrip dict={dict} />
-      <CtaSponsor dict={dict} />
+      <CtaSponsor lang={lang} dict={dict} />
     </>
   );
 }

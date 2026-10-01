@@ -51,3 +51,12 @@ export interface HallOfFameEntry extends Result {
   alumni: Alumni;
   competition: Competition;
 }
+
+export interface CompetitionImage {
+  id: string;
+  competition_id: string;
+  url: string;
+  caption_id: string;
+  caption_en: string;
+  urutan: number;
+}

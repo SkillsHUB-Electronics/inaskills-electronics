@@ -49,5 +49,63 @@
   },
   "footer": {
     "rights": "All rights reserved."
+  },
+  "medals": {
+    "gold": "Gold",
+    "silver": "Silver",
+    "bronze": "Bronze",
+    "moe": "Medallion of Excellence",
+    "peserta": "Participant"
+  },
+  "common": {
+    "all": "All",
+    "year": "Year",
+    "loading": "Loading...",
+    "notFound": "Not found.",
+    "back": "Back",
+    "error": "Failed to load data."
+  },
+  "hallOfFamePage": {
+    "empty": "No champions for this filter yet."
+  },
+  "competitionsPage": {
+    "title": "Competitions",
+    "subtitle": "Our team's journey from regional to world stage.",
+    "empty": "No competitions yet."
+  },
+  "competitionDetail": {
+    "overview": "Overview",
+    "results": "Results",
+    "gallery": "Gallery",
+    "name": "Name",
+    "medal": "Medal",
+    "rank": "Rank"
+  },
+  "alumniPage": {
+    "achievements": "Achievements",
+    "origin": "From",
+    "active": "Active year"
+  },
+  "sponsorPage": {
+    "title": "Sponsor Inaskills Electronics",
+    "subtitle": "Help build Indonesian electronics talent that competes on the world stage.",
+    "whyTitle": "Why sponsor us?",
+    "why": [
+      "Your brand is seen at national and international competitions (ASC, WSA, WSC).",
+      "Access to top electronics talent for recruitment.",
+      "A real contribution to Indonesian vocational education."
+    ],
+    "partnersTitle": "Our partners",
+    "formTitle": "Send a message",
+    "name": "Name",
+    "company": "Company",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "send": "Send",
+    "sending": "Sending...",
+    "sent": "Thank you, your message has been sent.",
+    "failed": "Failed to send. Please try again or contact us via WhatsApp.",
+    "orContact": "Or contact us directly"
   }
 }

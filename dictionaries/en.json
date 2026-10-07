@@ -73,7 +73,15 @@
     "error": "Failed to load data."
   },
   "hallOfFamePage": {
-    "empty": "No champions for this filter yet."
+    "empty": "No champions for this filter yet.",
+    "noneYet": "No champions at this level yet.",
+    "scope": {
+      "wsc": "World level",
+      "wsa": "Asia level",
+      "asc": "ASEAN level",
+      "nasional": "National level",
+      "regional": "Regional level"
+    }
   },
   "competitionsPage": {
     "title": "Competitions",

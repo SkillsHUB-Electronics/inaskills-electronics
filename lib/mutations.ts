@@ -25,6 +25,13 @@ export async function save(table: Table, row: Row, key = "id"): Promise<void> {
   if (error) throw error;
 }
 
+// Insert satu baris dan kembalikan id-nya (mis. alumni/kompetisi baru dari form Hall of Fame).
+export async function insertReturningId(table: Table, row: Row): Promise<string> {
+  const { data, error } = await db().from(table).insert(row).select("id").single();
+  if (error) throw error;
+  return data.id as string;
+}
+
 export async function remove(table: Table, id: string, key = "id"): Promise<void> {
   const { error } = await db().from(table).delete().eq(key, id);
   if (error) throw error;

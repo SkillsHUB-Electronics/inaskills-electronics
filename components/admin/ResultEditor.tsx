@@ -43,7 +43,7 @@ export default function ResultEditor({ competitionId }: { competitionId: string 
   return (
     <section className="rounded-2xl bg-white p-4 ring-1 ring-slate-200 sm:p-6">
       <h2 className="text-lg font-bold">Hasil / Juara</h2>
-      <p className="text-sm text-slate-500">Alumni yang meraih medali otomatis tampil di Hall of Fame.</p>
+      <p className="text-sm text-slate-500">Alumni yang meraih medali otomatis tampil di Hall of Fame (bisa juga dikelola di menu Hall of Fame).</p>
       {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
 
       <ul className="mt-4 divide-y divide-slate-200">

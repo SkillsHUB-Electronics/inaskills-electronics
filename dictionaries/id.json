@@ -73,7 +73,15 @@
     "error": "Gagal memuat data."
   },
   "hallOfFamePage": {
-    "empty": "Belum ada juara pada filter ini."
+    "empty": "Belum ada juara pada filter ini.",
+    "noneYet": "Belum ada juara di tingkat ini.",
+    "scope": {
+      "wsc": "Tingkat dunia",
+      "wsa": "Tingkat Asia",
+      "asc": "Tingkat ASEAN",
+      "nasional": "Tingkat nasional",
+      "regional": "Tingkat regional"
+    }
   },
   "competitionsPage": {
     "title": "Kompetisi",

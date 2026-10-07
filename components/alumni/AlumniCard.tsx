@@ -19,15 +19,16 @@ export default function AlumniCard({
   lang: Locale;
   dict: Dictionary;
 }) {
+  const note = pick({ catatan_id: entry.catatan, catatan_en: entry.catatan_en }, "catatan", lang);
   return (
     <Link
       href={`/${lang}/alumni/?slug=${entry.alumni.slug}`}
       className="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200 transition hover:shadow-md"
     >
       <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full bg-slate-200">
-        {entry.alumni.foto_url && (
+        {(entry.foto_url || entry.alumni.foto_url) && (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={entry.alumni.foto_url} alt={entry.alumni.nama} className="h-full w-full object-cover" />
+          <img src={entry.foto_url || entry.alumni.foto_url || ""} alt={entry.alumni.nama} className="h-full w-full object-cover" />
         )}
         <span
           className={`absolute bottom-0 right-0 h-4 w-4 rounded-full ring-2 ring-white ${medalStyle[entry.medali] ?? ""}`}
@@ -38,6 +39,7 @@ export default function AlumniCard({
         <p className="truncate text-sm text-slate-600">
           {dict.medals[entry.medali]} · {pick(entry.competition, "nama", lang)}
         </p>
+        {note && <p className="truncate text-xs text-slate-500">{note}</p>}
         <div className="mt-1">
           <LevelBadge level={entry.competition.level} label={dict.levels[entry.competition.level]} />
         </div>

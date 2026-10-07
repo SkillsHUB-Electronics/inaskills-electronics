@@ -9,6 +9,7 @@ import { useSession } from "@/lib/useSession";
 const menu = [
   { href: "/admin/", label: "Dashboard" },
   { href: "/admin/alumni/", label: "Alumni" },
+  { href: "/admin/hall-of-fame/", label: "Hall of Fame" },
   { href: "/admin/kompetisi/", label: "Kompetisi" },
   { href: "/admin/proyek/", label: "Proyek & Riset" },
   { href: "/admin/berita/", label: "Berita" },

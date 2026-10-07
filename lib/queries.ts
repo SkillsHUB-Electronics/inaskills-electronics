@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import { sample } from "@/lib/sample-data";
+import { hofMedals } from "@/lib/levels";
 import type { Alumni, Competition, CompetitionImage, HallOfFameEntry, News, Project, Result, Sponsor } from "@/types/database";
 
 export async function getLatestCompetitions(limit = 3): Promise<Competition[]> {
@@ -18,7 +19,7 @@ export async function getHallOfFame(limit?: number): Promise<HallOfFameEntry[]> 
   let query = supabase
     .from("results")
     .select("*, alumni(*), competition:competitions(*)")
-    .in("medali", ["gold", "silver", "bronze", "moe"])
+    .in("medali", [...hofMedals])
     .order("competition(tahun)", { ascending: false });
   if (limit) query = query.limit(limit);
   const { data, error } = await query;

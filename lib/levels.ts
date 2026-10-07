@@ -1,6 +1,10 @@
 export const levels = ["regional", "nasional", "asc", "wsa", "wsc"] as const;
 export type Level = (typeof levels)[number];
 
+// Urutan tampil Hall of Fame: tingkat internasional dulu (WSC, WSA, ASC), lalu Nasional & Regional.
+export const levelsByRank: Level[] = ["wsc", "wsa", "asc", "nasional", "regional"];
+export const internationalLevels: Level[] = ["wsc", "wsa", "asc"];
+
 export const levelColors: Record<Level, string> = {
   regional: "bg-slate-100 text-slate-700",
   nasional: "bg-red-100 text-red-700",
@@ -8,3 +12,6 @@ export const levelColors: Record<Level, string> = {
   wsa: "bg-amber-100 text-amber-800",
   wsc: "bg-violet-100 text-violet-700",
 };
+
+// Medali yang masuk Hall of Fame, urut dari tertinggi.
+export const hofMedals = ["gold", "silver", "bronze", "moe"] as const;

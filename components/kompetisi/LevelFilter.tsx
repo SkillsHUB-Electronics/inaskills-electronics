@@ -1,4 +1,4 @@
-import { levels, type Level } from "@/lib/levels";
+import { levelsByRank, type Level } from "@/lib/levels";
 import type { Dictionary } from "@/lib/i18n";
 
 export default function LevelFilter({
@@ -10,7 +10,7 @@ export default function LevelFilter({
   onChange: (v: Level | "all") => void;
   dict: Dictionary;
 }) {
-  const options: (Level | "all")[] = ["all", ...levels];
+  const options: (Level | "all")[] = ["all", ...levelsByRank];
   return (
     // Scroll horizontal di HP agar tombol tidak turun ke banyak baris.
     <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:px-0">

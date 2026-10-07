@@ -38,6 +38,8 @@ export interface Result {
   medali: Medal;
   peringkat: number | null;
   catatan: string | null;
+  catatan_en?: string | null;
+  foto_url?: string | null;
 }
 
 export interface Sponsor {

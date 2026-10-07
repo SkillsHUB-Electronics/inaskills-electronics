@@ -8,9 +8,9 @@ const alumni: Alumni[] = [
 ];
 
 const competitions: Competition[] = [
-  { id: "c1", slug: "wsc-2024", nama_id: "WorldSkills International 2024", nama_en: "WorldSkills International 2024", level: "wsc", tahun: 2024, lokasi: "Lyon, Prancis", tanggal: "2024-09-10", overview_id: "Contoh ringkasan kompetisi.", overview_en: "Sample competition overview.", cover_url: null },
-  { id: "c2", slug: "asc-2023", nama_id: "ASEAN Skills Competition 2023", nama_en: "ASEAN Skills Competition 2023", level: "asc", tahun: 2023, lokasi: "Singapura", tanggal: "2023-07-20", overview_id: "Contoh ringkasan kompetisi.", overview_en: "Sample competition overview.", cover_url: null },
-  { id: "c3", slug: "lksn-2023", nama_id: "LKS Nasional 2023", nama_en: "National Skills Competition 2023", level: "nasional", tahun: 2023, lokasi: "Indonesia", tanggal: "2023-05-15", overview_id: "Contoh ringkasan kompetisi.", overview_en: "Sample competition overview.", cover_url: null },
+  { id: "c1", slug: "wsc-2024", nama_id: "WorldSkills International 2024", nama_en: "WorldSkills International 2024", level: "wsc", tahun: 2024, kota: "Lyon", negara: "Prancis", tanggal_mulai: "2024-09-10", tanggal_selesai: "2024-09-15", website_url: null, overview_id: "Contoh ringkasan kompetisi.", overview_en: "Sample competition overview.", cover_url: null },
+  { id: "c2", slug: "asc-2023", nama_id: "ASEAN Skills Competition 2023", nama_en: "ASEAN Skills Competition 2023", level: "asc", tahun: 2023, kota: "Singapura", negara: "Singapura", tanggal_mulai: "2023-07-20", tanggal_selesai: null, website_url: null, overview_id: "Contoh ringkasan kompetisi.", overview_en: "Sample competition overview.", cover_url: null },
+  { id: "c3", slug: "lksn-2023", nama_id: "LKS Nasional 2023", nama_en: "National Skills Competition 2023", level: "nasional", tahun: 2023, kota: null, negara: "Indonesia", tanggal_mulai: "2023-05-15", tanggal_selesai: null, website_url: null, overview_id: "Contoh ringkasan kompetisi.", overview_en: "Sample competition overview.", cover_url: null },
 ];
 
 export const sample = {

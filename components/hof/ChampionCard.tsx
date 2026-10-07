@@ -1,5 +1,6 @@
 import Link from "next/link";
 import MedalIcon from "@/components/hof/MedalIcon";
+import { place } from "@/lib/competition";
 import { levelShort } from "@/lib/levels";
 import { pick, type Dictionary, type Locale } from "@/lib/i18n";
 import type { HallOfFameEntry } from "@/types/database";
@@ -32,7 +33,7 @@ export default function ChampionCard({ entry, lang, dict }: { entry: HallOfFameE
         <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-transparent" />
         <div className="relative flex h-full max-w-[65%] flex-col p-4">
           <p className="text-3xl font-extrabold leading-none">{c.tahun}</p>
-          <p className="mt-1 truncate text-xs text-white/70">{c.lokasi || pick(c, "nama", lang)}</p>
+          <p className="mt-1 truncate text-xs text-white/70">{place(c) || pick(c, "nama", lang)}</p>
           <div className="mt-auto flex items-center gap-2">
             <MedalIcon medal={entry.medali} />
             <span className={`text-[11px] font-bold uppercase leading-tight tracking-wide ${medalText[entry.medali] ?? ""}`}>{medal}</span>

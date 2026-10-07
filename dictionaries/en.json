@@ -109,7 +109,8 @@
     "gallery": "Gallery",
     "name": "Name",
     "medal": "Medal",
-    "rank": "Rank"
+    "rank": "Rank",
+    "website": "Official website"
   },
   "alumniPage": {
     "achievements": "Achievements",

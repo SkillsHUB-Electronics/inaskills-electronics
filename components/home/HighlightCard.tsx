@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import LevelBadge from "@/components/ui/LevelBadge";
+import { dateRange, place } from "@/lib/competition";
 import { pick, type Dictionary, type Locale } from "@/lib/i18n";
 import { getHighlight } from "@/lib/queries";
 import { useQuery } from "@/lib/useQuery";
@@ -37,7 +38,7 @@ export default function HighlightCard({ lang, dict }: { lang: Locale; dict: Dict
             <LevelBadge level={c.level} label={dict.levels[c.level]} />
           </div>
           <h2 className="text-xl font-extrabold sm:text-2xl">{pick(c, "nama", lang)}</h2>
-          <p className="text-sm text-slate-500">{[c.lokasi, c.tahun].filter(Boolean).join(" · ")}</p>
+          <p className="text-sm text-slate-500">{[place(c), dateRange(c, lang) || c.tahun].filter(Boolean).join(" · ")}</p>
           <div className="flex flex-wrap items-center gap-4">
             {medalDots
               .filter((m) => medals[m.key] > 0)

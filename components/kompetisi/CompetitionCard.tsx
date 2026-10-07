@@ -1,5 +1,6 @@
 import Link from "next/link";
 import LevelBadge from "@/components/ui/LevelBadge";
+import { dateRange, place } from "@/lib/competition";
 import { pick, type Dictionary, type Locale } from "@/lib/i18n";
 import type { Competition } from "@/types/database";
 
@@ -19,7 +20,7 @@ export default function CompetitionCard({ c, lang, dict }: { c: Competition; lan
         <LevelBadge level={c.level} label={dict.levels[c.level]} />
         <h3 className="mt-2 font-semibold">{pick(c, "nama", lang)}</h3>
         <p className="text-sm text-slate-500">
-          {[c.lokasi, c.tahun].filter(Boolean).join(" · ")}
+          {[place(c), dateRange(c, lang) || c.tahun].filter(Boolean).join(" · ")}
         </p>
       </div>
     </Link>

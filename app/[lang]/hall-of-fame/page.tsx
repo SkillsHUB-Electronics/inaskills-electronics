@@ -9,6 +9,7 @@ import ChampionCard from "@/components/hof/ChampionCard";
 import HofHeading from "@/components/hof/HofHeading";
 import YearTimeline from "@/components/hof/YearTimeline";
 import { hofMedals, levelShort, internationalLevels, levelsByRank, type Level } from "@/lib/levels";
+import { place } from "@/lib/competition";
 import { getHallOfFame } from "@/lib/queries";
 import { useLocale } from "@/lib/useLocale";
 import { useQuery } from "@/lib/useQuery";
@@ -30,7 +31,7 @@ export default function HallOfFamePage() {
   const yearMap = new Map<number, Set<string>>();
   for (const e of data) {
     const set = yearMap.get(e.competition.tahun) ?? new Set<string>();
-    if (e.competition.lokasi) set.add(e.competition.lokasi);
+    if (place(e.competition)) set.add(place(e.competition));
     yearMap.set(e.competition.tahun, set);
   }
   const years = [...yearMap.entries()].sort((a, b) => b[0] - a[0]).map(([tahun, lokasi]) => ({ tahun, lokasi: [...lokasi].join(" · ") }));

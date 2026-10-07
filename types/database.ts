@@ -24,8 +24,11 @@ export interface Competition {
   nama_en: string;
   level: Level;
   tahun: number;
-  lokasi: string | null;
-  tanggal: string | null;
+  kota: string | null;
+  negara: string | null;
+  tanggal_mulai: string | null;
+  tanggal_selesai: string | null;
+  website_url: string | null;
   overview_id: string;
   overview_en: string;
   cover_url: string | null;

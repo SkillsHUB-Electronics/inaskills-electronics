@@ -6,6 +6,7 @@ import Section from "@/components/ui/Section";
 import LevelBadge from "@/components/ui/LevelBadge";
 import ResultTable from "@/components/kompetisi/ResultTable";
 import Gallery from "@/components/media/Gallery";
+import { dateRange, place } from "@/lib/competition";
 import { pick } from "@/lib/i18n";
 import { getCompetitionBySlug } from "@/lib/queries";
 import { useLocale } from "@/lib/useLocale";
@@ -30,7 +31,17 @@ function Detail({ slug }: { slug: string }) {
         <div className="relative mx-auto max-w-6xl">
           <LevelBadge level={c.level} label={dict.levels[c.level]} />
           <h1 className="mt-3 text-3xl font-extrabold sm:text-4xl">{pick(c, "nama", lang)}</h1>
-          <p className="mt-2 text-white/80">{[c.lokasi, c.tahun].filter(Boolean).join(" · ")}</p>
+          <p className="mt-2 text-white/80">{[place(c), dateRange(c, lang) || c.tahun].filter(Boolean).join(" · ")}</p>
+          {c.website_url && (
+            <a
+              href={c.website_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-dark"
+            >
+              {dict.competitionDetail.website} ↗
+            </a>
+          )}
         </div>
       </header>
       <Section title={dict.competitionDetail.overview}>

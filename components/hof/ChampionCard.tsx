@@ -1,5 +1,6 @@
 import Link from "next/link";
 import MedalIcon from "@/components/hof/MedalIcon";
+import { levelShort } from "@/lib/levels";
 import { pick, type Dictionary, type Locale } from "@/lib/i18n";
 import type { HallOfFameEntry } from "@/types/database";
 
@@ -45,7 +46,7 @@ export default function ChampionCard({ entry, lang, dict }: { entry: HallOfFameE
             <rect x="6" y="6" width="12" height="12" rx="2" />
             <path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" />
           </svg>
-          <span className="truncate">{note || `Electronics · ${c.level === "nasional" || c.level === "regional" ? dict.levels[c.level] : c.level.toUpperCase()}`}</span>
+          <span className="truncate">{note || `Electronics · ${c.level === "nasional" || c.level === "regional" ? dict.levels[c.level] : levelShort[c.level]}`}</span>
         </p>
         <span className="mt-2 self-end text-xs font-semibold text-white/80 group-hover:text-brand">{dict.hallOfFame.viewProfile} →</span>
       </div>

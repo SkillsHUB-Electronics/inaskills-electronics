@@ -8,7 +8,7 @@ import LevelFilter from "@/components/kompetisi/LevelFilter";
 import ChampionCard from "@/components/hof/ChampionCard";
 import HofHeading from "@/components/hof/HofHeading";
 import YearTimeline from "@/components/hof/YearTimeline";
-import { hofMedals, internationalLevels, levelsByRank, type Level } from "@/lib/levels";
+import { hofMedals, levelShort, internationalLevels, levelsByRank, type Level } from "@/lib/levels";
 import { getHallOfFame } from "@/lib/queries";
 import { useLocale } from "@/lib/useLocale";
 import { useQuery } from "@/lib/useQuery";
@@ -35,7 +35,7 @@ export default function HallOfFamePage() {
   }
   const years = [...yearMap.entries()].sort((a, b) => b[0] - a[0]).map(([tahun, lokasi]) => ({ tahun, lokasi: [...lokasi].join(" · ") }));
 
-  // Dikelompokkan per tingkat lomba: WSC, WSA, ASC selalu tampil; Nasional & Regional bila ada juara.
+  // Dikelompokkan per tingkat lomba: WSI, WSA, ASC selalu tampil; Nasional & Regional bila ada juara.
   // Di dalam grup: medali tertinggi dulu, lalu tahun terbaru.
   const groups = levelsByRank
     .filter((l) => level === "all" || l === level)
@@ -85,7 +85,7 @@ export default function HallOfFamePage() {
             </div>
             {g.entries.length === 0 ? (
               <p className="mt-4 flex items-center gap-2 text-sm text-slate-500">
-                <LevelBadge level={g.level} label={g.level.toUpperCase()} />
+                <LevelBadge level={g.level} label={levelShort[g.level]} />
                 {dict.hallOfFamePage.noneYet}
               </p>
             ) : (

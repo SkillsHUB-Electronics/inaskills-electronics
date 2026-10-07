@@ -1,7 +1,10 @@
 export const levels = ["regional", "nasional", "asc", "wsa", "wsc"] as const;
 export type Level = (typeof levels)[number];
 
-// Urutan tampil Hall of Fame: tingkat internasional dulu (WSC, WSA, ASC), lalu Nasional & Regional.
+// Urutan tampil Hall of Fame: tingkat internasional dulu (WSI, WSA, ASC), lalu Nasional & Regional.
+// Singkatan tingkat lomba (enum "wsc" di database ditampilkan sebagai WSI / WorldSkills International).
+export const levelShort: Record<Level, string> = { wsc: "WSI", wsa: "WSA", asc: "ASC", nasional: "Nasional", regional: "Regional" };
+
 export const levelsByRank: Level[] = ["wsc", "wsa", "asc", "nasional", "regional"];
 export const internationalLevels: Level[] = ["wsc", "wsa", "asc"];
 

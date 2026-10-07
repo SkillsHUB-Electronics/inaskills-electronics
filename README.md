@@ -1,6 +1,6 @@
 # Inaskills Electronics
 
-Landing page tim elektronika Indonesia (Regional, Nasional, ASC, WSA, WSC) dengan Hall of Fame, profil alumni, kompetisi, dan sponsor. Situs dua bahasa (ID/EN) dengan mode admin.
+Landing page tim elektronika Indonesia (Regional, Nasional, ASC, WSA, WSI) dengan Hall of Fame, profil alumni, kompetisi, dan sponsor. Situs dua bahasa (ID/EN) dengan mode admin.
 
 Stack: Next.js (static export) + Tailwind CSS + Supabase.
 
@@ -35,7 +35,7 @@ Pindah ke Vercel/hosting lain: hubungkan repo, isi env yang sama, kosongkan `NEX
 ## Panel admin
 
 Masuk lewat tombol **Masuk** di navbar (`/id/login/`). Admin otomatis diarahkan ke `/admin/`, user biasa ke halaman **Akun Saya**.
-Menu: Hall of Fame (tambah juara per tingkat WSC/WSA/ASC/Nasional/Regional; alumni & kompetisi baru bisa dibuat langsung dari form), Alumni, Kompetisi (hasil/juara + galeri foto), Sponsor (logo), Konten & Kontak (hero, statistik, WhatsApp, email), Pesan Masuk.
+Menu: Hall of Fame (tambah juara per tingkat WSI/WSA/ASC/Nasional/Regional; alumni & kompetisi baru bisa dibuat langsung dari form), Alumni, Kompetisi (hasil/juara + galeri foto), Sponsor (logo), Konten & Kontak (hero, statistik, WhatsApp, email), Pesan Masuk.
 Perubahan langsung tampil di situs tanpa build ulang.
 
 ## Mengelola akun admin

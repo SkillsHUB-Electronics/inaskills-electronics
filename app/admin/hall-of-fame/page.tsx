@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { inputClass } from "@/components/admin/CrudManager";
 import ImageUploader from "@/components/admin/ImageUploader";
 import LevelBadge from "@/components/ui/LevelBadge";
-import { hofMedals, levelsByRank, type Level } from "@/lib/levels";
+import { hofMedals, levelShort, levelsByRank, type Level } from "@/lib/levels";
 import { insertReturningId, list, remove, save, slugify, type Row } from "@/lib/mutations";
 import { supabase } from "@/lib/supabase";
 import id from "@/dictionaries/id.json";
@@ -287,7 +287,7 @@ export default function AdminHallOfFamePage() {
               filter === l ? "bg-ink text-white ring-ink" : "bg-white text-slate-700 ring-slate-300 hover:ring-ink"
             }`}
           >
-            {l === "all" ? `Semua (${entries.length})` : `${l === "nasional" || l === "regional" ? id.levels[l] : l.toUpperCase()} (${entries.filter((e) => e.competition?.level === l).length})`}
+            {l === "all" ? `Semua (${entries.length})` : `${levelShort[l]} (${entries.filter((e) => e.competition?.level === l).length})`}
           </button>
         ))}
       </div>

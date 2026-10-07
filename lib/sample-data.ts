@@ -8,7 +8,7 @@ const alumni: Alumni[] = [
 ];
 
 const competitions: Competition[] = [
-  { id: "c1", slug: "wsc-2024", nama_id: "WorldSkills Competition 2024", nama_en: "WorldSkills Competition 2024", level: "wsc", tahun: 2024, lokasi: "Lyon, Prancis", tanggal: "2024-09-10", overview_id: "Contoh ringkasan kompetisi.", overview_en: "Sample competition overview.", cover_url: null },
+  { id: "c1", slug: "wsc-2024", nama_id: "WorldSkills International 2024", nama_en: "WorldSkills International 2024", level: "wsc", tahun: 2024, lokasi: "Lyon, Prancis", tanggal: "2024-09-10", overview_id: "Contoh ringkasan kompetisi.", overview_en: "Sample competition overview.", cover_url: null },
   { id: "c2", slug: "asc-2023", nama_id: "ASEAN Skills Competition 2023", nama_en: "ASEAN Skills Competition 2023", level: "asc", tahun: 2023, lokasi: "Singapura", tanggal: "2023-07-20", overview_id: "Contoh ringkasan kompetisi.", overview_en: "Sample competition overview.", cover_url: null },
   { id: "c3", slug: "lksn-2023", nama_id: "LKS Nasional 2023", nama_en: "National Skills Competition 2023", level: "nasional", tahun: 2023, lokasi: "Indonesia", tanggal: "2023-05-15", overview_id: "Contoh ringkasan kompetisi.", overview_en: "Sample competition overview.", cover_url: null },
 ];
@@ -23,7 +23,7 @@ export const sample = {
   ] as HallOfFameEntry[],
   stats: { medals: 0, competitions: 0, alumni: 0, countries: 0 },
   news: [
-    { id: "n1", slug: "contoh-berita-1", judul_id: "Contoh Berita: Persiapan WSC", judul_en: "Sample News: WSC Preparation", ringkasan_id: "Tim mulai pelatihan intensif menjelang WorldSkills Competition.", ringkasan_en: "The team starts intensive training ahead of WorldSkills Competition.", isi_id: "Isi berita contoh.", isi_en: "Sample news body.", cover_url: null, tanggal: "2026-09-20", terbit: true },
+    { id: "n1", slug: "contoh-berita-1", judul_id: "Contoh Berita: Persiapan WSI", judul_en: "Sample News: WSI Preparation", ringkasan_id: "Tim mulai pelatihan intensif menjelang WorldSkills International.", ringkasan_en: "The team starts intensive training ahead of WorldSkills International.", isi_id: "Isi berita contoh.", isi_en: "Sample news body.", cover_url: null, tanggal: "2026-09-20", terbit: true },
     { id: "n2", slug: "contoh-berita-2", judul_id: "Contoh Berita: Kunjungan Sponsor", judul_en: "Sample News: Sponsor Visit", ringkasan_id: "Partner industri berkunjung ke training center.", ringkasan_en: "Industry partners visit the training center.", isi_id: "Isi berita contoh.", isi_en: "Sample news body.", cover_url: null, tanggal: "2026-09-05", terbit: true },
     { id: "n3", slug: "contoh-berita-3", judul_id: "Contoh Berita: Seleksi Nasional", judul_en: "Sample News: National Selection", ringkasan_id: "Seleksi atlet untuk ASEAN Skills Competition.", ringkasan_en: "Athlete selection for ASEAN Skills Competition.", isi_id: "Isi berita contoh.", isi_en: "Sample news body.", cover_url: null, tanggal: "2026-08-15", terbit: true },
   ] as News[],

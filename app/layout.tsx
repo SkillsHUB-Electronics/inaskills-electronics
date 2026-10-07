@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Inaskills Electronics",
   description:
-    "Tim elektronika Indonesia untuk kompetisi Regional, Nasional, ASC, WorldSkills Asia, dan WorldSkills Competition.",
+    "Tim elektronika Indonesia untuk kompetisi Regional, Nasional, ASC, WorldSkills Asia, dan WorldSkills International.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

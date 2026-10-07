@@ -15,7 +15,7 @@
   "hero": {
     "eyebrow": "Tim Elektronika Indonesia",
     "title": "Mencetak Juara Elektronika dari Indonesia untuk Dunia",
-    "subtitle": "Inaskills Electronics membina talenta muda untuk kompetisi tingkat Regional, Nasional, ASEAN Skills Competition, WorldSkills Asia, hingga WorldSkills Competition.",
+    "subtitle": "Inaskills Electronics membina talenta muda untuk kompetisi tingkat Regional, Nasional, ASEAN Skills Competition, WorldSkills Asia, hingga WorldSkills International.",
     "ctaPrimary": "Jadi Sponsor",
     "ctaSecondary": "Lihat Hall of Fame"
   },
@@ -31,7 +31,7 @@
     "nasional": "Nasional",
     "asc": "ASEAN Skills (ASC)",
     "wsa": "WorldSkills Asia (WSA)",
-    "wsc": "WorldSkills Competition (WSC)"
+    "wsc": "WorldSkills International (WSI)"
   },
   "hallOfFame": {
     "title": "Hall of Fame",
@@ -121,7 +121,7 @@
     "subtitle": "Bersama membangun talenta elektronika Indonesia yang bersaing di tingkat dunia.",
     "whyTitle": "Mengapa mensponsori kami?",
     "why": [
-      "Brand Anda tampil di kompetisi nasional dan internasional (ASC, WSA, WSC).",
+      "Brand Anda tampil di kompetisi nasional dan internasional (ASC, WSA, WSI).",
       "Akses ke talenta elektronika terbaik untuk rekrutmen.",
       "Kontribusi nyata bagi pendidikan vokasi Indonesia."
     ],

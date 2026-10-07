@@ -187,7 +187,19 @@
     "comingText": "Nantinya anggota bisa mengakses materi latihan, data soal, dan program khusus Inaskills Electronics.",
     "toAdmin": "Buka Panel Admin",
     "social": "Media sosial",
-    "socialHint": "Tampil di profil alumni bila akun Anda terhubung ke Hall of Fame."
+    "socialHint": "Tampil di profil alumni bila akun Anda terhubung ke Hall of Fame.",
+    "job": "Pekerjaan",
+    "jobPlaceholder": "mis. Embedded Engineer",
+    "company": "Instansi / perusahaan",
+    "companyPlaceholder": "mis. PT Contoh Elektronika",
+    "bio": "Bio",
+    "bioPlaceholder": "Ceritakan singkat tentang diri Anda.",
+    "uploadPhoto": "Unggah foto",
+    "changePhoto": "Ganti foto",
+    "deletePhoto": "Hapus foto",
+    "deletePhotoConfirm": "Hapus foto profil?",
+    "uploading": "Mengunggah...",
+    "photoHint": "JPG/PNG, otomatis diperkecil. Langsung tersimpan."
   },
   "highlight": {
     "label": "Sorotan",

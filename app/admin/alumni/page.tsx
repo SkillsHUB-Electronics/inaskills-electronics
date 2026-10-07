@@ -6,6 +6,8 @@ const fields: Field[] = [
   { name: "nama", label: "Nama", type: "text", required: true },
   { name: "asal_daerah", label: "Asal daerah", type: "text" },
   { name: "tahun_aktif", label: "Tahun aktif", type: "text" },
+  { name: "pekerjaan", label: "Pekerjaan", type: "text" },
+  { name: "instansi", label: "Instansi / perusahaan", type: "text" },
   { name: "foto_url", label: "Foto", type: "image", bucket: "alumni" },
   { name: "bio_id", label: "Bio (Indonesia)", type: "textarea" },
   { name: "bio_en", label: "Bio (English)", type: "textarea" },

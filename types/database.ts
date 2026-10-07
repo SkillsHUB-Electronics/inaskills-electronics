@@ -15,6 +15,8 @@ export interface Alumni {
   linkedin_url?: string | null;
   github_url?: string | null;
   instagram_url?: string | null;
+  pekerjaan?: string | null;
+  instansi?: string | null;
 }
 
 export interface Competition {

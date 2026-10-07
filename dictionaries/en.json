@@ -187,7 +187,19 @@
     "comingText": "Members will be able to access training materials, test projects, and special Inaskills Electronics programs.",
     "toAdmin": "Open Admin Panel",
     "social": "Social media",
-    "socialHint": "Shown on your alumni profile once your account is linked to the Hall of Fame."
+    "socialHint": "Shown on your alumni profile once your account is linked to the Hall of Fame.",
+    "job": "Occupation",
+    "jobPlaceholder": "e.g. Embedded Engineer",
+    "company": "Organization / company",
+    "companyPlaceholder": "e.g. Example Electronics Ltd.",
+    "bio": "Bio",
+    "bioPlaceholder": "Tell us briefly about yourself.",
+    "uploadPhoto": "Upload photo",
+    "changePhoto": "Change photo",
+    "deletePhoto": "Delete photo",
+    "deletePhotoConfirm": "Delete profile photo?",
+    "uploading": "Uploading...",
+    "photoHint": "JPG/PNG, resized automatically. Saved right away."
   },
   "highlight": {
     "label": "Highlight",

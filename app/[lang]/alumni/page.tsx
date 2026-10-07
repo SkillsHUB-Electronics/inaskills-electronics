@@ -32,6 +32,9 @@ function Profile({ slug }: { slug: string }) {
         </div>
         <div>
           <h1 className="text-3xl font-extrabold">{a.nama}</h1>
+          {(a.pekerjaan || a.instansi) && (
+            <p className="mt-1 font-semibold text-brand">{[a.pekerjaan, a.instansi].filter(Boolean).join(" · ")}</p>
+          )}
           <p className="mt-1 text-slate-500">
             {[a.asal_daerah && `${dict.alumniPage.origin}: ${a.asal_daerah}`, a.tahun_aktif && `${dict.alumniPage.active}: ${a.tahun_aktif}`]
               .filter(Boolean)

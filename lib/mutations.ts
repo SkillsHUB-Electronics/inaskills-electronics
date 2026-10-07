@@ -54,13 +54,14 @@ async function compress(file: File, maxSize = 1600): Promise<Blob> {
   return new Promise((resolve) => canvas.toBlob((b) => resolve(b ?? file), "image/webp", 0.85));
 }
 
-export async function uploadFile(bucket: string, file: File): Promise<string> {
+export async function uploadFile(bucket: string, file: File, folder?: string): Promise<string> {
   const blob = await compress(file);
   // Gambar diganti nama acak; file unduhan tetap memakai nama aslinya (diberi prefiks unik).
-  const path =
+  const name =
     blob.type === "image/webp"
       ? `${crypto.randomUUID()}.webp`
       : `${crypto.randomUUID().slice(0, 8)}-${file.name.replace(/[^\w.-]+/g, "_")}`;
+  const path = folder ? `${folder}/${name}` : name;
   const { error } = await db().storage.from(bucket).upload(path, blob, { contentType: blob.type });
   if (error) throw error;
   return db().storage.from(bucket).getPublicUrl(path).data.publicUrl;
@@ -87,6 +88,10 @@ export interface UserRow {
   linkedin_url: string | null;
   github_url: string | null;
   instagram_url: string | null;
+  foto_url: string | null;
+  bio: string | null;
+  pekerjaan: string | null;
+  instansi: string | null;
 }
 
 // Semua akun terdaftar (khusus admin, lewat fungsi database admin_list_users).
@@ -103,7 +108,15 @@ export async function setAdmin(userId: string, makeAdmin: boolean): Promise<void
 
 // Hubungkan akun ke alumni: ke alumni yang sudah ada, atau buat alumni baru dari data akun.
 export async function linkUserToAlumni(user: UserRow, alumniId: string | null, allAlumni: Row[]): Promise<string> {
-  const social = { linkedin_url: user.linkedin_url, github_url: user.github_url, instagram_url: user.instagram_url };
+  const social = {
+    linkedin_url: user.linkedin_url,
+    github_url: user.github_url,
+    instagram_url: user.instagram_url,
+    foto_url: user.foto_url,
+    bio_id: user.bio,
+    pekerjaan: user.pekerjaan,
+    instansi: user.instansi,
+  };
   if (alumniId) {
     // Link sosial dari akun hanya mengisi yang masih kosong di data alumni.
     const current = allAlumni.find((a) => a.id === alumniId) ?? {};

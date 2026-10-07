@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import ImageUploader from "@/components/admin/ImageUploader";
-import { list, remove, save, slugify, type Row, type Table } from "@/lib/mutations";
+import { list, remove, save, uniqueSlug, type Row, type Table } from "@/lib/mutations";
 
 export type Field = {
   name: string;
@@ -57,7 +57,11 @@ export default function CrudManager({ title, table, fields, order, ascending = t
     setMessage("");
     try {
       const row: Row = { ...editing };
-      if (slugFrom && "slug" in row && !row.slug) row.slug = slugify(String(row[slugFrom] ?? ""));
+      // Slug URL selalu otomatis dari nama/judul (unik), dan ikut berubah bila nama/judul diganti.
+      if (slugFrom) {
+        const original = rows.find((r) => r.id === row.id);
+        if (!original || original[slugFrom] !== row[slugFrom] || !row.slug) row.slug = uniqueSlug(String(row[slugFrom] ?? ""), rows, row.id);
+      }
       // Kolom angka/tanggal kosong disimpan sebagai null, bukan string kosong.
       for (const f of fields) if (["number", "date", "image", "file", "url", "select"].includes(f.type) && row[f.name] === "") row[f.name] = null;
       await save(table, row);

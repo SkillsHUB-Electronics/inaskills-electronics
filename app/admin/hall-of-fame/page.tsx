@@ -5,7 +5,7 @@ import { inputClass } from "@/components/admin/CrudManager";
 import ImageUploader from "@/components/admin/ImageUploader";
 import LevelBadge from "@/components/ui/LevelBadge";
 import { hofMedals, levelShort, levelsByRank, type Level } from "@/lib/levels";
-import { insertReturningId, list, remove, save, slugify, type Row } from "@/lib/mutations";
+import { insertReturningId, list, remove, save, uniqueSlug, type Row } from "@/lib/mutations";
 import { supabase } from "@/lib/supabase";
 import id from "@/dictionaries/id.json";
 
@@ -31,15 +31,6 @@ const emptyForm = {
   catatan_en: "",
 };
 type Form = typeof emptyForm;
-
-// Slug unik: tambah -2, -3, ... bila sudah dipakai.
-function uniqueSlug(text: string, taken: Row[]): string {
-  const base = slugify(text) || "item";
-  const used = new Set(taken.map((r) => String(r.slug)));
-  let slug = base;
-  for (let i = 2; used.has(slug); i++) slug = `${base}-${i}`;
-  return slug;
-}
 
 export default function AdminHallOfFamePage() {
   const [entries, setEntries] = useState<Entry[]>([]);

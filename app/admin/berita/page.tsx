@@ -5,7 +5,6 @@ import CrudManager, { type Field } from "@/components/admin/CrudManager";
 const fields: Field[] = [
   { name: "judul_id", label: "Judul (Indonesia)", type: "text", required: true },
   { name: "judul_en", label: "Title (English)", type: "text" },
-  { name: "slug", label: "Slug URL (kosongkan = otomatis)", type: "text" },
   { name: "tanggal", label: "Tanggal", type: "date", required: true },
   { name: "cover_url", label: "Gambar sampul", type: "image", bucket: "news" },
   { name: "ringkasan_id", label: "Ringkasan (Indonesia)", type: "textarea" },

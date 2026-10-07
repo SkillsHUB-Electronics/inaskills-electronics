@@ -75,4 +75,13 @@ export function slugify(text: string): string {
     .replace(/^-|-$/g, "");
 }
 
+// Slug unik: tambah -2, -3, ... bila sudah dipakai baris lain.
+export function uniqueSlug(text: string, taken: Row[], selfId?: unknown): string {
+  const base = slugify(text) || "item";
+  const used = new Set(taken.filter((r) => r.id !== selfId).map((r) => String(r.slug)));
+  let slug = base;
+  for (let i = 2; used.has(slug); i++) slug = `${base}-${i}`;
+  return slug;
+}
+
 export const uploadImage = uploadFile;

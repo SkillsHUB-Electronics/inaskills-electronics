@@ -9,7 +9,6 @@ import id from "@/dictionaries/id.json";
 const fields: Field[] = [
   { name: "nama_id", label: "Nama kompetisi (Indonesia)", type: "text", required: true },
   { name: "nama_en", label: "Nama kompetisi (English)", type: "text" },
-  { name: "slug", label: "Slug URL (kosongkan = otomatis)", type: "text" },
   { name: "level", label: "Level", type: "select", required: true, options: levels.map((l) => ({ value: l, label: id.levels[l] })) },
   { name: "tahun", label: "Tahun", type: "number", required: true },
   { name: "tanggal_mulai", label: "Tanggal mulai", type: "date" },

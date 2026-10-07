@@ -4,7 +4,6 @@ import CrudManager, { type Field } from "@/components/admin/CrudManager";
 
 const fields: Field[] = [
   { name: "nama", label: "Nama", type: "text", required: true },
-  { name: "slug", label: "Slug URL (kosongkan = otomatis)", type: "text" },
   { name: "asal_daerah", label: "Asal daerah", type: "text" },
   { name: "tahun_aktif", label: "Tahun aktif", type: "text" },
   { name: "foto_url", label: "Foto", type: "image", bucket: "alumni" },

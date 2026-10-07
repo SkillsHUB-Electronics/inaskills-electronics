@@ -8,7 +8,6 @@ import id from "@/dictionaries/id.json";
 const baseFields: Field[] = [
   { name: "judul_id", label: "Judul (Indonesia)", type: "text", required: true },
   { name: "judul_en", label: "Title (English)", type: "text" },
-  { name: "slug", label: "Slug URL (kosongkan = otomatis)", type: "text" },
   {
     name: "kategori",
     label: "Kategori",

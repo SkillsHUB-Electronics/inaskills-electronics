@@ -29,6 +29,12 @@ function Detail({ slug }: { slug: string }) {
           <img src={c.cover_url} alt="" className="absolute inset-0 h-full w-full object-cover opacity-30" />
         )}
         <div className="relative mx-auto max-w-6xl">
+          {c.logo_url && (
+            <span className="mb-4 flex h-20 w-20 items-center justify-center rounded-2xl bg-white p-2 shadow-lg sm:h-24 sm:w-24">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={c.logo_url} alt={`Logo ${pick(c, "nama", lang)}`} className="max-h-full max-w-full object-contain" />
+            </span>
+          )}
           <LevelBadge level={c.level} label={dict.levels[c.level]} />
           <h1 className="mt-3 text-3xl font-extrabold sm:text-4xl">{pick(c, "nama", lang)}</h1>
           <p className="mt-2 text-white/80">{[place(c), dateRange(c, lang) || c.tahun].filter(Boolean).join(" · ")}</p>

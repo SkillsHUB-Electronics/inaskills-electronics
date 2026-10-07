@@ -17,7 +17,8 @@ const fields: Field[] = [
   { name: "kota", label: "Kota", type: "text" },
   { name: "negara", label: "Negara", type: "text" },
   { name: "website_url", label: "Link situs resmi lomba", type: "url", wide: true },
-  { name: "cover_url", label: "Foto sampul", type: "image", bucket: "competitions" },
+  { name: "logo_url", label: "Logo kompetisi (beda tiap tahun, PNG transparan lebih bagus)", type: "image", bucket: "competitions" },
+  { name: "cover_url", label: "Foto sampul (gambar lebar, mis. suasana lomba)", type: "image", bucket: "competitions" },
   { name: "overview_id", label: "Ringkasan (Indonesia)", type: "textarea" },
   { name: "overview_en", label: "Overview (English)", type: "textarea" },
 ];

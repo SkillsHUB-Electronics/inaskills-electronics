@@ -26,10 +26,16 @@ export default function HighlightCard({ lang, dict }: { lang: Locale; dict: Dict
         href={`/${lang}/kompetisi/detail/?slug=${c.slug}`}
         className="mx-auto flex max-w-6xl flex-col overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-slate-200 transition hover:shadow-2xl md:flex-row"
       >
-        <div className="aspect-video bg-gradient-to-br from-brand to-brand-dark md:aspect-auto md:w-2/5">
+        <div className="relative aspect-video bg-gradient-to-br from-brand to-brand-dark md:aspect-auto md:w-2/5">
           {c.cover_url && (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={c.cover_url} alt="" className="h-full w-full object-cover" />
+          )}
+          {c.logo_url && (
+            <span className="absolute bottom-4 left-4 flex h-16 w-16 items-center justify-center rounded-xl bg-white p-1.5 shadow-md">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={c.logo_url} alt={`Logo ${pick(c, "nama", lang)}`} className="max-h-full max-w-full object-contain" />
+            </span>
           )}
         </div>
         <div className="flex flex-1 flex-col justify-center gap-3 p-6 sm:p-8">

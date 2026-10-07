@@ -29,6 +29,7 @@ export interface Competition {
   tanggal_mulai: string | null;
   tanggal_selesai: string | null;
   website_url: string | null;
+  logo_url?: string | null;
   overview_id: string;
   overview_en: string;
   cover_url: string | null;

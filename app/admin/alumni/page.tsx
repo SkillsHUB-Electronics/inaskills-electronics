@@ -27,6 +27,7 @@ export default function AdminAlumniPage() {
         { name: "nama", label: "Nama" },
         { name: "asal_daerah", label: "Asal" },
         { name: "tahun_aktif", label: "Tahun" },
+        { name: "user_id", label: "Akun", render: (r) => (r.user_id ? "Terhubung" : "–") },
       ]}
     />
   );

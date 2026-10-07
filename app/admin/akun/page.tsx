@@ -39,7 +39,7 @@ export default function AdminAccountPage() {
         {status && <p className="text-sm text-slate-600">{status}</p>}
       </form>
       <p className="mt-6 text-sm text-slate-500">
-        Menambah atau mengganti akun admin dilakukan di Supabase (Authentication &gt; Users dan tabel <code>admins</code>). Lihat README.
+        Menambah atau mencabut admin: menu <b>Pengguna</b>. Akun harus mendaftar dulu lewat halaman Masuk.
       </p>
     </div>
   );

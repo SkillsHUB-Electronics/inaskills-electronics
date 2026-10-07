@@ -18,6 +18,7 @@ export default function AccountPage() {
   const t = dict.account;
   const { session, loading } = useSession();
   const [nama, setNama] = useState("");
+  const [social, setSocial] = useState({ linkedin_url: "", github_url: "", instagram_url: "" });
   const [admin, setAdmin] = useState(false);
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState("");
@@ -31,17 +32,26 @@ export default function AccountPage() {
     isAdmin().then(setAdmin);
     supabase
       .from("profiles")
-      .select("nama")
+      .select("nama, linkedin_url, github_url, instagram_url")
       .eq("id", session.user.id)
       .maybeSingle()
-      .then(({ data }) => setNama(data?.nama ?? ""));
+      .then(({ data }) => {
+        setNama(data?.nama ?? "");
+        setSocial({ linkedin_url: data?.linkedin_url ?? "", github_url: data?.github_url ?? "", instagram_url: data?.instagram_url ?? "" });
+      });
   }, [session]);
 
   if (loading || !session) return <Section><p className="text-slate-500">{dict.common.loading}</p></Section>;
 
   async function saveProfile(e: React.FormEvent) {
     e.preventDefault();
-    const { error } = (await supabase?.from("profiles").update({ nama }).eq("id", session!.user.id)) ?? { error: null };
+    const row = {
+      nama,
+      linkedin_url: social.linkedin_url.trim() || null,
+      github_url: social.github_url.trim() || null,
+      instagram_url: social.instagram_url.trim() || null,
+    };
+    const { error } = (await supabase?.from("profiles").update(row).eq("id", session!.user.id)) ?? { error: null };
     setStatus(error ? dict.auth.failed + error.message : t.saved);
   }
 
@@ -78,6 +88,20 @@ export default function AccountPage() {
               <input value={nama} onChange={(e) => setNama(e.target.value)} className={input} />
             </label>
             <p className="mt-2 text-sm text-slate-500">{session.user.email}</p>
+            <p className="mt-4 text-sm font-semibold">{t.social}</p>
+            <p className="text-xs text-slate-500">{t.socialHint}</p>
+            {(
+              [
+                ["linkedin_url", "LinkedIn", "https://linkedin.com/in/..."],
+                ["github_url", "GitHub", "https://github.com/..."],
+                ["instagram_url", "Instagram", "https://instagram.com/..."],
+              ] as const
+            ).map(([key, label, ph]) => (
+              <label key={key} className="mt-3 block text-sm font-medium">
+                {label}
+                <input type="url" placeholder={ph} value={social[key]} onChange={(e) => setSocial({ ...social, [key]: e.target.value })} className={input} />
+              </label>
+            ))}
             <button type="submit" className="mt-3 rounded-full bg-ink px-5 py-2 text-sm font-semibold text-white hover:bg-ink-soft">
               {t.save}
             </button>

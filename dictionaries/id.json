@@ -185,7 +185,9 @@
     "newPassword": "Password baru",
     "comingTitle": "Fitur anggota segera hadir",
     "comingText": "Nantinya anggota bisa mengakses materi latihan, data soal, dan program khusus Inaskills Electronics.",
-    "toAdmin": "Buka Panel Admin"
+    "toAdmin": "Buka Panel Admin",
+    "social": "Media sosial",
+    "socialHint": "Tampil di profil alumni bila akun Anda terhubung ke Hall of Fame."
   },
   "highlight": {
     "label": "Sorotan",

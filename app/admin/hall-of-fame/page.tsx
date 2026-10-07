@@ -5,11 +5,12 @@ import { inputClass } from "@/components/admin/CrudManager";
 import ImageUploader from "@/components/admin/ImageUploader";
 import LevelBadge from "@/components/ui/LevelBadge";
 import { hofMedals, levelShort, levelsByRank, type Level } from "@/lib/levels";
-import { insertReturningId, list, remove, save, uniqueSlug, type Row } from "@/lib/mutations";
+import { insertReturningId, linkUserToAlumni, list, listUsers, remove, save, uniqueSlug, type Row, type UserRow } from "@/lib/mutations";
 import { supabase } from "@/lib/supabase";
 import id from "@/dictionaries/id.json";
 
 const NEW = "__new__";
+const USER = "user:";
 
 type Entry = Row & {
   alumni: { nama: string } | null;
@@ -35,6 +36,7 @@ type Form = typeof emptyForm;
 export default function AdminHallOfFamePage() {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [alumni, setAlumni] = useState<Row[]>([]);
+  const [users, setUsers] = useState<UserRow[]>([]);
   const [competitions, setCompetitions] = useState<Row[]>([]);
   const [filter, setFilter] = useState<Level | "all">("all");
   const [form, setForm] = useState<Form | null>(null);
@@ -51,12 +53,15 @@ export default function AdminHallOfFamePage() {
         .order("created_at", { ascending: false }),
       list("alumni", "nama"),
       list("competitions", "tahun", false),
+      // Akun terdaftar yang belum jadi alumni, agar bisa langsung dipilih.
+      listUsers().catch(() => [] as UserRow[]),
     ])
-      .then(([res, al, co]) => {
+      .then(([res, al, co, us]) => {
         if (res.error) throw res.error;
         setEntries(res.data as Entry[]);
         setAlumni(al);
         setCompetitions(co);
+        setUsers(us.filter((u) => !u.alumni_id));
       })
       .catch((e) => setMessage(`Gagal memuat: ${e.message}`));
   }, []);
@@ -88,10 +93,13 @@ export default function AdminHallOfFamePage() {
     setMessage("");
     try {
       // Alumni / kompetisi baru dibuat dulu bila dipilih "+ Baru".
+      const user = users.find((u) => `${USER}${u.id}` === form.alumni_id);
       const alumniId =
         form.alumni_id === NEW
           ? await insertReturningId("alumni", { nama: form.alumni_baru.trim(), slug: uniqueSlug(form.alumni_baru, alumni) })
-          : form.alumni_id;
+          : user
+            ? await linkUserToAlumni(user, null, alumni)
+            : form.alumni_id;
       const competitionId =
         form.competition_id === NEW
           ? await insertReturningId("competitions", {
@@ -161,11 +169,22 @@ export default function AdminHallOfFamePage() {
               Alumni *
               <select required value={form.alumni_id} onChange={(e) => set("alumni_id", e.target.value)} className={inputClass}>
                 <option value="">Pilih alumni...</option>
-                {alumni.map((a) => (
-                  <option key={String(a.id)} value={String(a.id)}>
-                    {String(a.nama)}
-                  </option>
-                ))}
+                <optgroup label="Alumni">
+                  {alumni.map((a) => (
+                    <option key={String(a.id)} value={String(a.id)}>
+                      {String(a.nama)}
+                    </option>
+                  ))}
+                </optgroup>
+                {users.length > 0 && (
+                  <optgroup label="Akun terdaftar (belum alumni)">
+                    {users.map((u) => (
+                      <option key={u.id} value={`${USER}${u.id}`}>
+                        {u.nama || u.email} ({u.email})
+                      </option>
+                    ))}
+                  </optgroup>
+                )}
                 <option value={NEW}>+ Alumni baru...</option>
               </select>
             </label>

@@ -75,6 +75,52 @@ export function slugify(text: string): string {
     .replace(/^-|-$/g, "");
 }
 
+export interface UserRow {
+  id: string;
+  email: string;
+  nama: string;
+  created_at: string;
+  last_sign_in_at: string | null;
+  is_admin: boolean;
+  alumni_id: string | null;
+  alumni_nama: string | null;
+  linkedin_url: string | null;
+  github_url: string | null;
+  instagram_url: string | null;
+}
+
+// Semua akun terdaftar (khusus admin, lewat fungsi database admin_list_users).
+export async function listUsers(): Promise<UserRow[]> {
+  const { data, error } = await db().rpc("admin_list_users");
+  if (error) throw error;
+  return data as UserRow[];
+}
+
+export async function setAdmin(userId: string, makeAdmin: boolean): Promise<void> {
+  const { error } = await db().rpc("admin_set_admin", { target: userId, make_admin: makeAdmin });
+  if (error) throw error;
+}
+
+// Hubungkan akun ke alumni: ke alumni yang sudah ada, atau buat alumni baru dari data akun.
+export async function linkUserToAlumni(user: UserRow, alumniId: string | null, allAlumni: Row[]): Promise<string> {
+  const social = { linkedin_url: user.linkedin_url, github_url: user.github_url, instagram_url: user.instagram_url };
+  if (alumniId) {
+    // Link sosial dari akun hanya mengisi yang masih kosong di data alumni.
+    const current = allAlumni.find((a) => a.id === alumniId) ?? {};
+    const fill = Object.fromEntries(Object.entries(social).filter(([k, v]) => v && !current[k]));
+    const { error } = await db().from("alumni").update({ user_id: user.id, ...fill }).eq("id", alumniId);
+    if (error) throw error;
+    return alumniId;
+  }
+  const nama = user.nama || user.email.split("@")[0];
+  return insertReturningId("alumni", { nama, slug: uniqueSlug(nama, allAlumni), user_id: user.id, ...social });
+}
+
+export async function unlinkUserFromAlumni(alumniId: string): Promise<void> {
+  const { error } = await db().from("alumni").update({ user_id: null }).eq("id", alumniId);
+  if (error) throw error;
+}
+
 // Slug unik: tambah -2, -3, ... bila sudah dipakai baris lain.
 export function uniqueSlug(text: string, taken: Row[], selfId?: unknown): string {
   const base = slugify(text) || "item";

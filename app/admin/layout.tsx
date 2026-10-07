@@ -16,6 +16,7 @@ const menu = [
   { href: "/admin/sponsor/", label: "Sponsor" },
   { href: "/admin/konten/", label: "Konten & Kontak" },
   { href: "/admin/pesan/", label: "Pesan Masuk" },
+  { href: "/admin/pengguna/", label: "Pengguna" },
   { href: "/admin/akun/", label: "Akun" },
 ];
 

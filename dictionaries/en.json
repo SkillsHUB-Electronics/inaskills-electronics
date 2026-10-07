@@ -36,7 +36,22 @@
   "hallOfFame": {
     "title": "Hall of Fame",
     "subtitle": "Alumni who made Indonesia proud.",
-    "viewAll": "View all"
+    "viewAll": "View all",
+    "eyebrow": "Hall of Fame",
+    "championsTitle": "Electronics Champions",
+    "championsSubtitle": "Meet the Indonesian heroes who brought home medals and made the nation proud.",
+    "viewProfile": "View Profile",
+    "viewAllChampions": "View All Champions",
+    "competitionYear": "Competition Year",
+    "prev": "Previous",
+    "next": "Next",
+    "medalLong": {
+      "gold": "Gold Medal",
+      "silver": "Silver Medal",
+      "bronze": "Bronze Medal",
+      "moe": "Medallion of Excellence"
+    },
+    "empty": "Champions coming soon."
   },
   "competitions": {
     "title": "Latest Competitions",

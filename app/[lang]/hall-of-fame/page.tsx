@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import Section from "@/components/ui/Section";
-import AlumniCard from "@/components/alumni/AlumniCard";
 import CardSkeleton from "@/components/ui/CardSkeleton";
 import LevelBadge from "@/components/ui/LevelBadge";
 import LevelFilter from "@/components/kompetisi/LevelFilter";
+import ChampionCard from "@/components/hof/ChampionCard";
+import HofHeading from "@/components/hof/HofHeading";
+import YearTimeline from "@/components/hof/YearTimeline";
 import { hofMedals, internationalLevels, levelsByRank, type Level } from "@/lib/levels";
 import { getHallOfFame } from "@/lib/queries";
 import { useLocale } from "@/lib/useLocale";
@@ -22,6 +24,16 @@ export default function HallOfFamePage() {
   const { lang, dict } = useLocale();
   const { data, loading, error } = useQuery(() => getHallOfFame(), []);
   const [level, setLevel] = useState<Level | "all">("all");
+  const [year, setYear] = useState<number | null>(null);
+
+  // Tahun unik untuk timeline, terbaru dulu, beserta lokasinya (digabung bila lebih dari satu).
+  const yearMap = new Map<number, Set<string>>();
+  for (const e of data) {
+    const set = yearMap.get(e.competition.tahun) ?? new Set<string>();
+    if (e.competition.lokasi) set.add(e.competition.lokasi);
+    yearMap.set(e.competition.tahun, set);
+  }
+  const years = [...yearMap.entries()].sort((a, b) => b[0] - a[0]).map(([tahun, lokasi]) => ({ tahun, lokasi: [...lokasi].join(" · ") }));
 
   // Dikelompokkan per tingkat lomba: WSC, WSA, ASC selalu tampil; Nasional & Regional bila ada juara.
   // Di dalam grup: medali tertinggi dulu, lalu tahun terbaru.
@@ -30,26 +42,32 @@ export default function HallOfFamePage() {
     .map((l) => ({
       level: l,
       entries: data
-        .filter((e) => e.competition.level === l)
-        .sort((a, b) => hofMedals.indexOf(a.medali as never) - hofMedals.indexOf(b.medali as never) || b.competition.tahun - a.competition.tahun),
+        .filter((e) => e.competition.level === l && (year === null || e.competition.tahun === year))
+        .sort((a, b) => b.competition.tahun - a.competition.tahun || hofMedals.indexOf(a.medali as never) - hofMedals.indexOf(b.medali as never)),
     }))
-    .filter((g) => g.entries.length > 0 || internationalLevels.includes(g.level) || level === g.level);
+    .filter((g) => g.entries.length > 0 || (year === null && (internationalLevels.includes(g.level) || level === g.level)));
 
   return (
-    <Section title={dict.hallOfFame.title} subtitle={dict.hallOfFame.subtitle}>
-      <LevelFilter value={level} onChange={setLevel} dict={dict} />
+    <Section>
+      <HofHeading dict={dict} as="h1" />
+      <div className="mt-8 space-y-4">
+        <YearTimeline years={years} value={year} onChange={setYear} dict={dict} />
+        <LevelFilter value={level} onChange={setLevel} dict={dict} />
+      </div>
       {error && <p className="mt-6 text-red-600">{dict.common.error}</p>}
       {loading ? (
-        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <CardSkeleton count={6} />
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <CardSkeleton count={4} className="h-72" />
         </div>
+      ) : groups.length === 0 ? (
+        <p className="mt-8 text-slate-500">{dict.hallOfFamePage.empty}</p>
       ) : (
         groups.map((g) => (
-          <section key={g.level} className="mt-10 first-of-type:mt-8">
+          <section key={g.level} className="mt-10">
             <div className="flex flex-col gap-2 border-b border-slate-200 pb-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">{dict.hallOfFamePage.scope[g.level]}</p>
-                <h3 className="text-xl font-bold">{dict.levels[g.level]}</h3>
+                <h2 className="text-xl font-bold">{dict.levels[g.level]}</h2>
               </div>
               {g.entries.length > 0 && (
                 <div className="flex flex-wrap gap-3 text-sm text-slate-600">
@@ -71,9 +89,9 @@ export default function HallOfFamePage() {
                 {dict.hallOfFamePage.noneYet}
               </p>
             ) : (
-              <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {g.entries.map((e) => (
-                  <AlumniCard key={e.id} entry={e} lang={lang} dict={dict} />
+                  <ChampionCard key={e.id} entry={e} lang={lang} dict={dict} />
                 ))}
               </div>
             )}

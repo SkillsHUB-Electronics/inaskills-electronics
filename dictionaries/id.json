@@ -36,7 +36,22 @@
   "hallOfFame": {
     "title": "Hall of Fame",
     "subtitle": "Para alumni yang mengharumkan nama Indonesia.",
-    "viewAll": "Lihat semua"
+    "viewAll": "Lihat semua",
+    "eyebrow": "Hall of Fame",
+    "championsTitle": "Juara Elektronika",
+    "championsSubtitle": "Para putra-putri Indonesia yang membawa pulang medali dan mengharumkan nama bangsa.",
+    "viewProfile": "Lihat Profil",
+    "viewAllChampions": "Lihat Semua Juara",
+    "competitionYear": "Tahun Kompetisi",
+    "prev": "Sebelumnya",
+    "next": "Berikutnya",
+    "medalLong": {
+      "gold": "Medali Emas",
+      "silver": "Medali Perak",
+      "bronze": "Medali Perunggu",
+      "moe": "Medallion of Excellence"
+    },
+    "empty": "Data juara segera hadir."
   },
   "competitions": {
     "title": "Kompetisi Terbaru",

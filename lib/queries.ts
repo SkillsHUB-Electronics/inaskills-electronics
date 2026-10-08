@@ -38,6 +38,21 @@ export async function getSponsors(): Promise<Sponsor[]> {
   return data;
 }
 
+export interface Stats {
+  medals: number;
+  competitions: number;
+  alumni: number;
+  countries: number;
+}
+
+// Statistik Beranda, dihitung otomatis di database dari Hall of Fame & Kompetisi.
+export async function getStats(): Promise<Stats> {
+  if (!supabase) return sample.stats;
+  const { data, error } = await supabase.rpc("public_stats").single();
+  if (error) throw error;
+  return data as Stats;
+}
+
 type SiteContent = Record<string, { value_id: string; value_en: string }>;
 let siteContentRequest: Promise<SiteContent> | null = null;
 

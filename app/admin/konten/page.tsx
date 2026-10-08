@@ -16,15 +16,6 @@ const groups: { title: string; items: Item[] }[] = [
     ],
   },
   {
-    title: "Statistik",
-    items: [
-      { key: "stats_medals", label: "Jumlah medali", bilingual: false },
-      { key: "stats_competitions", label: "Jumlah kompetisi", bilingual: false },
-      { key: "stats_alumni", label: "Jumlah alumni juara", bilingual: false },
-      { key: "stats_countries", label: "Negara dikunjungi", bilingual: false },
-    ],
-  },
-  {
     title: "Kontak",
     items: [
       { key: "contact_whatsapp", label: "Nomor WhatsApp", bilingual: false, hint: "Format internasional tanpa + atau spasi, mis. 6281234567890." },

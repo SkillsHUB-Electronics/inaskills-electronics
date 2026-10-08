@@ -1,15 +1,15 @@
 "use client";
 
 import type { Dictionary } from "@/lib/i18n";
-import { getSiteContent } from "@/lib/queries";
+import { getStats, type Stats } from "@/lib/queries";
 import { useQuery } from "@/lib/useQuery";
 
 const keys = ["medals", "competitions", "alumni", "countries"] as const;
 
 export default function StatsCounter({ dict }: { dict: Dictionary }) {
-  const { data } = useQuery(getSiteContent, {});
-  // Angka disimpan di site_content key "stats_<nama>", dikelola admin.
-  const value = (k: string) => data[`stats_${k}`]?.value_id ?? "–";
+  // Dihitung otomatis dari data Hall of Fame & Kompetisi.
+  const { data, loading } = useQuery<Stats | null>(getStats, null);
+  const value = (k: (typeof keys)[number]) => (loading || !data ? "–" : data[k]);
 
   return (
     <section className="border-b border-slate-200 bg-white px-4 py-10">

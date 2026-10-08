@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { inputClass } from "@/components/admin/CrudManager";
-import { linkUserToAlumni, list, listUsers, setAdmin, unlinkUserFromAlumni, type Row, type UserRow } from "@/lib/mutations";
+import { deleteUser, linkUserToAlumni, list, listUsers, setAdmin, unlinkUserFromAlumni, type Row, type UserRow } from "@/lib/mutations";
 import { useSession } from "@/lib/useSession";
 
 const NEW = "__new__";
@@ -48,6 +48,13 @@ export default function AdminUsersPage() {
     run(() => setAdmin(u.id, !u.is_admin), u.is_admin ? "Hak admin dicabut." : "Berhasil dijadikan admin.");
   }
 
+  function removeUser(u: UserRow) {
+    const label = u.nama || u.email;
+    const note = u.alumni_id ? " Data alumni & Hall of Fame tetap ada." : "";
+    if (!confirm(`Hapus akun ${label} (${u.email}) secara permanen? Akun tidak bisa dikembalikan.${note}`)) return;
+    run(() => deleteUser(u.id), `Akun ${label} dihapus.`);
+  }
+
   const freeAlumni = alumni.filter((a) => !a.user_id);
   const q = query.trim().toLowerCase();
   const shown = users.filter((u) => !q || u.nama.toLowerCase().includes(q) || u.email.toLowerCase().includes(q));
@@ -56,7 +63,7 @@ export default function AdminUsersPage() {
     <div>
       <h1 className="text-2xl font-bold">Pengguna</h1>
       <p className="text-sm text-slate-500">
-        Semua akun yang mendaftar lewat halaman Masuk. Hubungkan akun ke alumni agar bisa dipilih di Hall of Fame, atau jadikan admin.
+        Semua akun yang mendaftar lewat halaman Masuk. Hubungkan akun ke alumni agar bisa dipilih di Hall of Fame, jadikan admin, atau hapus akun. Akun admin harus dicabut hak adminnya dulu sebelum bisa dihapus.
       </p>
       {message && <p className="mt-3 text-sm text-slate-600">{message}</p>}
 
@@ -127,6 +134,11 @@ export default function AdminUsersPage() {
                   className={`rounded-full px-4 py-2 font-semibold ${u.is_admin ? "text-red-600 ring-1 ring-red-200 hover:bg-red-50" : "bg-brand text-white hover:bg-brand-dark"}`}
                 >
                   {u.is_admin ? "Cabut admin" : "Jadikan admin"}
+                </button>
+              )}
+              {u.id !== session?.user.id && !u.is_admin && (
+                <button type="button" onClick={() => removeUser(u)} className="rounded-full px-4 py-2 font-semibold text-red-600 hover:bg-red-50">
+                  Hapus akun
                 </button>
               )}
             </div>

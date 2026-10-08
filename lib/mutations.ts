@@ -106,6 +106,15 @@ export async function setAdmin(userId: string, makeAdmin: boolean): Promise<void
   if (error) throw error;
 }
 
+// Hapus akun: bersihkan foto profil di storage dulu (best-effort), lalu hapus akunnya.
+export async function deleteUser(userId: string): Promise<void> {
+  const avatars = db().storage.from("avatars");
+  const { data: files } = await avatars.list(userId);
+  if (files?.length) await avatars.remove(files.map((f) => `${userId}/${f.name}`));
+  const { error } = await db().rpc("admin_delete_user", { target: userId });
+  if (error) throw error;
+}
+
 // Hubungkan akun ke alumni: ke alumni yang sudah ada, atau buat alumni baru dari data akun.
 export async function linkUserToAlumni(user: UserRow, alumniId: string | null, allAlumni: Row[]): Promise<string> {
   const social = {

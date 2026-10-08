@@ -119,7 +119,35 @@
   "alumniPage": {
     "achievements": "Achievements",
     "origin": "From",
-    "active": "Active year"
+    "active": "Active year",
+    "badge": "INASKILLS Alumni",
+    "tabs": {
+      "overview": "Overview",
+      "history": "Competition History",
+      "skills": "Skills & Expertise",
+      "gallery": "Gallery",
+      "contact": "Contact"
+    },
+    "journey": "Competition Journey",
+    "noJourney": "No competition history yet.",
+    "personalInfo": "Personal Information",
+    "fullName": "Full name",
+    "location": "Location",
+    "institution": "Institution",
+    "role": "Role",
+    "social": "Social media",
+    "aboutMe": "About Me",
+    "competitions": "Competitions",
+    "medals": "Medals",
+    "international": "International",
+    "alumniSince": "Alumni since {year}",
+    "latest": "Latest Achievements",
+    "viewAll": "View all",
+    "skills": "Skills & Expertise",
+    "gallery": "Gallery",
+    "contact": "Contact",
+    "contactHint": "Professional links of the alumnus.",
+    "noData": "Not provided."
   },
   "sponsorPage": {
     "title": "Sponsor Inaskills Electronics",
@@ -271,7 +299,12 @@
     "twoFactor": "Two-Factor Authentication",
     "notAvailable": "Not available yet",
     "quickLinks": "Quick Links",
-    "hofPage": "View Hall of Fame"
+    "hofPage": "View Hall of Fame",
+    "quoteId": "Quote (Indonesian)",
+    "quoteEn": "Quote (English)",
+    "quotePlaceholderId": "e.g. Skill membangun peluang",
+    "quotePlaceholderEn": "e.g. Skills build opportunities",
+    "quoteHint": "Shown on your public alumni profile. One language is enough; the other falls back to it."
   },
   "highlight": {
     "label": "Highlight",

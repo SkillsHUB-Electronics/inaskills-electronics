@@ -21,6 +21,8 @@ export interface Alumni {
   keahlian?: string[] | null;
   quote_id?: string | null;
   quote_en?: string | null;
+  kontak_email?: string | null;
+  kontak_telepon?: string | null;
 }
 
 export interface Competition {

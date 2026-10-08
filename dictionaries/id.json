@@ -147,7 +147,8 @@
     "gallery": "Galeri",
     "contact": "Kontak",
     "contactHint": "Tautan profesional alumni.",
-    "noData": "Belum diisi."
+    "noData": "Belum diisi.",
+    "phone": "Telepon"
   },
   "sponsorPage": {
     "title": "Jadi Sponsor Inaskills Electronics",
@@ -304,7 +305,12 @@
     "quoteEn": "Quote (English)",
     "quotePlaceholderId": "mis. Skill membangun peluang",
     "quotePlaceholderEn": "e.g. Skills build opportunities",
-    "quoteHint": "Quote tampil di profil publik alumni. Boleh diisi satu bahasa saja; bahasa lain memakai isian yang ada."
+    "quoteHint": "Quote tampil di profil publik alumni. Boleh diisi satu bahasa saja; bahasa lain memakai isian yang ada.",
+    "contactTitle": "Kontak publik",
+    "contactHint": "Email dan telepon tidak tampil di profil publik kecuali Anda mencentang opsinya.",
+    "phone": "Telepon",
+    "emailPublic": "Tampilkan email saya ({email}) di profil publik",
+    "phonePublic": "Tampilkan nomor telepon di profil publik"
   },
   "highlight": {
     "label": "Sorotan",

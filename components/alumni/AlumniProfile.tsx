@@ -62,6 +62,10 @@ export default function AlumniProfile({ data }: { data: AlumniDetail }) {
   const quote = pick(a, "quote", lang);
   const place = a.lokasi || a.asal_daerah;
   const since = asc[0]?.competition.tahun ?? null;
+  const direct = [
+    a.kontak_email && { key: "email", label: "Email", href: `mailto:${a.kontak_email}`, text: a.kontak_email },
+    a.kontak_telepon && { key: "phone", label: t.phone, href: `tel:${a.kontak_telepon.replace(/[^+\d]/g, "")}`, text: a.kontak_telepon },
+  ].filter(Boolean) as { key: string; label: string; href: string; text: string }[];
   const links = [
     ...socialFields.map((s) => ({ ...s, href: a[s.key] })).filter((s) => s.href),
   ] as { key: string; label: string; color: string; href: string }[];
@@ -103,6 +107,8 @@ export default function AlumniProfile({ data }: { data: AlumniDetail }) {
     [t.location, place],
     [t.institution, a.instansi],
     [t.role, a.pekerjaan],
+    ["Email", a.kontak_email],
+    [t.phone, a.kontak_telepon],
   ];
   const infoBox = (
     <Box title={t.personalInfo} icon="user">
@@ -143,8 +149,18 @@ export default function AlumniProfile({ data }: { data: AlumniDetail }) {
   );
   const contactBox = (
     <Box title={t.contact} icon="link">
-      {links.length ? (
+      {links.length || direct.length ? (
         <ul className="divide-y divide-slate-100">
+          {direct.map((d) => (
+            <li key={d.key}>
+              <a href={d.href} className="flex items-center gap-3 py-2.5 hover:text-brand">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ink text-xs font-bold text-white">{d.key === "email" ? "@" : "☎"}</span>
+                <span className="w-20 shrink-0 text-sm font-semibold">{d.label}</span>
+                <span className="min-w-0 flex-1 truncate text-xs text-slate-500">{d.text}</span>
+                <Icon name="chevron" className="h-4 w-4 shrink-0 text-slate-400" />
+              </a>
+            </li>
+          ))}
           {links.map((l) => (
             <li key={l.key}>
               <a href={l.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 py-2.5 hover:text-brand">

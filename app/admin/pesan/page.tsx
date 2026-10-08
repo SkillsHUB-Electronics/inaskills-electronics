@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { markMessagesSeen } from "@/lib/adminInbox";
 import { list, remove, type Row } from "@/lib/mutations";
 
 export default function AdminMessagesPage() {
@@ -12,6 +13,8 @@ export default function AdminMessagesPage() {
   }, []);
 
   useEffect(load, [load]);
+  // Membuka halaman ini = semua pesan dianggap terbaca (badge di sidebar hilang).
+  useEffect(markMessagesSeen, []);
 
   async function onDelete(id: string) {
     if (!confirm("Hapus pesan ini?")) return;

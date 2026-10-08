@@ -9,8 +9,8 @@ const fields: Field[] = [
   { name: "cover_url", label: "Gambar sampul", type: "image", bucket: "news" },
   { name: "ringkasan_id", label: "Ringkasan (Indonesia)", type: "textarea" },
   { name: "ringkasan_en", label: "Summary (English)", type: "textarea" },
-  { name: "isi_id", label: "Isi berita (Indonesia)", type: "textarea" },
-  { name: "isi_en", label: "Content (English)", type: "textarea" },
+  { name: "isi_id", label: "Isi berita (Indonesia)", type: "richtext", bucket: "news" },
+  { name: "isi_en", label: "Content (English)", type: "richtext", bucket: "news" },
   { name: "terbit", label: "Terbitkan (tampil di situs)", type: "checkbox" },
 ];
 

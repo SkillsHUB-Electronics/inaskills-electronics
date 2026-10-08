@@ -1,13 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import ImageUploader from "@/components/admin/ImageUploader";
 import { list, remove, save, uniqueSlug, type Row, type Table } from "@/lib/mutations";
 
 export type Field = {
   name: string;
   label: string;
-  type: "text" | "textarea" | "number" | "date" | "select" | "checkbox" | "image" | "file" | "url";
+  type: "text" | "textarea" | "richtext" | "number" | "date" | "select" | "checkbox" | "image" | "file" | "url";
   required?: boolean;
   options?: { value: string; label: string }[];
   bucket?: string;
@@ -28,6 +29,12 @@ type Props = {
   // Konten tambahan di bawah form saat mengedit baris yang sudah ada (mis. hasil & galeri).
   renderExtra?: (row: Row) => React.ReactNode;
 };
+
+// Editor teks kaya dimuat terpisah hanya saat dibutuhkan, agar halaman lain tetap ringan.
+const RichTextEditor = dynamic(() => import("@/components/admin/RichTextEditor"), {
+  ssr: false,
+  loading: () => <div className="mt-1 h-60 animate-pulse rounded-lg bg-slate-100" />,
+});
 
 export const inputClass =
   "mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20";
@@ -103,12 +110,18 @@ export default function CrudManager({ title, table, fields, order, ascending = t
         <div className="mt-6 space-y-6">
           <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 rounded-2xl bg-white p-4 ring-1 ring-slate-200 sm:p-6 md:grid-cols-2">
             {fields.map((f) => (
-              <div key={f.name} className={f.wide || f.type === "textarea" || f.type === "image" || f.type === "file" ? "md:col-span-2" : ""}>
+              <div key={f.name} className={f.wide || f.type === "textarea" || f.type === "richtext" || f.type === "image" || f.type === "file" ? "md:col-span-2" : ""}>
                 {f.type === "checkbox" ? (
                   <label className="flex items-center gap-2 text-sm font-medium">
                     <input type="checkbox" checked={Boolean(editing[f.name])} onChange={(e) => set(f.name, e.target.checked)} />
                     {f.label}
                   </label>
+                ) : f.type === "richtext" ? (
+                  <div className="text-sm font-medium">
+                    {f.label}
+                    {/* key: editor dibuat ulang saat berpindah baris yang diedit. */}
+                    <RichTextEditor key={String(editing.id ?? "new")} bucket={f.bucket ?? "news"} value={String(editing[f.name] ?? "")} onChange={(html) => set(f.name, html)} />
+                  </div>
                 ) : f.type === "image" || f.type === "file" ? (
                   <div className="text-sm font-medium">
                     {f.label}

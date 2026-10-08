@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import Section from "@/components/ui/Section";
+import RichContent from "@/components/ui/RichContent";
 import { formatDate } from "@/components/berita/NewsCard";
 import { pick } from "@/lib/i18n";
 import { getNewsBySlug } from "@/lib/queries";
@@ -31,7 +32,7 @@ function Article({ slug }: { slug: string }) {
           // eslint-disable-next-line @next/next/no-img-element
           <img src={n.cover_url} alt="" className="mt-8 w-full rounded-2xl object-cover" />
         )}
-        <div className="mt-8 whitespace-pre-line leading-relaxed text-slate-800">{pick(n, "isi", lang)}</div>
+        <RichContent html={pick(n, "isi", lang)} className="mt-8 leading-relaxed text-slate-800" />
       </div>
     </article>
   );

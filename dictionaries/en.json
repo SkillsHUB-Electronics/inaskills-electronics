@@ -19,6 +19,10 @@
     "ctaPrimary": "Become a Sponsor",
     "ctaSecondary": "View Hall of Fame"
   },
+  "about": {
+    "title": "About Us",
+    "text": "Inaskills Electronics is Indonesia's electronics skills development team. We prepare young talent through structured training, world-class equipment standards, and mentoring from our champion alumni.\n\nFrom regional events to WorldSkills International, our goal stays the same: to bring Indonesia to the world podium while developing job-ready electronics professionals."
+  },
   "stats": {
     "title": "Our Achievements",
     "medals": "Medals",

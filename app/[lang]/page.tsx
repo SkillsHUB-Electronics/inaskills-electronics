@@ -1,4 +1,5 @@
 import Hero from "@/components/home/Hero";
+import AboutSection from "@/components/home/AboutSection";
 import HighlightCard from "@/components/home/HighlightCard";
 import LatestNews from "@/components/home/LatestNews";
 import StatsCounter from "@/components/home/StatsCounter";
@@ -17,6 +18,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
     <>
       <Hero lang={lang} dict={dict} />
       <HighlightCard lang={lang} dict={dict} />
+      <AboutSection lang={lang} dict={dict} />
       <StatsCounter dict={dict} />
       <HallOfFameHighlight lang={lang} dict={dict} />
       <LatestCompetitions lang={lang} dict={dict} />

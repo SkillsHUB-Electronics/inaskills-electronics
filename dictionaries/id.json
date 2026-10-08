@@ -19,6 +19,10 @@
     "ctaPrimary": "Jadi Sponsor",
     "ctaSecondary": "Lihat Hall of Fame"
   },
+  "about": {
+    "title": "Tentang Kami",
+    "text": "Inaskills Electronics adalah tim pembinaan kompetensi elektronika Indonesia. Kami menyiapkan talenta muda melalui latihan terstruktur, standar alat kelas dunia, dan pendampingan para alumni juara.\n\nDari tingkat regional hingga WorldSkills International, tujuan kami sama: membawa nama Indonesia ke podium dunia sekaligus mencetak tenaga ahli elektronika yang siap kerja."
+  },
   "stats": {
     "title": "Prestasi Kami",
     "medals": "Medali",

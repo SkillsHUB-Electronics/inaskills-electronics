@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Dictionary, Locale } from "@/lib/i18n";
+import SiteText from "@/components/ui/SiteText";
 import SocialLinks from "./SocialLinks";
 import FooterContact from "./FooterContact";
 
@@ -22,7 +23,9 @@ export default function Footer({ lang, dict }: { lang: Locale; dict: Dictionary 
           <p className="text-base font-semibold text-white">
             Inaskills <span className="text-brand">Electronics</span>
           </p>
-          <p>{dict.hero.eyebrow}</p>
+          <p className="whitespace-pre-line">
+            <SiteText k="footer_tagline" lang={lang} fallback={dict.hero.eyebrow} />
+          </p>
           <SocialLinks label={dict.footer.follow} />
         </div>
         {[
@@ -47,7 +50,7 @@ export default function Footer({ lang, dict }: { lang: Locale; dict: Dictionary 
         </div>
       </div>
       <div className="mx-auto max-w-6xl border-t border-white/10 py-6 text-xs">
-        © {new Date().getFullYear()} Inaskills Electronics. {dict.footer.rights}
+        © {new Date().getFullYear()} Inaskills Electronics. <SiteText k="footer_rights" lang={lang} fallback={dict.footer.rights} />
       </div>
     </footer>
   );

@@ -10,6 +10,9 @@ export const emptyProfile = {
   lokasi: "",
   quote_id: "",
   quote_en: "",
+  telepon: "",
+  email_publik: false,
+  telepon_publik: false,
   linkedin_url: "",
   github_url: "",
   instagram_url: "",
@@ -27,7 +30,7 @@ export const socialFields = [
 export function toProfile(row: Record<string, unknown> | null): Profile {
   const r = row ?? {};
   const p = Object.fromEntries(
-    Object.keys(emptyProfile).map((k) => [k, k === "keahlian" ? (Array.isArray(r[k]) ? r[k] : []) : ((r[k] as string | null) ?? "")]),
+    Object.keys(emptyProfile).map((k) => [k, k === "keahlian" ? (Array.isArray(r[k]) ? r[k] : []) : typeof emptyProfile[k as keyof typeof emptyProfile] === "boolean" ? Boolean(r[k]) : ((r[k] as string | null) ?? "")]),
   ) as Profile;
   return { ...p, created_at: r.created_at as string | undefined, updated_at: r.updated_at as string | undefined };
 }

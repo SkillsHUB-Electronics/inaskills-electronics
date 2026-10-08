@@ -147,7 +147,8 @@
     "gallery": "Gallery",
     "contact": "Contact",
     "contactHint": "Professional links of the alumnus.",
-    "noData": "Not provided."
+    "noData": "Not provided.",
+    "phone": "Phone"
   },
   "sponsorPage": {
     "title": "Sponsor Inaskills Electronics",
@@ -304,7 +305,12 @@
     "quoteEn": "Quote (English)",
     "quotePlaceholderId": "e.g. Skill membangun peluang",
     "quotePlaceholderEn": "e.g. Skills build opportunities",
-    "quoteHint": "Shown on your public alumni profile. One language is enough; the other falls back to it."
+    "quoteHint": "Shown on your public alumni profile. One language is enough; the other falls back to it.",
+    "contactTitle": "Public contact",
+    "contactHint": "Email and phone are not shown on your public profile unless you opt in below.",
+    "phone": "Phone",
+    "emailPublic": "Show my email ({email}) on my public profile",
+    "phonePublic": "Show my phone number on my public profile"
   },
   "highlight": {
     "label": "Highlight",

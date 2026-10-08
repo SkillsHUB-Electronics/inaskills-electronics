@@ -9,8 +9,8 @@ import { socialFields, type Profile } from "@/components/akun/profile";
 const input =
   "mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20";
 
-type Text = Omit<Profile, "keahlian"> & { keahlian: string };
-const textFields = ["nama", "bio", "pekerjaan", "instansi", "lokasi", "quote_id", "quote_en", "linkedin_url", "github_url", "instagram_url"] as const;
+type Text = Omit<Profile, "keahlian" | "email_publik" | "telepon_publik"> & { keahlian: string };
+const textFields = ["nama", "bio", "pekerjaan", "instansi", "lokasi", "telepon", "quote_id", "quote_en", "linkedin_url", "github_url", "instagram_url"] as const;
 
 // Jendela Edit Profil. Foto langsung tersimpan saat diunggah/dihapus; isian lain saat Simpan.
 export default function ProfileEditor({
@@ -29,6 +29,8 @@ export default function ProfileEditor({
   const { dict } = useLocale();
   const t = dict.account;
   const [draft, setDraft] = useState<Text>({ ...profile, keahlian: profile.keahlian.join(", ") });
+  const [emailPublic, setEmailPublic] = useState(profile.email_publik);
+  const [phonePublic, setPhonePublic] = useState(profile.telepon_publik);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState("");
@@ -57,8 +59,8 @@ export default function ProfileEditor({
     // Isian kosong disimpan sebagai null; keahlian dipisah koma, tanpa duplikat.
     const keahlian = [...new Set(draft.keahlian.split(",").map((s) => s.trim()).filter(Boolean))].slice(0, 20);
     const row = Object.fromEntries(textFields.map((k) => [k, k === "nama" ? draft[k].trim() : draft[k].trim() || null]));
-    if (await update({ ...row, keahlian })) {
-      onChange({ ...Object.fromEntries(Object.entries(row).map(([k, v]) => [k, v ?? ""])), keahlian, updated_at: new Date().toISOString() });
+    if (await update({ ...row, keahlian, email_publik: emailPublic, telepon_publik: phonePublic && Boolean(row.telepon) })) {
+      onChange({ email_publik: emailPublic, telepon_publik: phonePublic && Boolean(row.telepon), ...Object.fromEntries(Object.entries(row).map(([k, v]) => [k, v ?? ""])), keahlian, updated_at: new Date().toISOString() });
       onClose();
     }
     setSaving(false);
@@ -179,6 +181,21 @@ export default function ProfileEditor({
             <span className="text-xs font-normal text-slate-500">{t.skillsHint}</span>
           </label>
         </div>
+
+        <p className="mt-5 text-sm font-semibold">{t.contactTitle}</p>
+        <p className="text-xs text-slate-500">{t.contactHint}</p>
+        <label className="mt-3 block text-sm font-medium">
+          {t.phone}
+          <input type="tel" placeholder="+62 812 3456 7890" value={draft.telepon} onChange={(e) => set("telepon", e.target.value)} className={input} />
+        </label>
+        <label className="mt-3 flex items-start gap-2 text-sm">
+          <input type="checkbox" checked={emailPublic} onChange={(e) => setEmailPublic(e.target.checked)} className="mt-1" />
+          <span>{t.emailPublic.replace("{email}", email)}</span>
+        </label>
+        <label className="mt-2 flex items-start gap-2 text-sm">
+          <input type="checkbox" checked={phonePublic} disabled={!draft.telepon.trim()} onChange={(e) => setPhonePublic(e.target.checked)} className="mt-1" />
+          <span>{t.phonePublic}</span>
+        </label>
 
         <p className="mt-5 text-sm font-semibold">{t.social}</p>
         <p className="text-xs text-slate-500">{t.socialHint}</p>

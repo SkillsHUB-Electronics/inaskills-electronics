@@ -17,6 +17,10 @@ export interface Alumni {
   instagram_url?: string | null;
   pekerjaan?: string | null;
   instansi?: string | null;
+  lokasi?: string | null;
+  keahlian?: string[] | null;
+  quote_id?: string | null;
+  quote_en?: string | null;
 }
 
 export interface Competition {

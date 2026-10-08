@@ -119,7 +119,35 @@
   "alumniPage": {
     "achievements": "Prestasi",
     "origin": "Asal",
-    "active": "Tahun aktif"
+    "active": "Tahun aktif",
+    "badge": "Alumni INASKILLS",
+    "tabs": {
+      "overview": "Ringkasan",
+      "history": "Riwayat Kompetisi",
+      "skills": "Keahlian",
+      "gallery": "Galeri",
+      "contact": "Kontak"
+    },
+    "journey": "Perjalanan Kompetisi",
+    "noJourney": "Belum ada riwayat kompetisi.",
+    "personalInfo": "Informasi Pribadi",
+    "fullName": "Nama lengkap",
+    "location": "Lokasi",
+    "institution": "Instansi",
+    "role": "Jabatan",
+    "social": "Media sosial",
+    "aboutMe": "Tentang Saya",
+    "competitions": "Kompetisi",
+    "medals": "Medali",
+    "international": "Internasional",
+    "alumniSince": "Alumni sejak {year}",
+    "latest": "Prestasi Terbaru",
+    "viewAll": "Lihat semua",
+    "skills": "Keahlian & Kompetensi",
+    "gallery": "Galeri",
+    "contact": "Kontak",
+    "contactHint": "Tautan profesional alumni.",
+    "noData": "Belum diisi."
   },
   "sponsorPage": {
     "title": "Jadi Sponsor Inaskills Electronics",
@@ -271,7 +299,12 @@
     "twoFactor": "Autentikasi Dua Langkah",
     "notAvailable": "Belum tersedia",
     "quickLinks": "Tautan Cepat",
-    "hofPage": "Lihat Hall of Fame"
+    "hofPage": "Lihat Hall of Fame",
+    "quoteId": "Quote (Indonesia)",
+    "quoteEn": "Quote (English)",
+    "quotePlaceholderId": "mis. Skill membangun peluang",
+    "quotePlaceholderEn": "e.g. Skills build opportunities",
+    "quoteHint": "Quote tampil di profil publik alumni. Boleh diisi satu bahasa saja; bahasa lain memakai isian yang ada."
   },
   "highlight": {
     "label": "Sorotan",

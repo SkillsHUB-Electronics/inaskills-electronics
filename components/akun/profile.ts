@@ -8,6 +8,8 @@ export const emptyProfile = {
   pekerjaan: "",
   instansi: "",
   lokasi: "",
+  quote_id: "",
+  quote_en: "",
   linkedin_url: "",
   github_url: "",
   instagram_url: "",

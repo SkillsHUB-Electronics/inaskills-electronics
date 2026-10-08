@@ -10,7 +10,7 @@ const input =
   "mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20";
 
 type Text = Omit<Profile, "keahlian"> & { keahlian: string };
-const textFields = ["nama", "bio", "pekerjaan", "instansi", "lokasi", "linkedin_url", "github_url", "instagram_url"] as const;
+const textFields = ["nama", "bio", "pekerjaan", "instansi", "lokasi", "quote_id", "quote_en", "linkedin_url", "github_url", "instagram_url"] as const;
 
 // Jendela Edit Profil. Foto langsung tersimpan saat diunggah/dihapus; isian lain saat Simpan.
 export default function ProfileEditor({
@@ -164,6 +164,15 @@ export default function ProfileEditor({
             {t.bio}
             <textarea rows={4} maxLength={1000} placeholder={t.bioPlaceholder} value={draft.bio} onChange={(e) => set("bio", e.target.value)} className={input} />
           </label>
+          <label className="block text-sm font-medium">
+            {t.quoteId}
+            <input maxLength={160} placeholder={t.quotePlaceholderId} value={draft.quote_id} onChange={(e) => set("quote_id", e.target.value)} className={input} />
+          </label>
+          <label className="block text-sm font-medium">
+            {t.quoteEn}
+            <input maxLength={160} placeholder={t.quotePlaceholderEn} value={draft.quote_en} onChange={(e) => set("quote_en", e.target.value)} className={input} />
+          </label>
+          <p className="-mt-2 text-xs text-slate-500 sm:col-span-2">{t.quoteHint}</p>
           <label className="block text-sm font-medium sm:col-span-2">
             {t.skills}
             <input placeholder={t.skillsPlaceholder} value={draft.keahlian} onChange={(e) => set("keahlian", e.target.value)} className={input} />

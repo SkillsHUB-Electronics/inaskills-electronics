@@ -13,7 +13,7 @@ export default function ExpertCard({ expert, lang, dict }: { expert: ExpertDetai
 
   return (
     <Link
-      href={`/${lang}/expert/?slug=${expert.slug}`}
+      href={expert.alumni ? `/${lang}/alumni/?slug=${expert.alumni.slug}` : `/${lang}/expert/?slug=${expert.slug}`}
       className="group flex flex-col overflow-hidden rounded-2xl bg-ink text-white shadow-md ring-1 ring-white/10 transition hover:-translate-y-0.5 hover:shadow-xl hover:ring-brand/60"
     >
       <div className="relative h-44 overflow-hidden bg-gradient-to-br from-ink-soft to-ink">

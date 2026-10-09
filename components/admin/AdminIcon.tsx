@@ -7,6 +7,12 @@ const paths: Record<string, React.ReactNode> = {
       <path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a5.5 5.5 0 0 1 3.5 6" />
     </>
   ),
+  expert: (
+    <>
+      <circle cx="12" cy="8" r="3.5" />
+      <path d="M5 20a7 7 0 0 1 14 0M9.5 14.5 12 17l2.5-2.5" />
+    </>
+  ),
   hof: <path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H4.5a3 3 0 0 0 3.5 4M16 6h3.5A3 3 0 0 1 16 10M12 13v4M8 20h8M9.5 17h5v3h-5z" />,
   kompetisi: (
     <>

@@ -9,6 +9,7 @@ const texts = {
     menu: {
       dashboard: "Dashboard",
       alumni: "Alumni",
+      expert: "Expert",
       hof: "Hall of Fame",
       kompetisi: "Kompetisi",
       proyek: "Proyek & Riset",
@@ -67,6 +68,7 @@ const texts = {
     menu: {
       dashboard: "Dashboard",
       alumni: "Alumni",
+      expert: "Experts",
       hof: "Hall of Fame",
       kompetisi: "Competitions",
       proyek: "Projects & Research",

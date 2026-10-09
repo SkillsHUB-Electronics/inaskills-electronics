@@ -8,7 +8,7 @@ import { list, remove, save, uniqueSlug, type Row, type Table } from "@/lib/muta
 export type Field = {
   name: string;
   label: string;
-  type: "text" | "textarea" | "richtext" | "number" | "date" | "select" | "checkbox" | "image" | "file" | "url";
+  type: "text" | "textarea" | "richtext" | "number" | "date" | "select" | "checkbox" | "image" | "file" | "url" | "tags";
   required?: boolean;
   options?: { value: string; label: string }[];
   bucket?: string;
@@ -71,6 +71,13 @@ export default function CrudManager({ title, table, fields, order, ascending = t
       }
       // Kolom angka/tanggal kosong disimpan sebagai null, bukan string kosong.
       for (const f of fields) if (["number", "date", "image", "file", "url", "select"].includes(f.type) && row[f.name] === "") row[f.name] = null;
+      // Tags: teks dipisah koma disimpan sebagai array (tanpa duplikat), kosong = null.
+      for (const f of fields) {
+        if (f.type !== "tags") continue;
+        const v = row[f.name];
+        const items = typeof v === "string" ? [...new Set(v.split(",").map((s) => s.trim()).filter(Boolean))] : (v as string[] | null) ?? [];
+        row[f.name] = items.length ? items : null;
+      }
       await save(table, row);
       setMessage("Tersimpan.");
       setEditing(null);
@@ -143,10 +150,10 @@ export default function CrudManager({ title, table, fields, order, ascending = t
                       </select>
                     ) : (
                       <input
-                        type={f.type}
-                        placeholder={f.type === "url" ? "https://" : undefined}
+                        type={f.type === "tags" ? "text" : f.type}
+                        placeholder={f.type === "url" ? "https://" : f.type === "tags" ? "Pisahkan dengan koma" : undefined}
                         required={f.required}
-                        value={String(editing[f.name] ?? "")}
+                        value={Array.isArray(editing[f.name]) ? (editing[f.name] as string[]).join(", ") : String(editing[f.name] ?? "")}
                         onChange={(e) => set(f.name, f.type === "number" && e.target.value !== "" ? Number(e.target.value) : e.target.value)}
                         className={inputClass}
                       />

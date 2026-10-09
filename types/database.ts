@@ -145,6 +145,15 @@ export interface Expert {
   bio_id: string | null;
   bio_en: string | null;
   linkedin_url: string | null;
+  user_id?: string | null;
+  lokasi?: string | null;
+  keahlian?: string[] | null;
+  quote_id?: string | null;
+  quote_en?: string | null;
+  github_url?: string | null;
+  instagram_url?: string | null;
+  kontak_email?: string | null;
+  kontak_telepon?: string | null;
   alumni?: Alumni | null;
 }
 

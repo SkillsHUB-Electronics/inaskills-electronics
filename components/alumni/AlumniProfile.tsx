@@ -50,11 +50,12 @@ function Chips({ items }: { items: string[] }) {
   );
 }
 
-export default function AlumniProfile({ data }: { data: AlumniDetail }) {
+export default function AlumniProfile({ data, kind = "alumni" }: { data: AlumniDetail; kind?: "alumni" | "expert" }) {
   const { lang, dict } = useLocale();
   const t = dict.alumniPage;
   const [tab, setTab] = useState<Tab>("overview");
   const { alumni: a, results, expertOf } = data;
+  const isExpert = kind === "expert";
 
   const desc = [...results].sort((x, y) => y.competition.tahun - x.competition.tahun);
   const asc = [...desc].reverse();
@@ -62,7 +63,7 @@ export default function AlumniProfile({ data }: { data: AlumniDetail }) {
   const bio = pick(a, "bio", lang);
   const quote = pick(a, "quote", lang);
   const place = a.lokasi || a.asal_daerah;
-  const since = asc[0]?.competition.tahun ?? null;
+  const since = isExpert ? null : (asc[0]?.competition.tahun ?? null);
   const direct = [
     a.kontak_email && { key: "email", label: "Email", href: `mailto:${a.kontak_email}`, text: a.kontak_email },
     a.kontak_telepon && { key: "phone", label: t.phone, href: `tel:${a.kontak_telepon.replace(/[^+\d]/g, "")}`, text: a.kontak_telepon },
@@ -71,7 +72,12 @@ export default function AlumniProfile({ data }: { data: AlumniDetail }) {
     ...socialFields.map((s) => ({ ...s, href: a[s.key] })).filter((s) => s.href),
   ] as { key: string; label: string; color: string; href: string }[];
   const gallery = desc.filter((r) => r.foto_url).map((r) => ({ url: r.foto_url as string, label: pick(r.competition, "nama", lang) }));
-  const stats = [
+  const stats = isExpert
+    ? [
+        { icon: "trophy" as IconName, value: new Set(expertOf.map((e) => e.competition_id)).size, label: dict.expertPage.competitionsMentored },
+        { icon: "crown" as IconName, value: expertOf.filter((e) => internationalLevels.includes(e.competition.level)).length, label: t.international },
+      ]
+    : [
     { icon: "trophy" as IconName, value: new Set(results.map((r) => r.competition_id)).size, label: t.competitions },
     { icon: "medal" as IconName, value: results.filter((r) => ["gold", "silver", "bronze"].includes(r.medali)).length, label: t.medals },
     { icon: "crown" as IconName, value: results.filter((r) => internationalLevels.includes(r.competition.level)).length, label: t.international },
@@ -91,7 +97,7 @@ export default function AlumniProfile({ data }: { data: AlumniDetail }) {
   );
 
   const expertBox = expertOf.length > 0 && (
-    <Box title={t.expertHistory} icon="user">
+    <Box title={isExpert ? dict.expertPage.competitions : t.expertHistory} icon="user">
       <div className="space-y-2">
         {[...expertOf]
           .sort((x, y) => y.competition.tahun - x.competition.tahun)
@@ -111,7 +117,7 @@ export default function AlumniProfile({ data }: { data: AlumniDetail }) {
   const aboutBox = (
     <Box title={t.aboutMe} icon="user">
       {bio ? <p className="whitespace-pre-line text-slate-700">{bio}</p> : <p className="text-sm text-slate-500">{t.noData}</p>}
-      <div className="mt-4 grid grid-cols-3 gap-3">
+      <div className={`mt-4 grid gap-3 ${isExpert ? "grid-cols-2" : "grid-cols-3"}`}>
         {stats.map((s) => (
           <div key={s.label} className="rounded-xl bg-slate-50 p-3 text-center">
             <Icon name={s.icon} className="mx-auto h-5 w-5 text-brand" />
@@ -211,7 +217,7 @@ export default function AlumniProfile({ data }: { data: AlumniDetail }) {
             </div>
             <div className="min-w-0">
               <h1 className="text-3xl font-extrabold text-ink">{a.nama}</h1>
-              <span className="mt-2 inline-block rounded-md bg-sky-100 px-2.5 py-1 text-xs font-semibold text-sky-700">{t.badge}</span>
+              <span className="mt-2 inline-block rounded-md bg-sky-100 px-2.5 py-1 text-xs font-semibold text-sky-700">{isExpert ? dict.expertPage.badge : t.badge}</span>
               {(a.pekerjaan || a.instansi) && <p className="mt-2 font-semibold text-brand">{[a.pekerjaan, a.instansi].filter(Boolean).join(" - ")}</p>}
               <p className="mt-2 flex flex-wrap justify-center gap-x-5 gap-y-1 text-sm text-slate-600 sm:justify-start">
                 {place && (
@@ -243,9 +249,27 @@ export default function AlumniProfile({ data }: { data: AlumniDetail }) {
           <aside className="rounded-2xl bg-white/90 p-4 shadow-sm ring-1 ring-slate-200">
             <h2 className="flex items-center gap-2 font-bold">
               <Icon name="trophy" className="h-5 w-5 text-brand" />
-              {t.journey}
+              {isExpert ? dict.expertPage.competitions : t.journey}
             </h2>
-            {asc.length ? (
+            {isExpert ? (
+              expertOf.length ? (
+                <ul className="mt-3 space-y-2">
+                  {[...expertOf].sort((x, y) => y.competition.tahun - x.competition.tahun).slice(0, 4).map((e) => (
+                    <li key={e.id}>
+                      <Link href={compHref(e.competition.slug)} className="flex items-center justify-between gap-2 rounded-lg px-3 py-2 ring-1 ring-slate-100 hover:bg-slate-50">
+                        <span>
+                          <span className="block text-sm font-semibold">{levelShort[e.competition.level]}</span>
+                          <span className="text-xs text-slate-500">{e.competition.tahun}</span>
+                        </span>
+                        <span className="text-xs font-semibold text-slate-600">{pick(e, "peran", lang) || dict.competitionDetail.expertDefault}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-3 text-sm text-slate-500">{t.noJourney}</p>
+              )
+            ) : asc.length ? (
               <ul className="mt-3 space-y-2">
                 {asc.slice(0, 4).map((r) => (
                   <li key={r.id}>
@@ -272,7 +296,7 @@ export default function AlumniProfile({ data }: { data: AlumniDetail }) {
 
       <div className="border-y border-slate-200 bg-white">
         <div role="tablist" className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4">
-          {tabs.map(({ key, icon }) => (
+          {tabs.filter((x) => !(isExpert && x.key === "gallery")).map(({ key, icon }) => (
             <button
               key={key}
               role="tab"
@@ -293,13 +317,13 @@ export default function AlumniProfile({ data }: { data: AlumniDetail }) {
             {infoBox}
             <div className="space-y-5">
               {aboutBox}
-              <Box
+              {!isExpert && <Box
                 title={t.latest}
                 icon="trophy"
                 action={desc.length > 3 && <button onClick={() => setTab("history")} className="text-xs font-semibold text-brand hover:underline">{t.viewAll}</button>}
               >
                 {desc.length ? <div className="space-y-2">{desc.slice(0, 3).map(achievement)}</div> : <p className="text-sm text-slate-500">{t.noJourney}</p>}
-              </Box>
+              </Box>}
               {expertBox}
             </div>
             <div className="space-y-5">
@@ -315,10 +339,10 @@ export default function AlumniProfile({ data }: { data: AlumniDetail }) {
         )}
         {tab === "history" && (
           <div className="space-y-5">
-            <Box title={t.tabs.history} icon="trophy">
+            {!isExpert && <Box title={t.tabs.history} icon="trophy">
               {desc.length ? <div className="space-y-2">{desc.map(achievement)}</div> : <p className="text-sm text-slate-500">{t.noJourney}</p>}
-            </Box>
-            {expertBox}
+            </Box>}
+            {expertBox || (isExpert && <p className="text-sm text-slate-500">{t.noJourney}</p>)}
           </div>
         )}
         {tab === "skills" && skillsBox}

@@ -125,6 +125,20 @@
     "experts": "Experts",
     "expertDefault": "Expert"
   },
+  "expertPage": {
+    "eyebrow": "Expert",
+    "title": "Electronics Experts",
+    "subtitle": "The experts who guide and prepare Indonesia's competitors at every competition.",
+    "viewAll": "View All Experts",
+    "viewProfile": "View Profile",
+    "empty": "No experts yet.",
+    "about": "About",
+    "competitions": "Competitions Mentored",
+    "alumniProfile": "View alumni profile",
+    "noData": "No data yet.",
+    "badge": "INASKILLS Expert",
+    "competitionsCount": "competitions"
+  },
   "alumniPage": {
     "achievements": "Achievements",
     "origin": "From",

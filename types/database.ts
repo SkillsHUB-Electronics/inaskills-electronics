@@ -157,3 +157,7 @@ export interface CompetitionExpert {
   urutan: number;
   expert?: Expert;
 }
+
+export interface ExpertDetail extends Expert {
+  competition_experts: (CompetitionExpert & { competition: Competition })[];
+}

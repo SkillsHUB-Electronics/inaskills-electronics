@@ -125,6 +125,20 @@
     "experts": "Expert",
     "expertDefault": "Expert"
   },
+  "expertPage": {
+    "eyebrow": "Expert",
+    "title": "Pembimbing Elektronika",
+    "subtitle": "Para expert yang membimbing dan menyiapkan peserta Indonesia di setiap kompetisi.",
+    "viewAll": "Lihat Semua Expert",
+    "viewProfile": "Lihat Profil",
+    "empty": "Belum ada expert.",
+    "about": "Tentang",
+    "competitions": "Kompetisi yang Dibimbing",
+    "alumniProfile": "Lihat profil alumni",
+    "noData": "Belum ada data.",
+    "badge": "Expert INASKILLS",
+    "competitionsCount": "kompetisi"
+  },
   "alumniPage": {
     "achievements": "Prestasi",
     "origin": "Asal",

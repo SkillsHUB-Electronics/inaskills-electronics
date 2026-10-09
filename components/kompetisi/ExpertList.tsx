@@ -2,7 +2,7 @@ import Link from "next/link";
 import { pick, type Dictionary, type Locale } from "@/lib/i18n";
 import type { CompetitionExpert } from "@/types/database";
 
-// Data tampilan dari daftar expert; yang kosong dilengkapi data alumni bila expert juga alumni. Kartu menuju profil expert.
+// Data tampilan dari daftar expert; yang kosong dilengkapi data alumni bila expert juga alumni. Expert alumni menuju profil alumni; expert lain menuju profil expert.
 export default function ExpertList({ experts, lang, dict }: { experts: CompetitionExpert[]; lang: Locale; dict: Dictionary }) {
   return (
     <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -31,7 +31,7 @@ export default function ExpertList({ experts, lang, dict }: { experts: Competiti
         const cls = "flex items-center gap-4 rounded-2xl bg-white p-4 ring-1 ring-slate-200";
         return (
           <li key={ce.id}>
-            <Link href={`/${lang}/expert/?slug=${e.slug}`} className={`${cls} hover:bg-slate-50`}>
+            <Link href={a ? `/${lang}/alumni/?slug=${a.slug}` : `/${lang}/expert/?slug=${e.slug}`} className={`${cls} hover:bg-slate-50`}>
               {body}
             </Link>
           </li>

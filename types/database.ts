@@ -52,6 +52,8 @@ export interface Result {
   catatan: string | null;
   catatan_en?: string | null;
   foto_url?: string | null;
+  best_of_nation?: boolean;
+  albert_vidal?: boolean;
 }
 
 export interface Sponsor {

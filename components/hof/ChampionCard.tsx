@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AwardBadges from "@/components/hof/AwardBadges";
 import MedalIcon from "@/components/hof/MedalIcon";
 import { place } from "@/lib/competition";
 import { levelShort } from "@/lib/levels";
@@ -40,15 +41,18 @@ export default function ChampionCard({ entry, lang, dict }: { entry: HallOfFameE
         <div className="relative flex h-full max-w-[65%] flex-col p-4">
           <p className="text-3xl font-extrabold leading-none">{c.tahun}</p>
           <p className="mt-1 truncate text-xs text-white/70">{place(c) || pick(c, "nama", lang)}</p>
-          <div className="mt-auto flex items-center gap-2">
-            {noMedal ? (
-              entry.peringkat && (
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-sm font-extrabold ring-1 ring-white/30">{entry.peringkat}</span>
-              )
-            ) : (
-              <MedalIcon medal={entry.medali} />
-            )}
-            <span className={`text-[11px] font-bold uppercase leading-tight tracking-wide ${medalText[entry.medali] ?? "text-white/80"}`}>{medal}</span>
+          <div className="mt-auto flex flex-col gap-1.5">
+            <AwardBadges awards={entry} dict={dict} tone="dark" />
+            <div className="flex items-center gap-2">
+              {noMedal ? (
+                entry.peringkat && (
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-sm font-extrabold ring-1 ring-white/30">{entry.peringkat}</span>
+                )
+              ) : (
+                <MedalIcon medal={entry.medali} />
+              )}
+              <span className={`text-[11px] font-bold uppercase leading-tight tracking-wide ${medalText[entry.medali] ?? "text-white/80"}`}>{medal}</span>
+            </div>
           </div>
         </div>
       </div>

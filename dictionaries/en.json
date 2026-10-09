@@ -83,6 +83,10 @@
     "moe": "Medallion of Excellence",
     "peserta": "No medal"
   },
+  "awards": {
+    "bestOfNation": "Best of Nation",
+    "albertVidal": "Albert Vidal Award"
+  },
   "common": {
     "all": "All",
     "year": "Year",

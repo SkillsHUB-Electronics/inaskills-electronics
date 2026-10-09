@@ -10,7 +10,7 @@ const medals = Object.entries(id.medals);
 export default function ResultEditor({ competitionId }: { competitionId: string }) {
   const [results, setResults] = useState<Row[]>([]);
   const [alumni, setAlumni] = useState<Row[]>([]);
-  const [form, setForm] = useState({ alumni_id: "", medali: "gold", peringkat: "" });
+  const [form, setForm] = useState({ alumni_id: "", medali: "gold", peringkat: "", best_of_nation: false, albert_vidal: false });
   const [error, setError] = useState("");
 
   const load = useCallback(() => {
@@ -32,8 +32,10 @@ export default function ResultEditor({ competitionId }: { competitionId: string 
         alumni_id: form.alumni_id,
         medali: form.medali,
         peringkat: form.peringkat ? Number(form.peringkat) : null,
+        best_of_nation: form.best_of_nation,
+        albert_vidal: form.albert_vidal,
       });
-      setForm((f) => ({ ...f, alumni_id: "", peringkat: "" }));
+      setForm((f) => ({ ...f, alumni_id: "", peringkat: "", best_of_nation: false, albert_vidal: false }));
       load();
     } catch (err) {
       setError((err as Error).message);
@@ -52,6 +54,8 @@ export default function ResultEditor({ competitionId }: { competitionId: string 
             <span>
               <b>{r.peringkat ? `#${r.peringkat} ` : ""}</b>
               {name(r.alumni_id)} · {id.medals[r.medali as keyof typeof id.medals]}
+              {r.best_of_nation ? " · ★ Best of Nation" : ""}
+              {r.albert_vidal ? " · ★ Albert Vidal" : ""}
             </span>
             <button type="button" onClick={() => remove("results", String(r.id)).then(load)} className="font-semibold text-red-600 hover:underline">
               Hapus
@@ -86,6 +90,16 @@ export default function ResultEditor({ competitionId }: { competitionId: string 
           Peringkat
           <input type="number" min={1} value={form.peringkat} onChange={(e) => setForm({ ...form, peringkat: e.target.value })} className={inputClass} />
         </label>
+        <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm sm:col-span-4">
+          <label className="flex items-center gap-2">
+            <input type="checkbox" checked={form.best_of_nation} onChange={(e) => setForm({ ...form, best_of_nation: e.target.checked })} className="h-4 w-4 accent-brand" />
+            Best of Nation
+          </label>
+          <label className="flex items-center gap-2">
+            <input type="checkbox" checked={form.albert_vidal} onChange={(e) => setForm({ ...form, albert_vidal: e.target.checked })} className="h-4 w-4 accent-brand" />
+            Albert Vidal Award
+          </label>
+        </div>
         <button type="submit" className="rounded-full bg-ink px-5 py-2 text-sm font-semibold text-white hover:bg-ink-soft sm:col-span-4 sm:justify-self-start">
           + Tambah hasil
         </button>

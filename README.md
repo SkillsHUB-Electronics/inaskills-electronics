@@ -20,7 +20,7 @@ Tanpa env Supabase, situs tetap jalan dengan data contoh (`lib/sample-data.ts`).
 2. SQL Editor: jalankan `supabase/migrations/001_init.sql`.
 3. Authentication > Users: buat 1 user admin, lalu jalankan
    `insert into public.admins (user_id) values ('<UUID user>');`
-4. Jalankan juga `002_projects_social.sql`, `003_users_news.sql`, `004_hall_of_fame.sql`, `005_competition_details.sql`, `006_competition_logo.sql`, `007_users_admin.sql`, `008_profile_details.sql`, `009_public_stats.sql`, dan `010_delete_user.sql` (berurutan).
+4. Jalankan juga `002_projects_social.sql`, `003_users_news.sql`, `004_hall_of_fame.sql`, `005_competition_details.sql`, `006_competition_logo.sql`, `007_users_admin.sql`, `008_profile_details.sql`, `009_public_stats.sql`, `010_delete_user.sql` (berurutan).
 5. Authentication > URL Configuration: Site URL = `https://skillshub-electronics.github.io/inaskills-electronics/`, tambahkan juga ke Redirect URLs dengan akhiran `**`.
 6. Authentication > Sign In / Providers: biarkan "Allow new users to sign up" aktif agar user biasa bisa mendaftar. Hak admin hanya dari tabel `admins`, jadi pendaftar baru tidak otomatis jadi admin.
 
@@ -47,5 +47,6 @@ Semua akun yang mendaftar tampil di panel admin, menu **Pengguna**. Dari sana ad
 - **Hapus akun** secara permanen (dengan konfirmasi). Tidak bisa menghapus diri sendiri, dan akun admin harus dicabut hak adminnya dulu. Data alumni dan Hall of Fame tetap ada; hanya hubungan ke akunnya yang lepas.
 - Akun terdaftar yang belum jadi alumni juga bisa langsung dipilih di form **Hall of Fame**.
 - Di form **Hall of Fame**, pilihan medali termasuk **Tanpa medali** (untuk peringkat saja; isi Peringkat). Kartunya tampil tanpa ikon medali dan tidak dihitung di statistik medali.
+- Centang **Best of Nation** dan/atau **Albert Vidal Award** (penghargaan langka, bisa bersama medali apa pun). Tampil sebagai lencana di kartu Hall of Fame, profil alumni, dan tabel hasil kompetisi. Migrasi `014_result_awards.sql`.
 
 Ganti password: menu Akun (admin) atau Akun Saya (user biasa).

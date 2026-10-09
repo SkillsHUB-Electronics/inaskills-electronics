@@ -1,3 +1,4 @@
+import AwardBadges from "@/components/hof/AwardBadges";
 import Link from "next/link";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import type { Alumni, Result } from "@/types/database";
@@ -32,7 +33,10 @@ export default function ResultTable({
                   {r.alumni.nama}
                 </Link>
               </td>
-              <td className="px-4 py-3">{dict.medals[r.medali]}</td>
+              <td className="px-4 py-3">
+                {dict.medals[r.medali]}
+                <AwardBadges awards={r} dict={dict} className="mt-1" />
+              </td>
             </tr>
           ))}
         </tbody>

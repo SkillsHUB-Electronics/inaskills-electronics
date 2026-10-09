@@ -27,6 +27,8 @@ const emptyForm = {
   komp_tahun: String(new Date().getFullYear()),
   medali: "gold",
   peringkat: "",
+  best_of_nation: false,
+  albert_vidal: false,
   foto_url: "",
   catatan: "",
   catatan_en: "",
@@ -79,6 +81,8 @@ export default function AdminHallOfFamePage() {
       competition_id: String(e.competition_id),
       medali: String(e.medali),
       peringkat: e.peringkat ? String(e.peringkat) : "",
+      best_of_nation: Boolean(e.best_of_nation),
+      albert_vidal: Boolean(e.albert_vidal),
       foto_url: String(e.foto_url ?? ""),
       catatan: String(e.catatan ?? ""),
       catatan_en: String(e.catatan_en ?? ""),
@@ -116,6 +120,8 @@ export default function AdminHallOfFamePage() {
         competition_id: competitionId,
         medali: form.medali,
         peringkat: form.peringkat ? Number(form.peringkat) : null,
+        best_of_nation: form.best_of_nation,
+        albert_vidal: form.albert_vidal,
         foto_url: form.foto_url || null,
         catatan: form.catatan.trim() || null,
         catatan_en: form.catatan_en.trim() || null,
@@ -262,6 +268,20 @@ export default function AdminHallOfFamePage() {
             <input type="number" min={1} required={form.medali === "peserta"} value={form.peringkat} onChange={(e) => set("peringkat", e.target.value)} className={inputClass} />
           </label>
 
+          <fieldset className="md:col-span-2">
+            <legend className="text-sm font-medium">Penghargaan khusus (opsional, tampil sebagai lencana di profil)</legend>
+            <div className="mt-2 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+              <label className="flex items-center gap-2">
+                <input type="checkbox" checked={form.best_of_nation} onChange={(e) => set("best_of_nation", e.target.checked)} className="h-4 w-4 accent-brand" />
+                Best of Nation
+              </label>
+              <label className="flex items-center gap-2">
+                <input type="checkbox" checked={form.albert_vidal} onChange={(e) => set("albert_vidal", e.target.checked)} className="h-4 w-4 accent-brand" />
+                Albert Vidal Award
+              </label>
+            </div>
+          </fieldset>
+
           <div className="text-sm font-medium md:col-span-2">
             Foto (opsional, kosong = pakai foto alumni)
             <ImageUploader bucket="competitions" value={form.foto_url} onChange={(url) => set("foto_url", url)} />
@@ -269,7 +289,7 @@ export default function AdminHallOfFamePage() {
 
           <label className="block text-sm font-medium">
             Catatan (Indonesia)
-            <input placeholder="mis. Best of Nation" value={form.catatan} onChange={(e) => set("catatan", e.target.value)} className={inputClass} />
+            <input placeholder="mis. Peserta termuda" value={form.catatan} onChange={(e) => set("catatan", e.target.value)} className={inputClass} />
           </label>
           <label className="block text-sm font-medium">
             Note (English)
@@ -318,6 +338,8 @@ export default function AdminHallOfFamePage() {
                       <p className="font-semibold">
                         {e.alumni?.nama ?? "–"} · {id.medals[e.medali as keyof typeof id.medals]}
                         {e.peringkat ? ` (#${String(e.peringkat)})` : ""}
+                        {e.best_of_nation ? " · ★ Best of Nation" : ""}
+                        {e.albert_vidal ? " · ★ Albert Vidal" : ""}
                       </p>
                       <p className="truncate text-slate-500">
                         {e.competition?.nama_id} · {e.competition?.tahun}

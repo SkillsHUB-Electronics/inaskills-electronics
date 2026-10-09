@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import AwardBadges from "@/components/hof/AwardBadges";
 import MedalIcon from "@/components/hof/MedalIcon";
 import LevelBadge from "@/components/ui/LevelBadge";
 import { Icon, type IconName } from "@/components/akun/ui";
@@ -83,6 +84,7 @@ export default function AlumniProfile({ data }: { data: AlumniDetail }) {
       <div className="min-w-0 flex-1">
         <p className="truncate font-semibold">{pick(r.competition, "nama", lang)}</p>
         <LevelBadge level={r.competition.level} label={levelShort[r.competition.level]} />
+        <AwardBadges awards={r} dict={dict} className="mt-1.5" />
       </div>
       <span className="shrink-0 text-sm font-semibold text-brand">{dict.medals[r.medali]}</span>
     </Link>
@@ -234,7 +236,10 @@ export default function AlumniProfile({ data }: { data: AlumniDetail }) {
                         <span className="block text-sm font-semibold">{levelShort[r.competition.level]}</span>
                         <span className="text-xs text-slate-500">{r.competition.tahun}</span>
                       </span>
-                      <span className="text-xs font-semibold text-slate-600">{dict.medals[r.medali]}</span>
+                      <span className="flex flex-col items-end gap-1">
+                        <span className="text-xs font-semibold text-slate-600">{dict.medals[r.medali]}</span>
+                        <AwardBadges awards={r} dict={dict} className="justify-end" />
+                      </span>
                     </Link>
                   </li>
                 ))}

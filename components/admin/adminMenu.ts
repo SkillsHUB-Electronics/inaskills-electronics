@@ -7,6 +7,7 @@ export type MenuKey = keyof AdminTexts["menu"];
 export const adminMenu: { key: MenuKey; href: string; icon: IconName; group: "manage" | "system" }[] = [
   { key: "dashboard", href: "/admin/", icon: "dashboard", group: "manage" },
   { key: "alumni", href: "/admin/alumni/", icon: "alumni", group: "manage" },
+  { key: "expert", href: "/admin/expert/", icon: "expert", group: "manage" },
   { key: "hof", href: "/admin/hall-of-fame/", icon: "hof", group: "manage" },
   { key: "kompetisi", href: "/admin/kompetisi/", icon: "kompetisi", group: "manage" },
   { key: "proyek", href: "/admin/proyek/", icon: "proyek", group: "manage" },

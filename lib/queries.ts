@@ -1,7 +1,7 @@
 import { supabase } from "@/lib/supabase";
 import { sample } from "@/lib/sample-data";
 import { hofTypes } from "@/lib/levels";
-import type { Alumni, Competition, CompetitionExpert, CompetitionImage, HallOfFameEntry, News, Project, Result, Sponsor } from "@/types/database";
+import type { Alumni, Competition, CompetitionExpert, CompetitionImage, CompetitionModule, CompetitionPartner, HallOfFameEntry, News, Project, Result, Sponsor } from "@/types/database";
 
 export async function getLatestCompetitions(limit = 3): Promise<Competition[]> {
   if (!supabase) return sample.competitions.slice(0, limit);
@@ -85,6 +85,8 @@ export interface CompetitionDetail {
   results: (Result & { alumni: Alumni })[];
   images: CompetitionImage[];
   experts: CompetitionExpert[];
+  modules: CompetitionModule[];
+  partners: CompetitionPartner[];
 }
 
 export async function getCompetitionBySlug(slug: string): Promise<CompetitionDetail | null> {
@@ -92,7 +94,7 @@ export async function getCompetitionBySlug(slug: string): Promise<CompetitionDet
     const competition = sample.competitions.find((c) => c.slug === slug);
     if (!competition) return null;
     const results = sample.hallOfFame.filter((r) => r.competition_id === competition.id);
-    return { competition, results, images: [], experts: [] };
+    return { competition, results, images: [], experts: [], modules: [], partners: [] };
   }
   const { data: competition, error } = await supabase
     .from("competitions")
@@ -101,15 +103,26 @@ export async function getCompetitionBySlug(slug: string): Promise<CompetitionDet
     .maybeSingle();
   if (error) throw error;
   if (!competition) return null;
-  const [results, images, experts] = await Promise.all([
+  const [results, images, experts, modules, partners] = await Promise.all([
     supabase.from("results").select("*, alumni(*)").eq("competition_id", competition.id).order("peringkat"),
     supabase.from("competition_images").select("*").eq("competition_id", competition.id).order("urutan"),
     supabase.from("competition_experts").select("*, alumni(*)").eq("competition_id", competition.id).order("urutan").order("created_at"),
+    supabase.from("competition_modules").select("*").eq("competition_id", competition.id).order("urutan").order("created_at"),
+    supabase.from("competition_partners").select("*").eq("competition_id", competition.id).order("urutan").order("created_at"),
   ]);
   if (results.error) throw results.error;
   if (images.error) throw images.error;
   if (experts.error) throw experts.error;
-  return { competition, results: results.data, images: images.data, experts: experts.data as CompetitionExpert[] };
+  if (modules.error) throw modules.error;
+  if (partners.error) throw partners.error;
+  return {
+    competition,
+    results: results.data,
+    images: images.data,
+    experts: experts.data as CompetitionExpert[],
+    modules: modules.data,
+    partners: partners.data,
+  };
 }
 
 export interface AlumniDetail {

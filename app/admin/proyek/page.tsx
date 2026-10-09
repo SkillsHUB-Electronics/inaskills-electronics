@@ -24,7 +24,7 @@ const baseFields: Field[] = [
       { value: "under_development", label: "Dalam pengembangan" },
     ],
   },
-  { name: "tahun", label: "Tahun", type: "number" },
+  { name: "tahun", label: "Tahun", type: "number", nullable: true },
   { name: "urutan", label: "Urutan tampil (kecil = duluan)", type: "number" },
   { name: "repo_url", label: "Link repository (GitHub/GitLab)", type: "url" },
   { name: "demo_url", label: "Link demo / video", type: "url" },

@@ -4,7 +4,9 @@ import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Section from "@/components/ui/Section";
 import LevelBadge from "@/components/ui/LevelBadge";
-import ResultTable from "@/components/kompetisi/ResultTable";
+import CompetitorCards from "@/components/kompetisi/CompetitorCards";
+import ModuleList from "@/components/kompetisi/ModuleList";
+import PartnerList from "@/components/kompetisi/PartnerList";
 import ExpertList from "@/components/kompetisi/ExpertList";
 import Gallery from "@/components/media/Gallery";
 import { dateRange, place } from "@/lib/competition";
@@ -21,7 +23,7 @@ function Detail({ slug }: { slug: string }) {
   if (error) return <Section><p className="text-red-600">{dict.common.error}</p></Section>;
   if (!data) return <Section><p className="text-slate-500">{dict.common.notFound}</p></Section>;
 
-  const { competition: c, results, images, experts } = data;
+  const { competition: c, results, images, experts, modules, partners } = data;
   return (
     <>
       <header className="relative bg-ink px-4 py-14 text-white sm:py-20">
@@ -55,13 +57,23 @@ function Detail({ slug }: { slug: string }) {
         <p className="max-w-3xl whitespace-pre-line text-slate-700">{pick(c, "overview", lang)}</p>
       </Section>
       {results.length > 0 && (
-        <Section title={dict.competitionDetail.results} className="bg-slate-50">
-          <ResultTable results={results} lang={lang} dict={dict} />
+        <Section title={dict.competitionDetail.competitors} className="bg-slate-50">
+          <CompetitorCards results={results} lang={lang} dict={dict} />
         </Section>
       )}
       {experts.length > 0 && (
         <Section title={dict.competitionDetail.experts}>
           <ExpertList experts={experts} lang={lang} dict={dict} />
+        </Section>
+      )}
+      {modules.length > 0 && (
+        <Section title={dict.competitionDetail.modules} className="bg-slate-50">
+          <ModuleList modules={modules} lang={lang} />
+        </Section>
+      )}
+      {partners.length > 0 && (
+        <Section title={dict.competitionDetail.partners} className="bg-slate-50">
+          <PartnerList partners={partners} />
         </Section>
       )}
       {images.length > 0 && (

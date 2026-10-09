@@ -3,6 +3,8 @@
 import CrudManager, { type Field } from "@/components/admin/CrudManager";
 import ResultEditor from "@/components/admin/ResultEditor";
 import ExpertEditor from "@/components/admin/ExpertEditor";
+import ModuleEditor from "@/components/admin/ModuleEditor";
+import PartnerEditor from "@/components/admin/PartnerEditor";
 import GalleryEditor from "@/components/admin/GalleryEditor";
 import { levels } from "@/lib/levels";
 import id from "@/dictionaries/id.json";
@@ -41,6 +43,8 @@ export default function AdminCompetitionsPage() {
         <>
           <ResultEditor competitionId={String(row.id)} />
           <ExpertEditor competitionId={String(row.id)} />
+          <ModuleEditor competitionId={String(row.id)} />
+          <PartnerEditor competitionId={String(row.id)} />
           <GalleryEditor competitionId={String(row.id)} />
         </>
       )}

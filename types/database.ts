@@ -115,6 +115,25 @@ export interface News {
   terbit: boolean;
 }
 
+export interface CompetitionModule {
+  id: string;
+  competition_id: string;
+  judul_id: string;
+  judul_en: string | null;
+  deskripsi_id: string | null;
+  deskripsi_en: string | null;
+  urutan: number;
+}
+
+export interface CompetitionPartner {
+  id: string;
+  competition_id: string;
+  nama: string;
+  logo_url: string | null;
+  website: string | null;
+  urutan: number;
+}
+
 export interface CompetitionExpert {
   id: string;
   competition_id: string;

@@ -8,7 +8,7 @@ import { list, remove, save, uniqueSlug, type Row, type Table } from "@/lib/muta
 export type Field = {
   name: string;
   label: string;
-  type: "text" | "textarea" | "richtext" | "number" | "date" | "select" | "checkbox" | "image" | "file" | "url" | "tags";
+  type: "text" | "textarea" | "richtext" | "number" | "date" | "select" | "combo" | "checkbox" | "image" | "file" | "url" | "tags";
   required?: boolean;
   // Hanya untuk field angka: true bila kolom DB boleh null. Bila tidak, angka kosong disimpan 0 (bukan null).
   nullable?: boolean;
@@ -45,6 +45,37 @@ function emptyRow(fields: Field[]): Row {
   return Object.fromEntries(fields.map((f) => [f.name, f.type === "checkbox" ? false : f.type === "number" && !f.nullable && !f.required ? 0 : f.type === "select" ? (f.options?.[0]?.value ?? "") : ""]));
 }
 
+// Dropdown dengan pilihan baku + "Lainnya..." untuk mengetik nilai baru; nilai lama di luar daftar tetap tampil.
+function ComboField({ field, value, onChange }: { field: Field; value: string; onChange: (v: string) => void }) {
+  const [custom, setCustom] = useState(false);
+  const known = field.options?.some((o) => o.value === value) ?? false;
+  const other = custom || (value !== "" && !known);
+  return (
+    <>
+      <select
+        value={other ? OTHER : value}
+        onChange={(e) => {
+          const v = e.target.value;
+          setCustom(v === OTHER);
+          onChange(v === OTHER ? "" : v);
+        }}
+        className={inputClass}
+      >
+        <option value="">-</option>
+        {field.options?.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+        <option value={OTHER}>Lainnya...</option>
+      </select>
+      {other && <input type="text" autoFocus={custom} placeholder="Ketik nama baru" value={value} onChange={(e) => onChange(e.target.value)} className={inputClass} />}
+    </>
+  );
+}
+
+const OTHER = "__other__";
+
 export default function CrudManager({ title, table, fields, order, ascending = true, columns, slugFrom, renderExtra }: Props) {
   const [rows, setRows] = useState<Row[]>([]);
   const [editing, setEditing] = useState<Row | null>(null);
@@ -74,7 +105,7 @@ export default function CrudManager({ title, table, fields, order, ascending = t
       // Kolom angka/tanggal kosong disimpan sebagai null, bukan string kosong.
       // Kecuali angka yang kolomnya NOT NULL (mis. urutan): disimpan 0.
       for (const f of fields) {
-        if (!["number", "date", "image", "file", "url", "select"].includes(f.type) || row[f.name] !== "") continue;
+        if (!["number", "date", "image", "file", "url", "select", "combo"].includes(f.type) || row[f.name] !== "") continue;
         row[f.name] = f.type === "number" && !f.nullable && !f.required ? 0 : null;
       }
       // Tags: teks dipisah koma disimpan sebagai array (tanpa duplikat), kosong = null.
@@ -146,6 +177,8 @@ export default function CrudManager({ title, table, fields, order, ascending = t
                     {f.required && " *"}
                     {f.type === "textarea" ? (
                       <textarea rows={5} required={f.required} value={String(editing[f.name] ?? "")} onChange={(e) => set(f.name, e.target.value)} className={inputClass} />
+                    ) : f.type === "combo" ? (
+                      <ComboField field={f} value={String(editing[f.name] ?? "")} onChange={(v) => set(f.name, v)} />
                     ) : f.type === "select" ? (
                       <select required={f.required} value={String(editing[f.name] ?? "")} onChange={(e) => set(f.name, e.target.value)} className={inputClass}>
                         {f.options?.map((o) => (

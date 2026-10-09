@@ -5,7 +5,7 @@ import CrudManager, { type Field } from "@/components/admin/CrudManager";
 const fields: Field[] = [
   { name: "nama", label: "Nama sponsor", type: "text", required: true },
   { name: "website", label: "Website", type: "text" },
-  { name: "tier", label: "Tier (mis. Platinum, Gold)", type: "text" },
+  { name: "tier", label: "Tier", type: "combo", options: ["Platinum", "Gold", "Silver", "Bronze", "Official Media Partner"].map((t) => ({ value: t, label: t })) },
   { name: "urutan", label: "Urutan tampil (kecil = duluan)", type: "number" },
   { name: "logo_url", label: "Logo", type: "image", bucket: "sponsors" },
   { name: "aktif", label: "Tampilkan di situs", type: "checkbox" },

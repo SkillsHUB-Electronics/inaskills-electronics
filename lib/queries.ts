@@ -1,7 +1,7 @@
 import { supabase } from "@/lib/supabase";
 import { sample } from "@/lib/sample-data";
 import { hofTypes } from "@/lib/levels";
-import type { Alumni, Competition, CompetitionExpert, CompetitionImage, CompetitionModule, CompetitionPartner, HallOfFameEntry, News, Project, Result, Sponsor } from "@/types/database";
+import type { Alumni, Competition, CompetitionExpert, CompetitionImage, ExpertDetail, CompetitionModule, CompetitionPartner, HallOfFameEntry, News, Project, Result, Sponsor } from "@/types/database";
 
 export async function getLatestCompetitions(limit = 3): Promise<Competition[]> {
   if (!supabase) return sample.competitions.slice(0, limit);
@@ -203,4 +203,26 @@ export async function getHighlight(): Promise<Highlight | null> {
   const medals = { gold: 0, silver: 0, bronze: 0, moe: 0 };
   for (const r of results) if (r.medali in medals) medals[r.medali as keyof typeof medals]++;
   return { competition, medals };
+}
+
+const expertSelect = "*, alumni(*), competition_experts(*, competition:competitions(*))";
+
+function latestYear(e: ExpertDetail): number {
+  return Math.max(0, ...e.competition_experts.map((c) => c.competition.tahun));
+}
+
+// Expert terbaru (menurut tahun kompetisi yang dibimbing) lebih dulu.
+export async function getExperts(limit?: number): Promise<ExpertDetail[]> {
+  if (!supabase) return [];
+  const { data, error } = await supabase.from("experts").select(expertSelect);
+  if (error) throw error;
+  const sorted = (data as ExpertDetail[]).sort((a, b) => latestYear(b) - latestYear(a) || a.nama.localeCompare(b.nama));
+  return limit ? sorted.slice(0, limit) : sorted;
+}
+
+export async function getExpertBySlug(slug: string): Promise<ExpertDetail | null> {
+  if (!supabase) return null;
+  const { data, error } = await supabase.from("experts").select(expertSelect).eq("slug", slug).maybeSingle();
+  if (error) throw error;
+  return data as ExpertDetail | null;
 }

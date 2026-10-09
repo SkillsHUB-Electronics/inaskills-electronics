@@ -118,7 +118,9 @@
     "name": "Name",
     "medal": "Medal",
     "rank": "Rank",
-    "website": "Official website"
+    "website": "Official website",
+    "experts": "Experts",
+    "expertDefault": "Expert"
   },
   "alumniPage": {
     "achievements": "Achievements",
@@ -133,6 +135,7 @@
       "contact": "Contact"
     },
     "journey": "Competition Journey",
+    "expertHistory": "Expert History",
     "noJourney": "No competition history yet.",
     "personalInfo": "Personal Information",
     "fullName": "Full name",

@@ -54,7 +54,7 @@ export default function AlumniProfile({ data }: { data: AlumniDetail }) {
   const { lang, dict } = useLocale();
   const t = dict.alumniPage;
   const [tab, setTab] = useState<Tab>("overview");
-  const { alumni: a, results } = data;
+  const { alumni: a, results, expertOf } = data;
 
   const desc = [...results].sort((x, y) => y.competition.tahun - x.competition.tahun);
   const asc = [...desc].reverse();
@@ -88,6 +88,24 @@ export default function AlumniProfile({ data }: { data: AlumniDetail }) {
       </div>
       <span className="shrink-0 text-sm font-semibold text-brand">{dict.medals[r.medali]}</span>
     </Link>
+  );
+
+  const expertBox = expertOf.length > 0 && (
+    <Box title={t.expertHistory} icon="user">
+      <div className="space-y-2">
+        {[...expertOf]
+          .sort((x, y) => y.competition.tahun - x.competition.tahun)
+          .map((e) => (
+            <Link key={e.id} href={compHref(e.competition.slug)} className="flex items-center gap-3 rounded-xl p-3 ring-1 ring-slate-100 hover:bg-slate-50">
+              <div className="min-w-0 flex-1">
+                <p className="truncate font-semibold">{pick(e.competition, "nama", lang)}</p>
+                <LevelBadge level={e.competition.level} label={levelShort[e.competition.level]} />
+              </div>
+              <span className="shrink-0 text-sm font-semibold text-brand">{pick(e, "peran", lang) || dict.competitionDetail.expertDefault}</span>
+            </Link>
+          ))}
+      </div>
+    </Box>
   );
 
   const aboutBox = (
@@ -282,6 +300,7 @@ export default function AlumniProfile({ data }: { data: AlumniDetail }) {
               >
                 {desc.length ? <div className="space-y-2">{desc.slice(0, 3).map(achievement)}</div> : <p className="text-sm text-slate-500">{t.noJourney}</p>}
               </Box>
+              {expertBox}
             </div>
             <div className="space-y-5">
               {skillsBox}
@@ -295,9 +314,12 @@ export default function AlumniProfile({ data }: { data: AlumniDetail }) {
           </div>
         )}
         {tab === "history" && (
-          <Box title={t.tabs.history} icon="trophy">
-            {desc.length ? <div className="space-y-2">{desc.map(achievement)}</div> : <p className="text-sm text-slate-500">{t.noJourney}</p>}
-          </Box>
+          <div className="space-y-5">
+            <Box title={t.tabs.history} icon="trophy">
+              {desc.length ? <div className="space-y-2">{desc.map(achievement)}</div> : <p className="text-sm text-slate-500">{t.noJourney}</p>}
+            </Box>
+            {expertBox}
+          </div>
         )}
         {tab === "skills" && skillsBox}
         {tab === "gallery" && (

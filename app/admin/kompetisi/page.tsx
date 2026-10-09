@@ -2,6 +2,7 @@
 
 import CrudManager, { type Field } from "@/components/admin/CrudManager";
 import ResultEditor from "@/components/admin/ResultEditor";
+import ExpertEditor from "@/components/admin/ExpertEditor";
 import GalleryEditor from "@/components/admin/GalleryEditor";
 import { levels } from "@/lib/levels";
 import id from "@/dictionaries/id.json";
@@ -39,6 +40,7 @@ export default function AdminCompetitionsPage() {
       renderExtra={(row) => (
         <>
           <ResultEditor competitionId={String(row.id)} />
+          <ExpertEditor competitionId={String(row.id)} />
           <GalleryEditor competitionId={String(row.id)} />
         </>
       )}

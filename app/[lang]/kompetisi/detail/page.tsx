@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import Section from "@/components/ui/Section";
 import LevelBadge from "@/components/ui/LevelBadge";
 import ResultTable from "@/components/kompetisi/ResultTable";
+import ExpertList from "@/components/kompetisi/ExpertList";
 import Gallery from "@/components/media/Gallery";
 import { dateRange, place } from "@/lib/competition";
 import { pick } from "@/lib/i18n";
@@ -20,7 +21,7 @@ function Detail({ slug }: { slug: string }) {
   if (error) return <Section><p className="text-red-600">{dict.common.error}</p></Section>;
   if (!data) return <Section><p className="text-slate-500">{dict.common.notFound}</p></Section>;
 
-  const { competition: c, results, images } = data;
+  const { competition: c, results, images, experts } = data;
   return (
     <>
       <header className="relative bg-ink px-4 py-14 text-white sm:py-20">
@@ -56,6 +57,11 @@ function Detail({ slug }: { slug: string }) {
       {results.length > 0 && (
         <Section title={dict.competitionDetail.results} className="bg-slate-50">
           <ResultTable results={results} lang={lang} dict={dict} />
+        </Section>
+      )}
+      {experts.length > 0 && (
+        <Section title={dict.competitionDetail.experts}>
+          <ExpertList experts={experts} lang={lang} dict={dict} />
         </Section>
       )}
       {images.length > 0 && (

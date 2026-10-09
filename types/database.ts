@@ -114,3 +114,16 @@ export interface News {
   tanggal: string;
   terbit: boolean;
 }
+
+export interface CompetitionExpert {
+  id: string;
+  competition_id: string;
+  alumni_id: string | null;
+  nama: string | null;
+  foto_url: string | null;
+  instansi: string | null;
+  peran_id: string | null;
+  peran_en: string | null;
+  urutan: number;
+  alumni?: Alumni | null;
+}

@@ -118,7 +118,9 @@
     "name": "Nama",
     "medal": "Medali",
     "rank": "Peringkat",
-    "website": "Situs resmi lomba"
+    "website": "Situs resmi lomba",
+    "experts": "Expert",
+    "expertDefault": "Expert"
   },
   "alumniPage": {
     "achievements": "Prestasi",
@@ -133,6 +135,7 @@
       "contact": "Kontak"
     },
     "journey": "Perjalanan Kompetisi",
+    "expertHistory": "Riwayat sebagai Expert",
     "noJourney": "Belum ada riwayat kompetisi.",
     "personalInfo": "Informasi Pribadi",
     "fullName": "Nama lengkap",

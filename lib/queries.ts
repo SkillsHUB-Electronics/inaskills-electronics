@@ -106,7 +106,7 @@ export async function getCompetitionBySlug(slug: string): Promise<CompetitionDet
   const [results, images, experts, modules, partners] = await Promise.all([
     supabase.from("results").select("*, alumni(*)").eq("competition_id", competition.id).order("peringkat"),
     supabase.from("competition_images").select("*").eq("competition_id", competition.id).order("urutan"),
-    supabase.from("competition_experts").select("*, alumni(*)").eq("competition_id", competition.id).order("urutan").order("created_at"),
+    supabase.from("competition_experts").select("*, expert:experts(*, alumni(*))").eq("competition_id", competition.id).order("urutan").order("created_at"),
     supabase.from("competition_modules").select("*").eq("competition_id", competition.id).order("urutan").order("created_at"),
     supabase.from("competition_partners").select("*").eq("competition_id", competition.id).order("urutan").order("created_at"),
   ]);
@@ -142,7 +142,7 @@ export async function getAlumniBySlug(slug: string): Promise<AlumniDetail | null
   if (!alumni) return null;
   const [results, expertOf] = await Promise.all([
     supabase.from("results").select("*, competition:competitions(*)").eq("alumni_id", alumni.id),
-    supabase.from("competition_experts").select("*, competition:competitions(*)").eq("alumni_id", alumni.id),
+    supabase.from("competition_experts").select("*, competition:competitions(*), expert:experts!inner(alumni_id)").eq("expert.alumni_id", alumni.id),
   ]);
   if (results.error) throw results.error;
   if (expertOf.error) throw expertOf.error;

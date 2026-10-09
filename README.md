@@ -46,5 +46,6 @@ Semua akun yang mendaftar tampil di panel admin, menu **Pengguna**. Dari sana ad
 - **Hubungkan akun ke alumni** (buat alumni baru dari akun, atau sambungkan ke alumni yang sudah ada). Foto, bio, pekerjaan, instansi, dan link media sosial yang diisi user di **Akun Saya** otomatis ikut ke profil alumninya.
 - **Hapus akun** secara permanen (dengan konfirmasi). Tidak bisa menghapus diri sendiri, dan akun admin harus dicabut hak adminnya dulu. Data alumni dan Hall of Fame tetap ada; hanya hubungan ke akunnya yang lepas.
 - Akun terdaftar yang belum jadi alumni juga bisa langsung dipilih di form **Hall of Fame**.
+- Di form **Hall of Fame**, pilihan medali termasuk **Tanpa medali** (untuk peringkat saja; isi Peringkat). Kartunya tampil tanpa ikon medali dan tidak dihitung di statistik medali.
 
 Ganti password: menu Akun (admin) atau Akun Saya (user biasa).

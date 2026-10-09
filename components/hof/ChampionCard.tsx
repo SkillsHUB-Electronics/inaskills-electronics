@@ -17,7 +17,13 @@ export default function ChampionCard({ entry, lang, dict }: { entry: HallOfFameE
   const c = entry.competition;
   const photo = entry.foto_url || entry.alumni.foto_url;
   const note = pick({ catatan_id: entry.catatan, catatan_en: entry.catatan_en }, "catatan", lang);
-  const medal = dict.hallOfFame.medalLong[entry.medali as keyof typeof dict.hallOfFame.medalLong] ?? dict.medals[entry.medali];
+  const noMedal = entry.medali === "peserta";
+  // Tanpa medali: tidak ada ikon medali, yang ditonjolkan adalah peringkatnya.
+  const medal = noMedal
+    ? entry.peringkat
+      ? `${dict.competitionDetail.rank} ${entry.peringkat}`
+      : dict.medals.peserta
+    : (dict.hallOfFame.medalLong[entry.medali as keyof typeof dict.hallOfFame.medalLong] ?? dict.medals[entry.medali]);
 
   return (
     <Link
@@ -35,8 +41,14 @@ export default function ChampionCard({ entry, lang, dict }: { entry: HallOfFameE
           <p className="text-3xl font-extrabold leading-none">{c.tahun}</p>
           <p className="mt-1 truncate text-xs text-white/70">{place(c) || pick(c, "nama", lang)}</p>
           <div className="mt-auto flex items-center gap-2">
-            <MedalIcon medal={entry.medali} />
-            <span className={`text-[11px] font-bold uppercase leading-tight tracking-wide ${medalText[entry.medali] ?? ""}`}>{medal}</span>
+            {noMedal ? (
+              entry.peringkat && (
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-sm font-extrabold ring-1 ring-white/30">{entry.peringkat}</span>
+              )
+            ) : (
+              <MedalIcon medal={entry.medali} />
+            )}
+            <span className={`text-[11px] font-bold uppercase leading-tight tracking-wide ${medalText[entry.medali] ?? "text-white/80"}`}>{medal}</span>
           </div>
         </div>
       </div>

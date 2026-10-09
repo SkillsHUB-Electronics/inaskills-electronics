@@ -8,7 +8,7 @@ import LevelFilter from "@/components/kompetisi/LevelFilter";
 import ChampionCard from "@/components/hof/ChampionCard";
 import HofHeading from "@/components/hof/HofHeading";
 import YearTimeline from "@/components/hof/YearTimeline";
-import { hofMedals, levelShort, internationalLevels, levelsByRank, type Level } from "@/lib/levels";
+import { hofMedals, hofTypes, levelShort, internationalLevels, levelsByRank, type Level } from "@/lib/levels";
 import { place } from "@/lib/competition";
 import { getHallOfFame } from "@/lib/queries";
 import { useLocale } from "@/lib/useLocale";
@@ -44,7 +44,7 @@ export default function HallOfFamePage() {
       level: l,
       entries: data
         .filter((e) => e.competition.level === l && (year === null || e.competition.tahun === year))
-        .sort((a, b) => b.competition.tahun - a.competition.tahun || hofMedals.indexOf(a.medali as never) - hofMedals.indexOf(b.medali as never)),
+        .sort((a, b) => b.competition.tahun - a.competition.tahun || hofTypes.indexOf(a.medali as never) - hofTypes.indexOf(b.medali as never) || (a.peringkat ?? 99) - (b.peringkat ?? 99)),
     }))
     .filter((g) => g.entries.length > 0 || (year === null && (internationalLevels.includes(g.level) || level === g.level)));
 

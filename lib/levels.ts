@@ -18,3 +18,5 @@ export const levelColors: Record<Level, string> = {
 
 // Medali yang masuk Hall of Fame, urut dari tertinggi.
 export const hofMedals = ["gold", "silver", "bronze", "moe"] as const;
+// Yang tampil di Hall of Fame: semua medali, ditambah "peserta" = peringkat tanpa medali.
+export const hofTypes = [...hofMedals, "peserta"] as const;

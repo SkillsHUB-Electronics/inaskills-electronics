@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { inputClass } from "@/components/admin/CrudManager";
 import ImageUploader from "@/components/admin/ImageUploader";
 import LevelBadge from "@/components/ui/LevelBadge";
-import { hofMedals, levelShort, levelsByRank, type Level } from "@/lib/levels";
+import { hofTypes, levelShort, levelsByRank, type Level } from "@/lib/levels";
 import { insertReturningId, linkUserToAlumni, list, listUsers, remove, save, uniqueSlug, type Row, type UserRow } from "@/lib/mutations";
 import { supabase } from "@/lib/supabase";
 import id from "@/dictionaries/id.json";
@@ -49,7 +49,7 @@ export default function AdminHallOfFamePage() {
       supabase
         .from("results")
         .select("*, alumni(nama), competition:competitions(nama_id, level, tahun)")
-        .in("medali", [...hofMedals])
+        .in("medali", [...hofTypes])
         .order("created_at", { ascending: false }),
       list("alumni", "nama"),
       list("competitions", "tahun", false),
@@ -250,7 +250,7 @@ export default function AdminHallOfFamePage() {
           <label className="block text-sm font-medium">
             Medali *
             <select value={form.medali} onChange={(e) => set("medali", e.target.value)} className={inputClass}>
-              {hofMedals.map((m) => (
+              {hofTypes.map((m) => (
                 <option key={m} value={m}>
                   {id.medals[m]}
                 </option>
@@ -258,8 +258,8 @@ export default function AdminHallOfFamePage() {
             </select>
           </label>
           <label className="block text-sm font-medium">
-            Peringkat (opsional)
-            <input type="number" min={1} value={form.peringkat} onChange={(e) => set("peringkat", e.target.value)} className={inputClass} />
+            Peringkat {form.medali === "peserta" ? "*" : "(opsional)"}
+            <input type="number" min={1} required={form.medali === "peserta"} value={form.peringkat} onChange={(e) => set("peringkat", e.target.value)} className={inputClass} />
           </label>
 
           <div className="text-sm font-medium md:col-span-2">

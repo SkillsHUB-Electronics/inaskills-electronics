@@ -10,6 +10,8 @@ export type Field = {
   label: string;
   type: "text" | "textarea" | "richtext" | "number" | "date" | "select" | "checkbox" | "image" | "file" | "url" | "tags";
   required?: boolean;
+  // Hanya untuk field angka: true bila kolom DB boleh null. Bila tidak, angka kosong disimpan 0 (bukan null).
+  nullable?: boolean;
   options?: { value: string; label: string }[];
   bucket?: string;
   // Lebar penuh di form 2 kolom (desktop).
@@ -40,7 +42,7 @@ export const inputClass =
   "mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20";
 
 function emptyRow(fields: Field[]): Row {
-  return Object.fromEntries(fields.map((f) => [f.name, f.type === "checkbox" ? false : f.type === "select" ? (f.options?.[0]?.value ?? "") : ""]));
+  return Object.fromEntries(fields.map((f) => [f.name, f.type === "checkbox" ? false : f.type === "number" && !f.nullable && !f.required ? 0 : f.type === "select" ? (f.options?.[0]?.value ?? "") : ""]));
 }
 
 export default function CrudManager({ title, table, fields, order, ascending = true, columns, slugFrom, renderExtra }: Props) {
@@ -70,7 +72,11 @@ export default function CrudManager({ title, table, fields, order, ascending = t
         if (!original || original[slugFrom] !== row[slugFrom] || !row.slug) row.slug = uniqueSlug(String(row[slugFrom] ?? ""), rows, row.id);
       }
       // Kolom angka/tanggal kosong disimpan sebagai null, bukan string kosong.
-      for (const f of fields) if (["number", "date", "image", "file", "url", "select"].includes(f.type) && row[f.name] === "") row[f.name] = null;
+      // Kecuali angka yang kolomnya NOT NULL (mis. urutan): disimpan 0.
+      for (const f of fields) {
+        if (!["number", "date", "image", "file", "url", "select"].includes(f.type) || row[f.name] !== "") continue;
+        row[f.name] = f.type === "number" && !f.nullable && !f.required ? 0 : null;
+      }
       // Tags: teks dipisah koma disimpan sebagai array (tanpa duplikat), kosong = null.
       for (const f of fields) {
         if (f.type !== "tags") continue;

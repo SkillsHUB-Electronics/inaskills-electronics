@@ -1,42 +1,42 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ExpertEditor from "@/components/admin/ExpertEditor";
-import { inputClass } from "@/components/admin/CrudManager";
-import { list, type Row } from "@/lib/mutations";
-import { levelShort, type Level } from "@/lib/levels";
+import CrudManager, { type Field } from "@/components/admin/CrudManager";
+import { list } from "@/lib/mutations";
 
-// Expert dikelola per kompetisi: pilih kompetisi, lalu tambah/hapus expert-nya.
 export default function AdminExpertPage() {
-  const [competitions, setCompetitions] = useState<Row[]>([]);
-  const [selected, setSelected] = useState("");
-  const [error, setError] = useState("");
+  const [alumni, setAlumni] = useState<{ value: string; label: string }[]>([{ value: "", label: "Bukan alumni" }]);
 
   useEffect(() => {
-    list("competitions", "tahun", false)
-      .then((rows) => {
-        setCompetitions(rows);
-        setSelected(String(rows[0]?.id ?? ""));
-      })
-      .catch((e) => setError(e.message));
+    list("alumni", "nama")
+      .then((rows) => setAlumni([{ value: "", label: "Bukan alumni" }, ...rows.map((a) => ({ value: String(a.id), label: String(a.nama) }))]))
+      .catch(() => {});
   }, []);
 
+  const fields: Field[] = [
+    { name: "nama", label: "Nama", type: "text", required: true },
+    { name: "alumni_id", label: "Alumni (pilih bila expert ini juga alumni)", type: "select", options: alumni },
+    { name: "pekerjaan", label: "Pekerjaan", type: "text" },
+    { name: "instansi", label: "Instansi / perusahaan", type: "text" },
+    { name: "foto_url", label: "Foto (kosong = pakai foto alumni)", type: "image", bucket: "alumni" },
+    { name: "bio_id", label: "Bio (Indonesia)", type: "textarea" },
+    { name: "bio_en", label: "Bio (English)", type: "textarea" },
+    { name: "linkedin_url", label: "LinkedIn", type: "url" },
+  ];
+
   return (
-    <div className="space-y-5">
-      <h1 className="text-2xl font-bold">Expert</h1>
-      {error && <p className="text-sm text-red-600">{error}</p>}
-      <label className="block max-w-xl text-sm font-medium">
-        Kompetisi
-        <select value={selected} onChange={(e) => setSelected(e.target.value)} className={inputClass}>
-          {competitions.map((c) => (
-            <option key={String(c.id)} value={String(c.id)}>
-              {String(c.nama_id)} · {levelShort[c.level as Level]} {String(c.tahun)}
-            </option>
-          ))}
-        </select>
-      </label>
-      {competitions.length === 0 && !error && <p className="text-sm text-slate-500">Tambahkan kompetisi dulu di menu Kompetisi.</p>}
-      {selected && <ExpertEditor key={selected} competitionId={selected} />}
-    </div>
+    <CrudManager
+      key={alumni.length}
+      title="Expert"
+      table="experts"
+      fields={fields}
+      order="nama"
+      slugFrom="nama"
+      columns={[
+        { name: "nama", label: "Nama" },
+        { name: "instansi", label: "Instansi" },
+        { name: "alumni_id", label: "Alumni", render: (r) => (r.alumni_id ? "Ya" : "–") },
+      ]}
+    />
   );
 }

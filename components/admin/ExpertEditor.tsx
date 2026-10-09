@@ -1,29 +1,28 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
 import { inputClass } from "@/components/admin/CrudManager";
-import ImageUploader from "@/components/admin/ImageUploader";
 import { list, remove, save, type Row } from "@/lib/mutations";
 
-const empty = { alumni_id: "", nama: "", foto_url: "", instansi: "", peran_id: "", peran_en: "" };
-
+// Memilih expert kompetisi dari daftar di menu Expert.
 export default function ExpertEditor({ competitionId }: { competitionId: string }) {
+  const [assigned, setAssigned] = useState<Row[]>([]);
   const [experts, setExperts] = useState<Row[]>([]);
-  const [alumni, setAlumni] = useState<Row[]>([]);
-  const [form, setForm] = useState(empty);
+  const [form, setForm] = useState({ expert_id: "", peran_id: "", peran_en: "" });
   const [error, setError] = useState("");
 
   const load = useCallback(() => {
-    list("competition_experts", "urutan", true, ["competition_id", competitionId]).then(setExperts).catch((e) => setError(e.message));
+    list("competition_experts", "urutan", true, ["competition_id", competitionId]).then(setAssigned).catch((e) => setError(e.message));
   }, [competitionId]);
 
   useEffect(() => {
     load();
-    list("alumni", "nama").then(setAlumni).catch((e) => setError(e.message));
+    list("experts", "nama").then(setExperts).catch((e) => setError(e.message));
   }, [load]);
 
-  const fromAlumni = Boolean(form.alumni_id);
-  const label = (e: Row) => String(alumni.find((a) => a.id === e.alumni_id)?.nama ?? e.nama ?? "–");
+  const name = (id: unknown) => String(experts.find((x) => x.id === id)?.nama ?? "–");
+  const available = experts.filter((x) => !assigned.some((a) => a.expert_id === x.id));
 
   async function add(ev: React.FormEvent) {
     ev.preventDefault();
@@ -31,16 +30,12 @@ export default function ExpertEditor({ competitionId }: { competitionId: string 
     try {
       await save("competition_experts", {
         competition_id: competitionId,
-        alumni_id: form.alumni_id || null,
-        // Expert dari alumni memakai data alumni; field manual hanya untuk orang luar.
-        nama: fromAlumni ? null : form.nama.trim(),
-        foto_url: fromAlumni ? null : form.foto_url || null,
-        instansi: fromAlumni ? null : form.instansi.trim() || null,
+        expert_id: form.expert_id,
         peran_id: form.peran_id.trim() || null,
         peran_en: form.peran_en.trim() || null,
-        urutan: experts.length,
+        urutan: assigned.length,
       });
-      setForm(empty);
+      setForm({ expert_id: "", peran_id: "", peran_en: "" });
       load();
     } catch (err) {
       setError((err as Error).message);
@@ -50,53 +45,38 @@ export default function ExpertEditor({ competitionId }: { competitionId: string 
   return (
     <section className="rounded-2xl bg-white p-4 ring-1 ring-slate-200 sm:p-6">
       <h2 className="text-lg font-bold">Expert / Pembimbing</h2>
-      <p className="text-sm text-slate-500">Bisa lebih dari satu per kompetisi. Pilih dari alumni, atau isi manual untuk orang luar.</p>
+      <p className="text-sm text-slate-500">
+        Pilih dari daftar di menu <Link href="/admin/expert/" className="font-semibold text-brand hover:underline">Expert</Link>. Bisa lebih dari satu.
+      </p>
       {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
 
       <ul className="mt-4 divide-y divide-slate-200">
-        {experts.map((e) => (
-          <li key={String(e.id)} className="flex items-center justify-between gap-3 py-2 text-sm">
+        {assigned.map((a) => (
+          <li key={String(a.id)} className="flex items-center justify-between gap-3 py-2 text-sm">
             <span className="min-w-0">
-              <b>{label(e)}</b>
-              {e.alumni_id ? " · alumni" : e.instansi ? ` · ${String(e.instansi)}` : ""}
-              {e.peran_id ? ` · ${String(e.peran_id)}` : ""}
+              <b>{name(a.expert_id)}</b>
+              {a.peran_id ? ` · ${String(a.peran_id)}` : ""}
             </span>
-            <button type="button" onClick={() => remove("competition_experts", String(e.id)).then(load)} className="shrink-0 font-semibold text-red-600 hover:underline">
+            <button type="button" onClick={() => remove("competition_experts", String(a.id)).then(load)} className="shrink-0 font-semibold text-red-600 hover:underline">
               Hapus
             </button>
           </li>
         ))}
       </ul>
-      {experts.length === 0 && <p className="mt-2 text-sm text-slate-500">Belum ada expert.</p>}
+      {assigned.length === 0 && <p className="mt-2 text-sm text-slate-500">Belum ada expert.</p>}
 
       <form onSubmit={add} className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
         <label className="text-sm font-medium sm:col-span-2">
-          Alumni (kosongkan bila expert dari luar)
-          <select value={form.alumni_id} onChange={(e) => setForm({ ...form, alumni_id: e.target.value })} className={inputClass}>
-            <option value="">Orang luar (isi manual)</option>
-            {alumni.map((a) => (
-              <option key={String(a.id)} value={String(a.id)}>
-                {String(a.nama)}
+          Expert
+          <select required value={form.expert_id} onChange={(e) => setForm({ ...form, expert_id: e.target.value })} className={inputClass}>
+            <option value="">Pilih expert...</option>
+            {available.map((x) => (
+              <option key={String(x.id)} value={String(x.id)}>
+                {String(x.nama)}
               </option>
             ))}
           </select>
         </label>
-        {!fromAlumni && (
-          <>
-            <label className="text-sm font-medium">
-              Nama
-              <input required value={form.nama} onChange={(e) => setForm({ ...form, nama: e.target.value })} className={inputClass} />
-            </label>
-            <label className="text-sm font-medium">
-              Instansi
-              <input value={form.instansi} onChange={(e) => setForm({ ...form, instansi: e.target.value })} className={inputClass} />
-            </label>
-            <div className="text-sm font-medium sm:col-span-2">
-              Foto
-              <ImageUploader bucket="alumni" value={form.foto_url} onChange={(url) => setForm({ ...form, foto_url: url })} />
-            </div>
-          </>
-        )}
         <label className="text-sm font-medium">
           Peran (Indonesia, opsional)
           <input value={form.peran_id} onChange={(e) => setForm({ ...form, peran_id: e.target.value })} placeholder="Expert" className={inputClass} />
@@ -109,6 +89,7 @@ export default function ExpertEditor({ competitionId }: { competitionId: string 
           + Tambah expert
         </button>
       </form>
+      {experts.length === 0 && <p className="mt-2 text-sm text-slate-500">Tambahkan expert dulu di menu Expert.</p>}
     </section>
   );
 }

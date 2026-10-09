@@ -134,15 +134,26 @@ export interface CompetitionPartner {
   urutan: number;
 }
 
+export interface Expert {
+  id: string;
+  slug: string;
+  nama: string;
+  alumni_id: string | null;
+  foto_url: string | null;
+  pekerjaan: string | null;
+  instansi: string | null;
+  bio_id: string | null;
+  bio_en: string | null;
+  linkedin_url: string | null;
+  alumni?: Alumni | null;
+}
+
 export interface CompetitionExpert {
   id: string;
   competition_id: string;
-  alumni_id: string | null;
-  nama: string | null;
-  foto_url: string | null;
-  instansi: string | null;
+  expert_id: string;
   peran_id: string | null;
   peran_en: string | null;
   urutan: number;
-  alumni?: Alumni | null;
+  expert?: Expert;
 }
